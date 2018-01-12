@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zyzf.polymer.pay.riskManage.dao.impl.PmsIdblackListDaoImpl" >
+  <resultMap id="BaseResultMap" type="com.zyzf.polymer.pay.riskManage.entity.PmsIdblackList" >
+    <id column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="ID_CARD" property="idCard" jdbcType="VARCHAR" />
+    <result column="DELETED" property="deleted" jdbcType="DECIMAL" />
+    <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+    <result column="DELETE_DESC" property="deleteDesc" jdbcType="VARCHAR" />
+    <result column="CREATE_USER" property="createUser" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="EDITOR_USER" property="editorUser" jdbcType="VARCHAR" />
+    <result column="EDIT_TIME" property="editTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    ID, ID_CARD, DELETED, DESCRIPTION, DELETE_DESC, CREATE_USER, CREATE_TIME, EDITOR_USER, 
+    EDIT_TIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from PMS_IDBLACKLIST
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from PMS_IDBLACKLIST
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.zyzf.polymer.pay.riskManage.entity.PmsIdblackList" 
+  keyProperty="id" useGeneratedKeys="true" >
+     <selectKey order="BEFORE" keyProperty="id" resultType="java.lang.Long">
+			SELECT SQC_PMS_IDBLACKLIST.NEXTVAL AS id FROM DUAL
+		</selectKey>
+    insert into PMS_IDBLACKLIST (ID, ID_CARD, DELETED, 
+      DESCRIPTION, DELETE_DESC, CREATE_USER, 
+      CREATE_TIME, EDITOR_USER, EDIT_TIME
+      )
+    values (#{id,jdbcType=DECIMAL}, #{idCard,jdbcType=VARCHAR}, #{deleted,jdbcType=DECIMAL}, 
+      #{description,jdbcType=VARCHAR}, #{deleteDesc,jdbcType=VARCHAR}, #{createUser,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{editorUser,jdbcType=VARCHAR}, #{editTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.zyzf.polymer.pay.riskManage.entity.PmsIdblackList" >
+    insert into PMS_IDBLACKLIST
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="idCard != null" >
+        ID_CARD,
+      </if>
+      <if test="deleted != null" >
+        DELETED,
+      </if>
+      <if test="description != null" >
+        DESCRIPTION,
+      </if>
+      <if test="deleteDesc != null" >
+        DELETE_DESC,
+      </if>
+      <if test="createUser != null" >
+        CREATE_USER,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="editorUser != null" >
+        EDITOR_USER,
+      </if>
+      <if test="editTime != null" >
+        EDIT_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="idCard != null" >
+        #{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=DECIMAL},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="deleteDesc != null" >
+        #{deleteDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="editorUser != null" >
+        #{editorUser,jdbcType=VARCHAR},
+      </if>
+      <if test="editTime != null" >
+        #{editTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zyzf.polymer.pay.riskManage.entity.PmsIdblackList" >
+    update PMS_IDBLACKLIST
+    <set >
+      <if test="idCard != null" >
+        ID_CARD = #{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null" >
+        DELETED = #{deleted,jdbcType=DECIMAL},
+      </if>
+      <if test="description != null" >
+        DESCRIPTION = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="deleteDesc != null" >
+        DELETE_DESC = #{deleteDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="editorUser != null" >
+        EDITOR_USER = #{editorUser,jdbcType=VARCHAR},
+      </if>
+      <if test="editTime != null" >
+        EDIT_TIME = #{editTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zyzf.polymer.pay.riskManage.entity.PmsIdblackList" >
+    update PMS_IDBLACKLIST
+    set ID_CARD = #{idCard,jdbcType=VARCHAR},
+      DELETED = #{deleted,jdbcType=DECIMAL},
+      DESCRIPTION = #{description,jdbcType=VARCHAR},
+      DELETE_DESC = #{deleteDesc,jdbcType=VARCHAR},
+      CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      EDITOR_USER = #{editorUser,jdbcType=VARCHAR},
+      EDIT_TIME = #{editTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  
+  <sql id="Where_Card">
+	<if test="idCard != null and idCard!=''" >
+           AND ID_CARD = #{idCard,jdbcType=VARCHAR}
+      </if>
+      <if test="deleted != null" >
+           AND DELETED = #{deleted,jdbcType=DECIMAL}
+      </if>
+      <if test="description != null and description!=''" >
+           AND  DESCRIPTION = #{description,jdbcType=VARCHAR}
+        </if>   
+      <if test="deleteDesc != null and deleteDesc!=''" >
+           AND DELETE_DESC = #{deleteDesc,jdbcType=VARCHAR}
+      </if>
+      <if test="createUser != null and createUser!=''" >
+           AND  CREATE_USER = #{createUser,jdbcType=VARCHAR}
+      </if>
+      <if test="createTime != null" >
+           AND CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="editorUser != null and editorUser!='' " >
+            AND EDITOR_USER = #{editorUser,jdbcType=VARCHAR}
+      </if>
+      <if test="editTime != null" >
+       AND EDIT_TIME = #{editTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="startDateCreate != null "> 
+			AND CREATE_TIME <![CDATA[>=]]> #{startDateCreate,jdbcType=TIMESTAMP}
+		</if>
+		<if test="endDateCreate != null "> 
+			AND CREATE_TIME <![CDATA[ <=]]> #{endDateCreate,jdbcType=TIMESTAMP}
+		</if>
+		<if test="startDateEdit != null "> 
+			AND EDIT_TIME <![CDATA[>=]]> #{startDateEdit,jdbcType=TIMESTAMP}
+		</if>
+		<if test="endDateEdit != null "> 
+			AND EDIT_TIME <![CDATA[ <=]]> #{endDateEdit,jdbcType=TIMESTAMP}
+		</if>
+	</sql>
+	
+  <select id="listPageCount" parameterType="java.util.Map" resultType="long">
+	   select count(1) from  
+	   PMS_IDBLACKLIST
+	   <where>
+	    <include refid="Where_Card" />
+	    </where>
+   </select>
+   
+   <select id="listPage"  parameterType="java.util.Map" resultMap="BaseResultMap">
+   	  select 
+       <include refid="Base_Column_List" />
+      from
+  	  PMS_IDBLACKLIST 
+  	 <where>
+	    <include refid="Where_Card" />
+	    </where>
+   </select>
+   
+   <!-- 批量移除黑名单 -->
+   <update id="batchUpdateByColumn"  parameterType="map">
+     update PMS_IDBLACKLIST
+     <set>
+       <if test="deleted != null and deleted!=''" >
+        DELETED = #{deleted,jdbcType=DECIMAL},
+       </if>
+       <if test="deleteDesc != null and deleteDesc!=''" >
+        DELETE_DESC = #{deleteDesc,jdbcType=VARCHAR},
+       </if>
+       
+        <if test="date != null" >
+        EDIT_TIME = #{date,jdbcType=TIMESTAMP},
+      </if>
+     </set>
+       where id in
+	  <foreach  separator="," index="index" item="item" collection="list"  open="(" close=")">   
+      #{item}  
+      </foreach>
+   </update>
+</mapper>

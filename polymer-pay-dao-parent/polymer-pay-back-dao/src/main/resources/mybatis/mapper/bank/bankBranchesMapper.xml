@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zyzf.polymer.pay.bank.dao.BankBranchesDao">
+	<!-- 自定义返回结果集 -->
+    <resultMap id="bankBranchesResult" type="com.zyzf.polymer.pay.bank.entity.BankBranches">
+		<id property="id" column="id" javaType="java.lang.Long"></id>
+		<result column="bank_Id" property="bankId" javaType="java.lang.Long"/>
+		<result column="name" property="name" javaType="java.lang.String"/>
+		<result column="province_Id" property="provinceId" javaType="java.lang.Integer"/>
+		<result column="city_Id" property="cityId" javaType="java.lang.Integer"/>
+		<result column="code" property="code" javaType="java.lang.String"/>
+		<result column="invalid" property="invalid" javaType="java.lang.Integer"/>
+		<result column="actor_Code" property="actorCode" javaType="java.lang.String"/>
+		<result column="province_Code" property="provinceCode" javaType="java.lang.String"/>
+		<result column="city_Code" property="cityCode" javaType="java.lang.String"/>
+		<result column="bank_Code" property="bankCode" javaType="java.lang.String"/>
+	</resultMap>
+    
+    <!-- 查询sql -->
+    <sql id="getAllFieldSql">
+    	SELECT ID,
+    		   BANK_ID,
+    		   NAME,
+    		   PROVINCE_ID,
+    		   CITY_ID,
+    		   CODE,
+    		   INVALID,
+    		   ACTOR_CODE,
+    		   PROVINCE_CODE,
+    		   CITY_CODE,
+    		   BANK_CODE
+		FROM PMS_BANK_BRANCHES
+    </sql>
+    
+    <sql id="whereList">
+    	<trim prefix="WHERE" prefixOverrides="AND ">
+    		<if test="bankId != null">
+    			AND BANK_ID = #{bankId}
+    		</if>
+    		<if test="name != null and name != ''">
+    			AND NAME = #{name}
+    		</if>
+    		<if test="provinceId != null">
+    			AND PROVINCE_ID = #{provinceId}
+    		</if>
+    		<if test="cityId != null">
+    			AND CITY_ID = #{cityId}
+    		</if>
+    		<if test="otherParam != null and otherParam != ''">
+    			AND ${otherParam}
+    		</if>
+    		<if test="code != null">
+    			AND CODE = #{code}
+    		</if>
+    		<if test="invalid != null">
+    			AND INVALID = #{invalid}
+    		</if>
+    		<if test="paramName != null and paramName != ''">
+				AND NAME LIKE '%${paramName}%'
+			</if>
+    	</trim>
+    </sql>
+    
+    <!-- 查询 Entity 列表-->
+	<select id="searchEntityList" resultMap="bankBranchesResult" parameterType="com.zyzf.polymer.pay.bank.entity.BankBranches">
+   		SELECT ROW_.*, ROWNUM ROWNUM_ FROM (
+   			<include refid="getAllFieldSql"/>
+   			<include refid="whereList"/>
+		    ORDER BY ID ASC
+   		) ROW_
+	</select>
+	
+	<!-- 查询单个 Entity -->
+	<select id="searchEntity" resultMap="bankBranchesResult" parameterType="com.zyzf.polymer.pay.bank.entity.BankBranches">
+		<include refid="getAllFieldSql"/>
+		<include refid="whereList"/>
+	</select>
+	
+	<!-- 查询总数 -->
+	<select id="getEntityCount" resultType="int" parameterType="com.zyzf.polymer.pay.bank.entity.BankBranches">
+		SELECT COUNT(*) FROM PMS_BANK_BRANCHES
+    	<include refid="whereList"/>
+	</select>
+	
+	<!-- 修改单个 Entity -->
+	<update id="updateEntity" parameterType="com.zyzf.polymer.pay.bank.entity.BankBranches">
+		UPDATE PMS_BANK_BRANCHES
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="bankId != null">
+				BANK_ID = #{bankId},
+			</if>
+			<if test="name != null and name != ''">
+				NAME = #{name},
+			</if>
+			<if test="provinceId != null">
+				PROVINCE_ID = #{provinceId},
+			</if>
+			<if test="cityId != null">
+				CITY_ID = #{cityId},
+			</if>
+			<if test="code != null">
+				CODE = #{code},
+			</if>
+			<if test="invalid != null">
+				INVALID = #{invalid},
+			</if>
+			<if test="actorCode != null and actorCode != ''">
+				ACTOR_CODE = #{actorCode},
+			</if>
+			<if test="provinceCode != null and provinceCode != ''">
+				PROVINCE_CODE = #{provinceCode},
+			</if>
+			<if test="cityCode != null and cityCod != ''">
+				CITY_CODE = #{cityCode},
+			</if>
+			<if test="bankCode != null and bankCode != ''">
+				BANK_CODE = #{bankCode},
+			</if>
+		</trim>
+		WHERE ID = #{id}
+	</update>
+
+	<!-- 添加 -->
+    <insert id="insertEntity" parameterType="com.zyzf.polymer.pay.bank.entity.BankBranches">
+		INSERT INTO PMS_BANK_BRANCHES(
+			ID,
+			BANK_ID,
+    		NAME,
+    		PROVINCE_ID,
+    		CITY_ID,
+    		CODE,
+    		INVALID,
+    		ACTOR_CODE,
+    		PROVINCE_CODE,
+    		CITY_CODE,
+    		BANK_CODE
+		) values (
+			#{id},
+			#{bankId},
+			#{name},
+			#{province},
+			#{city},
+			#{code},
+    	    #{invalid},
+    	    #{actorCode},
+    	    #{provinceCode},
+    	    #{cityCode},
+    	    #{bankCode}
+		)
+    </insert>
+    
+    <!-- 删除 -->
+    <delete id="deleteEntity" parameterType="com.zyzf.polymer.pay.bank.entity.BankBranches">
+    	DELETE FROM PMS_BANK_BRANCHES WHERE ID = #{id}
+    </delete>
+    
+    <!-- 批量删除 -->
+    <delete id="deleteEntities" parameterType="java.lang.String">
+		DELETE FROM PMS_BANK_BRANCHES WHERE ID IN (${value})
+	</delete>
+</mapper>

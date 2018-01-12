@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zyzf.polymer.pay.permission.dao.impl.PmsMenuDaoImpl">
+
+	<resultMap id="BaseResultMap"
+		type="com.zyzf.polymer.pay.permission.entity.PmsMenu">
+		<id column="ID" jdbcType="DECIMAL" property="id" />
+		<result column="CREATE_USER" property="createUser" jdbcType="VARCHAR" />
+		<result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="EDITOR_USER" property="editorUser" jdbcType="VARCHAR" />
+		<result column="EDIT_TIME" property="editTime" jdbcType="TIMESTAMP" />
+		<result column="STATUS" jdbcType="VARCHAR" property="status" />
+		<result column="REMARK" jdbcType="VARCHAR" property="remark" />
+		<result column="IS_LEAF" jdbcType="DECIMAL" property="isLeaf" />
+		<result column="PARENT_ID" jdbcType="DECIMAL" property="parent.id" />
+		<result column="PARENT_ID" jdbcType="DECIMAL" property="parentId" />
+		<result column="SORT" jdbcType="DECIMAL" property="sort" />
+		<result column="NAME" jdbcType="VARCHAR" property="name" />
+		<result column="URL" jdbcType="VARCHAR" property="url" />
+		<result column="PARAM" property="param" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="pms_menu"> PMS_MENU </sql>
+	<sql id="pms_role"> PMS_ROLE </sql>
+	<sql id="pms_role_menu"> PMS_MENU_ROLE </sql>
+	<sql id="Base_Column_List" >
+		ID, STATUS, REMARK, SORT, NAME, URL, PARAM, CREATE_USER, CREATE_TIME, EDITOR_USER, 
+		EDIT_TIME, IS_LEAF, PARENT_ID
+	</sql>
+
+	<insert id="insert" parameterType="com.zyzf.polymer.pay.permission.entity.PmsMenu"
+		keyProperty="id" useGeneratedKeys="true">
+		<selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Long">
+			SELECT SQC_PMS_MENU.NEXTVAL AS ID FROM DUAL
+		</selectKey>
+		insert into PMS_MENU (ID, STATUS, REMARK,
+		SORT, NAME, URL, PARAM,
+		CREATE_USER, CREATE_TIME, EDITOR_USER,
+		EDIT_TIME, IS_LEAF, PARENT_ID
+		)
+		values (#{id,jdbcType=DECIMAL}, #{status,jdbcType=DECIMAL},
+		#{remark,jdbcType=VARCHAR},
+		#{sort,jdbcType=DECIMAL},
+		#{name,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR},
+		#{param,jdbcType=VARCHAR},
+		#{createUser,jdbcType=VARCHAR},
+		#{createTime,jdbcType=TIMESTAMP}, #{editorUser,jdbcType=VARCHAR},
+		#{editTime,jdbcType=TIMESTAMP}, #{isLeaf,jdbcType=DECIMAL},
+		#{parentId,jdbcType=DECIMAL}
+		)
+	</insert>
+
+	<delete id="deleteByPrimaryKey" parameterType="long">
+		delete from
+		<include refid="pms_menu" />
+		where ID = #{id}
+	</delete>
+	<update id="updateByPrimaryKeySelective" parameterType="com.zyzf.polymer.pay.permission.entity.PmsMenu">
+		update PMS_MENU
+		<set>
+			<if test="status != null">
+				STATUS = #{status,jdbcType=DECIMAL},
+			</if>
+			<if test="remark != null">
+				REMARK = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="sort != null">
+				SORT = #{sort,jdbcType=DECIMAL},
+			</if>
+			<if test="name != null">
+				NAME = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="url != null">
+				URL = #{url,jdbcType=VARCHAR},
+			</if>
+			<if test="param != null">
+				PARAM = #{param,jdbcType=VARCHAR},
+			</if>
+			<if test="createUser != null">
+				CREATE_USER = #{createUser,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="editorUser != null">
+				EDITOR_USER = #{editorUser,jdbcType=VARCHAR},
+			</if>
+			<if test="editTime != null">
+				EDIT_TIME = #{editTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="isLeaf != null">
+				IS_LEAF = #{isLeaf,jdbcType=DECIMAL},
+			</if>
+			<if test="parentId != null">
+				PARENT_ID = #{parentId,jdbcType=DECIMAL},
+			</if>
+		</set>
+		where ID = #{id,jdbcType=DECIMAL}
+	</update>
+
+	<update id="updateByPrimaryKey" parameterType="com.zyzf.polymer.pay.permission.entity.PmsMenu">
+		update PMS_MENU
+		set STATUS = #{status,jdbcType=DECIMAL},
+		REMARK =
+		#{remark,jdbcType=VARCHAR},
+		SORT = #{sort,jdbcType=DECIMAL},
+		NAME =#{name,jdbcType=VARCHAR},
+		URL = #{url,jdbcType=VARCHAR},
+		PARAM =
+		#{param,jdbcType=VARCHAR},
+		CREATE_USER =
+		#{createUser,jdbcType=VARCHAR},
+		CREATE_TIME =
+		#{createTime,jdbcType=TIMESTAMP},
+		EDITOR_USER =
+		#{editorUser,jdbcType=VARCHAR},
+		EDIT_TIME =
+		#{editTime,jdbcType=TIMESTAMP},
+		IS_LEAF = #{isLeaf,jdbcType=DECIMAL},
+		PARENT_ID = #{parentId,jdbcType=DECIMAL}
+		where ID =
+		#{id,jdbcType=DECIMAL}
+	</update>
+
+	<select id="selectByPrimaryKey" parameterType="Long"
+		resultType="com.zyzf.polymer.pay.permission.entity.PmsMenu">
+		select
+		
+		d.id,d.status,
+		d.CREATE_USER as "createUser" ,
+		d.create_time as "createTime",
+		d.editor_user as "editorUser",
+		d.edit_time as "editTime", 
+		d.remark,
+		d.name as "name",
+		d.url as "url",
+		d.parent_id as "parent.id",
+		d.parent_id as "parentId",
+		parent.name as "parent.name",
+		d.sort,
+		d.param,
+		d.is_leaf as isLeaf
+		from
+		pms_menu
+		d
+		left join
+		pms_menu
+		parent
+		on d.parent_id = parent.id
+		where d.id = #{id}
+	</select>
+
+	<select id="listParent" parameterType="java.util.Map"
+		resultType="com.zyzf.polymer.pay.permission.entity.PmsMenu">
+		select d.ID,
+		d.STATUS,
+		d.CREATE_USER ,
+		d.CREATE_TIME ,
+		d.EDITOR_USER,
+		d.EDIT_TIME , 
+		d.REMARK,
+		d.NAME ,
+		d.URL ,
+		d.PARENT_ID as "parent.id",
+		d.SORT ,
+		d.IS_LEAF ,
+		A.NAME as parentName
+		from PMS_MENU A ,PMS_MENU D
+		WHERE A.ID=D.PARENT_ID
+	</select>
+	
+	<sql id="conditionSql">
+		<if test="operatorId!=null">
+			and	D.ID in( 
+				SELECT MR.MENU_ID FROM PMS_MENU_ROLE MR WHERE  MR.ROLE_ID 
+					 in( select RO.ROLE_ID from PMS_ROLE_OPERATOR RO WHERE RO.OPERATOR_ID=#{operatorId,jdbcType=DECIMAL})
+				)
+		</if>
+		<if test="name != null and name != ''">
+			and D.name = #{name,jdbcType=VARCHAR}
+		</if>
+		<if test="parentName != null and parentName != ''">
+			and A.name = #{parentName,jdbcType=VARCHAR}
+		</if>
+	</sql>
+	
+	<select id="listPage" parameterType="java.util.Map"
+		resultType="com.zyzf.polymer.pay.permission.entity.PmsMenu">
+		select d.ID,
+		d.STATUS,
+		d.CREATE_USER ,
+		d.CREATE_TIME,
+		d.EDITOR_USER ,
+		d.EDIT_TIME , 
+		d.REMARK,
+		d.NAME ,
+		d.URL,
+		d.PARENT_ID as "parent.id",
+		A.NAME as "parentName",
+		d.SORT,
+		d.IS_LEAF
+		from PMS_MENU D LEFT JOIN PMS_MENU A
+		ON A.ID = D.PARENT_ID
+		<where>
+			<include refid="conditionSql"/>
+		</where>
+		ORDER BY d.sort ASC
+	</select>
+	
+	<select id="listPageCount" parameterType="java.util.Map"
+		resultType="long">
+		select count(*) from 
+			PMS_MENU D LEFT JOIN PMS_MENU A
+			ON A.ID = D.PARENT_ID
+		<where>
+			<include refid="conditionSql"/>
+		</where>
+	</select>
+
+	<sql id="condition_sql">
+		<if test="isLeaf != null"> and IS_LEAF = #{isLeaf,jdbcType=DECIMAL}</if>
+		<if test="name != null and name != ''"> and NAME =#{name,jdbcType=VARCHAR}</if>
+		<if test="parentId != null"> and PARENT_ID = #{parentId,jdbcType=DECIMAL}</if>
+	</sql>
+
+	<select id="listBy" parameterType="java.util.Map"
+		resultType="com.zyzf.polymer.pay.permission.entity.PmsMenu">
+		select * from
+		<include refid="pms_menu" />
+		<where>
+			<include refid="condition_sql" />
+		</where>
+	</select>
+
+	<resultMap id="BaseResultMapMap" type="java.util.HashMap">
+		<id column="ID" jdbcType="VARCHAR" property="id" />
+		<result column="STATUS" jdbcType="VARCHAR" property="status" />
+		<result column="PARENT_ID" jdbcType="DECIMAL" property="pId" />
+		<result column="NAME" jdbcType="VARCHAR" property="name" />
+		<result column="IS_LEAF" jdbcType="DECIMAL" property="isLeaf" />
+	</resultMap>
+
+	<select id="listByParent" parameterType="Long" resultMap="BaseResultMapMap">
+		select
+		m.ID,
+		m.STATUS,
+		m.PARENT_ID,
+		m.NAME ,
+		m.IS_LEAF
+		from
+		<include refid="pms_menu" />
+		m
+		<where>
+			<if test="parentId!=null">
+				and m.parent_id = #{parentId}
+			</if>
+		</where>
+		order by m.sort asc
+	</select>
+
+	<select id="listByParentId" parameterType="long"
+		resultType="com.zyzf.polymer.pay.permission.entity.PmsMenu">
+		select
+		m.id as "id",
+		m.parent_id as "pId",
+		m.name as "name",
+		m.is_leaf as "isLeaf",
+		m.url as "url",
+		m.sort as sort
+		from
+		pms_menu m
+		where m.parent_id = #{parentId}
+	</select>
+
+	<resultMap id="menuBaseResultMap"
+		type="com.zyzf.polymer.pay.permission.entity.PmsMenu">
+		<id column="ID" jdbcType="DECIMAL" property="id" />
+		<result column="PARENT_ID" jdbcType="DECIMAL" property="parentId" />
+		<result column="NAME" jdbcType="VARCHAR" property="name" />
+		<result column="IS_LEAF" jdbcType="DECIMAL" property="isLeaf" />
+		<result column="URL" jdbcType="VARCHAR" property="url" />
+		<result column="SORT" jdbcType="DECIMAL" property="sort" />
+		<result column="PARAM" property="param" jdbcType="VARCHAR" />
+	</resultMap>
+	<select id="listByRoleIds" parameterType="string" resultMap="menuBaseResultMap">
+		select distinct * from (
+		select
+		m.ID,
+		m.PARENT_ID,
+		m.NAME,
+		m.IS_LEAF,
+		m.URL,
+		m.SORT,
+		m.PARAM
+		from PMS_ROLE r 
+		left join PMS_MENU_ROLE rm on r.id = rm.role_id
+		left join PMS_MENU m on rm.menu_id = m.id
+		where r.id in
+		<foreach item="item" index="index" collection="list" open="("
+			separator="," close=")">#{item}</foreach>
+		) mt order by mt.sort asc
+	</select>
+<!-- 	<select id="listByRoleIds" parameterType="string" resultType="java.util.Map">
+		select distinct * from (
+		select
+		m.id as "id",
+		m.parent_id as "pId",
+		m.name as "name",
+		m.is_leaf as "isLeaf",
+		m.url as "url",
+		m.sort as sort,
+		m.PARAM as param
+		from
+		<include refid="pms_role" />
+		r
+		left join
+		<include refid="pms_role_menu" />
+		rm
+		on r.id = rm.role_id
+		left join
+		<include refid="pms_menu" />
+		m
+		on rm.menu_id = m.id
+		where r.id in
+		<foreach item="item" index="index" collection="list" open="("
+			separator="," close=")">#{item}</foreach>
+		) mt order by mt.sort asc
+	</select> -->
+	<select id="listFristMenuByRoleIds" parameterType="string"
+		resultMap="BaseResultMap">
+		select distinct * from (
+		select
+			M.ID ,
+			M.PARENT_ID,
+			M.NAME,
+			M.IS_LEAF,
+			M.URL,
+			M.SORT
+		from
+		 PMS_ROLE
+		r
+		left join
+		PMS_MENU_ROLE
+		rm
+		on r.ID = rm.ROLE_ID
+		left join
+		PMS_MENU
+		m
+		on rm.MENU_ID = m.id
+		where  m.STATUS=1 and m.IS_LEAF=0 and r.ID in
+		<foreach item="item" index="index" collection="list" open="("
+			separator="," close=")">#{item}</foreach>
+		) mt order by mt.sort asc
+	</select>
+	<select id="listSecondMenuByRoleIds" resultMap="BaseResultMap">
+		select distinct * from (
+		select
+			M.ID ,
+			M.PARENT_ID,
+			M.NAME,
+			M.IS_LEAF,
+			M.URL,
+			M.SORT
+		from
+		<include refid="pms_role" />
+		r
+		left join
+		<include refid="pms_role_menu" />
+		rm
+		on  r.ID = rm.ROLE_ID
+		left join
+		<include refid="pms_menu" />
+		m
+		on rm.menu_id = m.id
+		<where>
+			m.STATUS=1 
+		<if test="parentId!=null and parentId!=''">
+			and	m.parent_id=#{parentId}
+		</if>
+		<if test="roldIds!=null and roldIds.length!=0">
+			AND r.id in
+			<foreach item="roldIds" index="index" collection="roldIdsArray"
+				open="(" separator="," close=")">#{roldIds}</foreach>
+			)
+		</if>
+		</where>
+		)
+		mt order by mt.sort asc
+	</select>
+
+	<select id="listMenuById" parameterType="long" resultMap="BaseResultMap">
+		select
+		M.ID ,
+		M.PARENT_ID,
+		M.NAME,
+		M.IS_LEAF,
+		M.URL,
+		M.SORT
+		from
+		<include refid="pms_menu" />
+		m
+		where m.STATUS=1 and ID = #{id}
+	</select>
+	<select id="listMenuByleaf" parameterType="int" resultMap="BaseResultMap">
+		select * from PMS_MENU where is_leaf=#{is_leaf}
+
+	</select>
+</mapper>

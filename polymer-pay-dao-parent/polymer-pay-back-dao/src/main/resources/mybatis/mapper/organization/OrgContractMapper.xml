@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zyzf.polymer.pay.organization.dao.impl.OrgContractDaoImpl">
+	<resultMap id="BaseResultMap"
+		type="com.zyzf.polymer.pay.organization.entity.OrgContract">
+		<id column="CCODE" property="ccode" jdbcType="VARCHAR" />
+	    <result column="ORG_ID" property="orgId" jdbcType="DECIMAL" />
+	    <result column="CON_STARTDATE" property="conStartdate" jdbcType="TIMESTAMP" />
+	    <result column="CON_ENDDATE" property="conEnddate" jdbcType="TIMESTAMP" />
+	    <result column="AGENCY_FEE" property="agencyFee" jdbcType="DECIMAL" />
+	    <result column="PAY_TYPE" property="payType" jdbcType="DECIMAL" />
+	    <result column="SECURITY_MONEY" property="securityMoney" jdbcType="DECIMAL" />
+	    <result column="INITIAL_FEE" property="initialFee" jdbcType="DECIMAL" />
+	    <result column="MONTHLY_INVOICES" property="monthlyInvoices" jdbcType="DECIMAL" />
+	    <result column="FEE_DIRECTIONS" property="feeDirections" jdbcType="VARCHAR" />
+	    <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<!-- 供organizationMap调用 -->
+	<resultMap id="organizationListMap" type="com.zyzf.polymer.pay.organization.entity.OrgContract">
+		<id column="CCODE" property="ccode" jdbcType="VARCHAR" />
+	    <result column="CON_STARTDATE" property="conStartdate" jdbcType="TIMESTAMP" />
+	    <result column="CON_ENDDATE" property="conEnddate" jdbcType="TIMESTAMP" />
+	    <result column="AGENCY_FEE" property="agencyFee" jdbcType="DECIMAL" />
+	    <result column="PAY_TYPE" property="payType" jdbcType="DECIMAL" />
+	    <result column="SECURITY_MONEY" property="securityMoney" jdbcType="DECIMAL" />
+	    <result column="INITIAL_FEE" property="initialFee" jdbcType="DECIMAL" />
+	    <result column="MONTHLY_INVOICES" property="monthlyInvoices" jdbcType="DECIMAL" />
+	    <result column="FEE_DIRECTIONS" property="feeDirections" jdbcType="VARCHAR" />
+	    <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		CCODE, ORG_ID, CON_STARTDATE, CON_ENDDATE, AGENCY_FEE, PAY_TYPE, SECURITY_MONEY, 
+    	INITIAL_FEE, MONTHLY_INVOICES, FEE_DIRECTIONS, DESCRIPTION
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Long"
+		resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		from PMS_ORG_CONTRACT
+    	where ORG_ID = #{orgId,jdbcType=DECIMAL}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from PMS_ORG_CONTRACT
+    	where ORG_ID = #{orgId,jdbcType=DECIMAL}
+	</delete>
+	<insert id="insert"
+		parameterType="com.zyzf.polymer.pay.organization.entity.OrgContract">
+		insert into PMS_ORG_CONTRACT
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+	      <if test="ccode != null and ccode != ''" >
+	        CCODE,
+	      </if>
+	      <if test="orgId != null" >
+	        ORG_ID,
+	      </if>
+	      <if test="conStartdate != null" >
+	        CON_STARTDATE,
+	      </if>
+	      <if test="conEnddate != null" >
+	        CON_ENDDATE,
+	      </if>
+	      <if test="agencyFee != null" >
+	        AGENCY_FEE,
+	      </if>
+	      <if test="payType != null" >
+	        PAY_TYPE,
+	      </if>
+	      <if test="securityMoney != null" >
+	        SECURITY_MONEY,
+	      </if>
+	      <if test="initialFee != null" >
+	        INITIAL_FEE,
+	      </if>
+	      <if test="monthlyInvoices != null" >
+	        MONTHLY_INVOICES,
+	      </if>
+	      <if test="feeDirections != null and feeDirections != ''" >
+	        FEE_DIRECTIONS,
+	      </if>
+	      <if test="description != null and description != ''" >
+	        DESCRIPTION,
+	      </if>
+	    </trim>
+	    <trim prefix="values (" suffix=")" suffixOverrides="," >
+	      <if test="ccode != null and ccode != ''" >
+	        #{ccode,jdbcType=VARCHAR},
+	      </if>
+	      <if test="orgId != null" >
+	        #{orgId,jdbcType=DECIMAL},
+	      </if>
+	      <if test="conStartdate != null" >
+	        #{conStartdate,jdbcType=TIMESTAMP},
+	      </if>
+	      <if test="conEnddate != null" >
+	        #{conEnddate,jdbcType=TIMESTAMP},
+	      </if>
+	      <if test="agencyFee != null" >
+	        #{agencyFee,jdbcType=DECIMAL},
+	      </if>
+	      <if test="payType != null" >
+	        #{payType,jdbcType=DECIMAL},
+	      </if>
+	      <if test="securityMoney != null" >
+	        #{securityMoney,jdbcType=DECIMAL},
+	      </if>
+	      <if test="initialFee != null" >
+	        #{initialFee,jdbcType=DECIMAL},
+	      </if>
+	      <if test="monthlyInvoices != null" >
+	        #{monthlyInvoices,jdbcType=DECIMAL},
+	      </if>
+	      <if test="feeDirections != null and feeDirections != ''" >
+	        #{feeDirections,jdbcType=VARCHAR},
+	      </if>
+	      <if test="description != null and description != ''" >
+	        #{description,jdbcType=VARCHAR},
+	      </if>
+	    </trim>
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.zyzf.polymer.pay.organization.entity.OrgContract">
+		insert into PMS_ORG_CONTRACT
+	    <trim prefix="(" suffix=")" suffixOverrides="," >
+	      <if test="ccode != null and ccode != ''" >
+	        CCODE,
+	      </if>
+	      <if test="orgId != null" >
+	        ORG_ID,
+	      </if>
+	      <if test="conStartdate != null" >
+	        CON_STARTDATE,
+	      </if>
+	      <if test="conEnddate != null" >
+	        CON_ENDDATE,
+	      </if>
+	      <if test="agencyFee != null" >
+	        AGENCY_FEE,
+	      </if>
+	      <if test="payType != null" >
+	        PAY_TYPE,
+	      </if>
+	      <if test="securityMoney != null" >
+	        SECURITY_MONEY,
+	      </if>
+	      <if test="initialFee != null" >
+	        INITIAL_FEE,
+	      </if>
+	      <if test="monthlyInvoices != null" >
+	        MONTHLY_INVOICES,
+	      </if>
+	      <if test="feeDirections != null and feeDirections != ''" >
+	        FEE_DIRECTIONS,
+	      </if>
+	      <if test="description != null and description != ''" >
+	        DESCRIPTION,
+	      </if>
+	    </trim>
+	    <trim prefix="values (" suffix=")" suffixOverrides="," >
+	      <if test="ccode != null and ccode != ''" >
+	        #{ccode,jdbcType=VARCHAR},
+	      </if>
+	      <if test="orgId != null" >
+	        #{orgId,jdbcType=DECIMAL},
+	      </if>
+	      <if test="conStartdate != null" >
+	        #{conStartdate,jdbcType=TIMESTAMP},
+	      </if>
+	      <if test="conEnddate != null" >
+	        #{conEnddate,jdbcType=TIMESTAMP},
+	      </if>
+	      <if test="agencyFee != null" >
+	        #{agencyFee,jdbcType=DECIMAL},
+	      </if>
+	      <if test="payType != null" >
+	        #{payType,jdbcType=DECIMAL},
+	      </if>
+	      <if test="securityMoney != null" >
+	        #{securityMoney,jdbcType=DECIMAL},
+	      </if>
+	      <if test="initialFee != null" >
+	        #{initialFee,jdbcType=DECIMAL},
+	      </if>
+	      <if test="monthlyInvoices != null" >
+	        #{monthlyInvoices,jdbcType=DECIMAL},
+	      </if>
+	      <if test="feeDirections != null and feeDirections != ''" >
+	        #{feeDirections,jdbcType=VARCHAR},
+	      </if>
+	      <if test="description != null and description != ''" >
+	        #{description,jdbcType=VARCHAR},
+	      </if>
+	    </trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.zyzf.polymer.pay.organization.entity.OrgContract">
+		UPDATE PMS_ORG_CONTRACT
+		<set>
+			<if test="ccode != null">
+				CCODE = #{ccode,jdbcType=VARCHAR},
+			</if>
+			<if test="conStartdate != null">
+				CON_STARTDATE = #{conStartdate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="conEnddate != null">
+				CON_ENDDATE = #{conEnddate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="agencyFee != null">
+				AGENCY_FEE = #{agencyFee,jdbcType=DECIMAL},
+			</if>
+			<if test="payType != null">
+				PAY_TYPE = #{payType,jdbcType=DECIMAL},
+			</if>
+			<if test="securityMoney != null">
+				SECURITY_MONEY = #{securityMoney,jdbcType=DECIMAL},
+			</if>
+			<if test="initialFee != null">
+				INITIAL_FEE = #{initialFee,jdbcType=DECIMAL},
+			</if>
+			<if test="monthlyInvoices != null">
+				MONTHLY_INVOICES = #{monthlyInvoices,jdbcType=DECIMAL},
+			</if>
+			<if test="feeDirections != null">
+				FEE_DIRECTIONS = #{feeDirections,jdbcType=VARCHAR},
+			</if>
+			<if test="description != null">
+				DESCRIPTION = #{description,jdbcType=VARCHAR},
+			</if>
+		</set>
+		WHERE ORG_ID = #{orgId,jdbcType=DECIMAL}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.zyzf.polymer.pay.organization.entity.OrgContract">
+		UPDATE PMS_ORG_CONTRACT
+		<set>
+			<if test="ccode != null">
+				CCODE = #{ccode,jdbcType=VARCHAR},
+			</if>
+			<if test="conStartdate != null">
+				CON_STARTDATE = #{conStartdate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="conEnddate != null">
+				CON_ENDDATE = #{conEnddate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="agencyFee != null">
+				AGENCY_FEE = #{agencyFee,jdbcType=DECIMAL},
+			</if>
+			<if test="payType != null">
+				PAY_TYPE = #{payType,jdbcType=DECIMAL},
+			</if>
+			<if test="securityMoney != null">
+				SECURITY_MONEY = #{securityMoney,jdbcType=DECIMAL},
+			</if>
+			<if test="initialFee != null">
+				INITIAL_FEE = #{initialFee,jdbcType=DECIMAL},
+			</if>
+			<if test="monthlyInvoices != null">
+				MONTHLY_INVOICES = #{monthlyInvoices,jdbcType=DECIMAL},
+			</if>
+			<if test="feeDirections != null">
+				FEE_DIRECTIONS = #{feeDirections,jdbcType=VARCHAR},
+			</if>
+			<if test="description != null">
+				DESCRIPTION = #{description,jdbcType=VARCHAR},
+			</if>
+		</set>
+	    where ORG_ID = #{orgId,jdbcType=DECIMAL}
+	</update>
+
+	<sql id="condition_sql">
+		<!-- Equal query -->
+		<if test="ccode != null and ccode != ''">
+			AND CCODE = #{ccode,jdbcType=VARCHAR}
+		</if>
+		<if test="orgid != null">
+			AND ORG_ID = #{orgid,jdbcType=DECIMAL}
+		</if>
+		<if test="conStartDate != null">
+			AND CON_STARTDATE = #{conStartDate,jdbcType=TIMESTAMP}
+		</if>
+		<if test="conEndDate != null">
+			AND CON_ENDDATE = #{conEndDate,jdbcType=TIMESTAMP}
+		</if>
+		<if test="agencyFees != null">
+			AND AGENCY_FEE = #{agencyFees,jdbcType=DECIMAL}
+		</if>
+		<if test="payType != null">
+			AND PAY_TYPE = #{payType,jdbcType=DECIMAL}
+		</if>
+		<if test="securityMoney != null">
+			AND SECURITY_MONEY = #{securityMoney,jdbcType=DECIMAL}
+		</if>
+		<if test="initialFee != null">
+			AND INITIAL_FEE = #{initialFee,jdbcType=DECIMAL}
+		</if>
+		<if test="monthlyInvoices != null">
+			AND MONTHLY_INVOICES = #{monthlyInvoices,jdbcType=DECIMAL}
+		</if>
+		<if test="feeDirections != null and feeDirections != ''">
+			AND FEE_DIRECTIONS = #{feeDirections,jdbcType=VARCHAR}
+		</if>
+		<if test="description != null and description != ''">
+			AND DESCRIPTION = #{description,jdbcType=VARCHAR}
+		</if>
+	</sql>
+</mapper>

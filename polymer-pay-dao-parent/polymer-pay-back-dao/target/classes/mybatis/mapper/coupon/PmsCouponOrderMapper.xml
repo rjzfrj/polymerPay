@@ -1,0 +1,691 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zyzf.polymer.pay.coupon.dao.impl.PmsCouponOrderDaoImpl">
+	<resultMap id="BaseResultMap"
+		type="com.zyzf.polymer.pay.coupon.entity.PmsCouponOrder">
+
+		<id column="ORDER_ID" property="orderId" jdbcType="DECIMAL" />
+		<result column="ORG_ID" property="orgId" jdbcType="DECIMAL" />
+		<result column="CLIENT_TYPE" property="clientType" jdbcType="DECIMAL" />
+		<result column="MCODE" property="mcode" jdbcType="VARCHAR" />
+		<result column="TCODE" property="tcode" jdbcType="VARCHAR" />
+		<result column="MERCHANT_ORDER_ID" property="merchantOrderId" jdbcType="VARCHAR" />
+		<result column="MERCHANT_ORDER_TIME" property="merchantOrderTime" jdbcType="TIMESTAMP" />
+		<result column="ORDER_TYPE_ID" property="orderTypeId" jdbcType="DECIMAL" />
+		<result column="PAY_CHANNEL_TYPE" property="payChannelType" jdbcType="DECIMAL" />
+		<result column="PRODUCT_ID" property="productId" jdbcType="DECIMAL" />
+		<result column="SELLER_ID" property="sellerId" jdbcType="DECIMAL" />
+		<result column="TYPE_ID" property="typeId" jdbcType="DECIMAL" />
+		<result column="IP" property="ip" jdbcType="VARCHAR" />
+		<result column="SN_CODE" property="snCode" jdbcType="VARCHAR" />
+		<result column="CLIENT_INFO" property="clientInfo" jdbcType="VARCHAR" />
+		<result column="REMARK" property="remark" jdbcType="VARCHAR" />
+		<result column="STATUS" property="status" jdbcType="DECIMAL" />
+		<result column="BANK_ORDER_NUM" property="bankOrderNum" jdbcType="VARCHAR" />
+		<result column="COUPON_ID" property="couponId" jdbcType="DECIMAL" />
+		<result column="QRCODE_URL" property="qrcodeUrl" jdbcType="VARCHAR" />
+		<result column="COUPON_CODE" property="couponCode" jdbcType="VARCHAR" />
+		<result column="FLOOR_PRICE" property="floorPrice" jdbcType="DECIMAL" />
+		<result column="CURRENT_PRICE" property="currentPrice" jdbcType="DECIMAL" />
+		<result column="PRICE" property="price" jdbcType="DECIMAL" />
+		<result column="GOODS_TITLE" property="goodsTitle" jdbcType="VARCHAR" />
+		<result column="GOODS_BODY" property="goodsBody" jdbcType="VARCHAR" />
+		<result column="THIRD_ORDER_NUM" property="thirdOrderNum" jdbcType="VARCHAR" />
+		<result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="CREATE_LONG_TIME" property="createLongTime" jdbcType="DECIMAL" />
+		<result column="EDIT_TIME" property="editTime" jdbcType="TIMESTAMP" />
+		<result column="EDIT_LONG_TIME" property="editLongTime" jdbcType="DECIMAL" />
+		<result column="PAY_DATE" property="payDate" jdbcType="TIMESTAMP" />
+		<result column="PAY_LONG_TIME" property="payLongTime" jdbcType="DECIMAL" />
+		<result column="MERCHANT_ID" property="merchantId" jdbcType="VARCHAR" />
+		<result column="TERMINAL_ID" property="terminalId" jdbcType="VARCHAR" />
+		<result column="REQ_CODE" property="reqCode" jdbcType="VARCHAR" />
+		<result column="REQ_MSG" property="reqMsg" jdbcType="VARCHAR" />
+		<result column="NOTIFY_URL" property="notifyUrl" jdbcType="VARCHAR" />
+		<result column="NOTIFY_CNT" property="notifyCnt" jdbcType="DECIMAL" />
+		<result column="NOTIFY_STATUS" property="notifyStatus" jdbcType="DECIMAL" />
+		<result column="CALLBACK_DATE" property="callbackDate" jdbcType="TIMESTAMP" />
+		<result column="CALLBACK_LONG_TIME" property="callbackLongTime" jdbcType="DECIMAL" />
+		<result column="IS_INVESTIG" property="isInvestig" jdbcType="DECIMAL" />
+		<result column="MARKED_RED" property="markedRed" jdbcType="DECIMAL" />
+		<result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+		<result column="MAORI" property="maori" jdbcType="DECIMAL" />
+		<result column="BROKERAGE" property="brokerage" jdbcType="DECIMAL" />
+		<result column="OTHER_PARAM" property="otherParam" jdbcType="VARCHAR" />
+		<result column="ORG_NAME" property="orgName" jdbcType="VARCHAR" />
+		<result column="TYPE_NAME" property="typeName" jdbcType="VARCHAR" />
+		<result column="SELLER_NAME" property="sellerName" jdbcType="VARCHAR" />
+		
+	</resultMap>
+	<sql id="Base_Column_List">
+		ORDER_ID, ORG_ID, CLIENT_TYPE, MCODE, TCODE, MERCHANT_ORDER_ID,
+		MERCHANT_ORDER_TIME,
+		ORDER_TYPE_ID, PAY_CHANNEL_TYPE, PRODUCT_ID, SELLER_ID, TYPE_ID, IP, SN_CODE,
+		CLIENT_INFO,
+		REMARK, STATUS, BANK_ORDER_NUM, COUPON_ID, QRCODE_URL, COUPON_CODE,
+		FLOOR_PRICE, CURRENT_PRICE,
+		PRICE, GOODS_TITLE, GOODS_BODY, THIRD_ORDER_NUM, CREATE_TIME,
+		CREATE_LONG_TIME, EDIT_TIME,
+		EDIT_LONG_TIME, PAY_DATE, PAY_LONG_TIME, MERCHANT_ID, TERMINAL_ID, REQ_CODE, REQ_MSG,
+		NOTIFY_URL, NOTIFY_CNT, NOTIFY_STATUS, CALLBACK_DATE,
+		CALLBACK_LONG_TIME, IS_INVESTIG,
+		MARKED_RED, DESCRIPTION, MAORI, BROKERAGE, OTHER_PARAM
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+			O.*,G.NAME AS ORG_NAME,s.seller_name,t.type_name
+			from PMS_COUPON_ORDER O
+			left join PMS_ORGANIZATION G on O.ORG_ID=G.ORG_ID
+			left join PMS_COUPON_SELLER S on S.SELLER_ID=O.SELLER_ID
+			left join PMS_COUPON_TYPE t on O.TYPE_ID=T.TYPE_ID
+		where O.ORDER_ID = #{orderId,jdbcType=DECIMAL}
+	</select>
+	
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from PMS_COUPON_ORDER
+		where ORDER_ID = #{orderId,jdbcType=DECIMAL}
+	</delete>
+	<insert id="insert" parameterType="com.zyzf.polymer.pay.coupon.entity.PmsCouponOrder">
+		insert into PMS_COUPON_ORDER (ORDER_ID, ORG_ID, CLIENT_TYPE,
+		MCODE, TCODE, MERCHANT_ORDER_ID,
+		MERCHANT_ORDER_TIME, ORDER_TYPE_ID, PAY_CHANNEL_TYPE,
+		PRODUCT_ID, SELLER_ID, TYPE_ID,
+		IP, SN_CODE, CLIENT_INFO,
+		REMARK, STATUS, BANK_ORDER_NUM,
+		COUPON_ID, QRCODE_URL, COUPON_CODE,
+		FLOOR_PRICE, CURRENT_PRICE, PRICE,
+		GOODS_TITLE, GOODS_BODY, THIRD_ORDER_NUM,
+		CREATE_TIME, CREATE_LONG_TIME, EDIT_TIME,
+		EDIT_LONG_TIME, PAY_DATE, PAY_LONG_TIME,
+		MERCHANT_ID, TERMINAL_ID, REQ_CODE,
+		REQ_MSG, NOTIFY_URL, NOTIFY_CNT,
+		NOTIFY_STATUS, CALLBACK_DATE, CALLBACK_LONG_TIME,
+		IS_INVESTIG, MARKED_RED, DESCRIPTION,
+		MAORI, BROKERAGE, OTHER_PARAM
+		)
+		values (#{orderId,jdbcType=DECIMAL}, #{orgId,jdbcType=DECIMAL},
+		#{clientType,jdbcType=DECIMAL},
+		#{mcode,jdbcType=VARCHAR}, #{tcode,jdbcType=VARCHAR}, #{merchantOrderId,jdbcType=VARCHAR},
+		#{merchantOrderTime,jdbcType=TIMESTAMP},
+		#{orderTypeId,jdbcType=DECIMAL}, #{payChannelType,jdbcType=DECIMAL},
+		#{productId,jdbcType=DECIMAL}, #{sellerId,jdbcType=DECIMAL},
+		#{typeId,jdbcType=DECIMAL},
+		#{ip,jdbcType=VARCHAR}, #{snCode,jdbcType=VARCHAR}, #{clientInfo,jdbcType=VARCHAR},
+		#{remark,jdbcType=VARCHAR}, #{status,jdbcType=DECIMAL},
+		#{bankOrderNum,jdbcType=VARCHAR},
+		#{couponId,jdbcType=DECIMAL}, #{qrcodeUrl,jdbcType=VARCHAR}, #{couponCode,jdbcType=VARCHAR},
+		#{floorPrice,jdbcType=DECIMAL}, #{currentPrice,jdbcType=DECIMAL},
+		#{price,jdbcType=DECIMAL},
+		#{goodsTitle,jdbcType=VARCHAR}, #{goodsBody,jdbcType=VARCHAR}, #{thirdOrderNum,jdbcType=VARCHAR},
+		#{createTime,jdbcType=TIMESTAMP}, #{createLongTime,jdbcType=DECIMAL},
+		#{editTime,jdbcType=TIMESTAMP},
+		#{editLongTime,jdbcType=DECIMAL}, #{payDate,jdbcType=TIMESTAMP}, #{payLongTime,jdbcType=DECIMAL},
+		#{merchantId,jdbcType=VARCHAR}, #{terminalId,jdbcType=VARCHAR},
+		#{reqCode,jdbcType=VARCHAR},
+		#{reqMsg,jdbcType=VARCHAR}, #{notifyUrl,jdbcType=VARCHAR}, #{notifyCnt,jdbcType=DECIMAL},
+		#{notifyStatus,jdbcType=DECIMAL}, #{callbackDate,jdbcType=TIMESTAMP},
+		#{callbackLongTime,jdbcType=DECIMAL},
+		#{isInvestig,jdbcType=DECIMAL}, #{markedRed,jdbcType=DECIMAL}, #{description,jdbcType=VARCHAR},
+		#{maori,jdbcType=DECIMAL}, #{brokerage,jdbcType=DECIMAL},
+		#{otherParam,jdbcType=VARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.zyzf.polymer.pay.coupon.entity.PmsCouponOrder">
+		insert into PMS_COUPON_ORDER
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="orderId != null">
+				ORDER_ID,
+			</if>
+			<if test="orgId != null">
+				ORG_ID,
+			</if>
+			<if test="clientType != null">
+				CLIENT_TYPE,
+			</if>
+			<if test="mcode != null">
+				MCODE,
+			</if>
+			<if test="tcode != null">
+				TCODE,
+			</if>
+			<if test="merchantOrderId != null">
+				MERCHANT_ORDER_ID,
+			</if>
+			<if test="merchantOrderTime != null">
+				MERCHANT_ORDER_TIME,
+			</if>
+			<if test="orderTypeId != null">
+				ORDER_TYPE_ID,
+			</if>
+			<if test="payChannelType != null">
+				PAY_CHANNEL_TYPE,
+			</if>
+			<if test="productId != null">
+				PRODUCT_ID,
+			</if>
+			<if test="sellerId != null">
+				SELLER_ID,
+			</if>
+			<if test="typeId != null">
+				TYPE_ID,
+			</if>
+			<if test="ip != null">
+				IP,
+			</if>
+			<if test="snCode != null">
+				SN_CODE,
+			</if>
+			<if test="clientInfo != null">
+				CLIENT_INFO,
+			</if>
+			<if test="remark != null">
+				REMARK,
+			</if>
+			<if test="status != null">
+				STATUS,
+			</if>
+			<if test="bankOrderNum != null">
+				BANK_ORDER_NUM,
+			</if>
+			<if test="couponId != null">
+				COUPON_ID,
+			</if>
+			<if test="qrcodeUrl != null">
+				QRCODE_URL,
+			</if>
+			<if test="couponCode != null">
+				COUPON_CODE,
+			</if>
+			<if test="floorPrice != null">
+				FLOOR_PRICE,
+			</if>
+			<if test="currentPrice != null">
+				CURRENT_PRICE,
+			</if>
+			<if test="price != null">
+				PRICE,
+			</if>
+			<if test="goodsTitle != null">
+				GOODS_TITLE,
+			</if>
+			<if test="goodsBody != null">
+				GOODS_BODY,
+			</if>
+			<if test="thirdOrderNum != null">
+				THIRD_ORDER_NUM,
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME,
+			</if>
+			<if test="createLongTime != null">
+				CREATE_LONG_TIME,
+			</if>
+			<if test="editTime != null">
+				EDIT_TIME,
+			</if>
+			<if test="editLongTime != null">
+				EDIT_LONG_TIME,
+			</if>
+			<if test="payDate != null">
+				PAY_DATE,
+			</if>
+			<if test="payLongTime != null">
+				PAY_LONG_TIME,
+			</if>
+			<if test="merchantId != null">
+				MERCHANT_ID,
+			</if>
+			<if test="terminalId != null">
+				TERMINAL_ID,
+			</if>
+			<if test="reqCode != null">
+				REQ_CODE,
+			</if>
+			<if test="reqMsg != null">
+				REQ_MSG,
+			</if>
+			<if test="notifyUrl != null">
+				NOTIFY_URL,
+			</if>
+			<if test="notifyCnt != null">
+				NOTIFY_CNT,
+			</if>
+			<if test="notifyStatus != null">
+				NOTIFY_STATUS,
+			</if>
+			<if test="callbackDate != null">
+				CALLBACK_DATE,
+			</if>
+			<if test="callbackLongTime != null">
+				CALLBACK_LONG_TIME,
+			</if>
+			<if test="isInvestig != null">
+				IS_INVESTIG,
+			</if>
+			<if test="markedRed != null">
+				MARKED_RED,
+			</if>
+			<if test="description != null">
+				DESCRIPTION,
+			</if>
+			<if test="maori != null">
+				MAORI,
+			</if>
+			<if test="brokerage != null">
+				BROKERAGE,
+			</if>
+			<if test="otherParam != null">
+				OTHER_PARAM,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="orderId != null">
+				#{orderId,jdbcType=DECIMAL},
+			</if>
+			<if test="orgId != null">
+				#{orgId,jdbcType=DECIMAL},
+			</if>
+			<if test="clientType != null">
+				#{clientType,jdbcType=DECIMAL},
+			</if>
+			<if test="mcode != null">
+				#{mcode,jdbcType=VARCHAR},
+			</if>
+			<if test="tcode != null">
+				#{tcode,jdbcType=VARCHAR},
+			</if>
+			<if test="merchantOrderId != null">
+				#{merchantOrderId,jdbcType=VARCHAR},
+			</if>
+			<if test="merchantOrderTime != null">
+				#{merchantOrderTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="orderTypeId != null">
+				#{orderTypeId,jdbcType=DECIMAL},
+			</if>
+			<if test="payChannelType != null">
+				#{payChannelType,jdbcType=DECIMAL},
+			</if>
+			<if test="productId != null">
+				#{productId,jdbcType=DECIMAL},
+			</if>
+			<if test="sellerId != null">
+				#{sellerId,jdbcType=DECIMAL},
+			</if>
+			<if test="typeId != null">
+				#{typeId,jdbcType=DECIMAL},
+			</if>
+			<if test="ip != null">
+				#{ip,jdbcType=VARCHAR},
+			</if>
+			<if test="snCode != null">
+				#{snCode,jdbcType=VARCHAR},
+			</if>
+			<if test="clientInfo != null">
+				#{clientInfo,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=DECIMAL},
+			</if>
+			<if test="bankOrderNum != null">
+				#{bankOrderNum,jdbcType=VARCHAR},
+			</if>
+			<if test="couponId != null">
+				#{couponId,jdbcType=DECIMAL},
+			</if>
+			<if test="qrcodeUrl != null">
+				#{qrcodeUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="couponCode != null">
+				#{couponCode,jdbcType=VARCHAR},
+			</if>
+			<if test="floorPrice != null">
+				#{floorPrice,jdbcType=DECIMAL},
+			</if>
+			<if test="currentPrice != null">
+				#{currentPrice,jdbcType=DECIMAL},
+			</if>
+			<if test="price != null">
+				#{price,jdbcType=DECIMAL},
+			</if>
+			<if test="goodsTitle != null">
+				#{goodsTitle,jdbcType=VARCHAR},
+			</if>
+			<if test="goodsBody != null">
+				#{goodsBody,jdbcType=VARCHAR},
+			</if>
+			<if test="thirdOrderNum != null">
+				#{thirdOrderNum,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createLongTime != null">
+				#{createLongTime,jdbcType=DECIMAL},
+			</if>
+			<if test="editTime != null">
+				#{editTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="editLongTime != null">
+				#{editLongTime,jdbcType=DECIMAL},
+			</if>
+			<if test="payDate != null">
+				#{payDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="payLongTime != null">
+				#{payLongTime,jdbcType=DECIMAL},
+			</if>
+			<if test="merchantId != null">
+				#{merchantId,jdbcType=VARCHAR},
+			</if>
+			<if test="terminalId != null">
+				#{terminalId,jdbcType=VARCHAR},
+			</if>
+			<if test="reqCode != null">
+				#{reqCode,jdbcType=VARCHAR},
+			</if>
+			<if test="reqMsg != null">
+				#{reqMsg,jdbcType=VARCHAR},
+			</if>
+			<if test="notifyUrl != null">
+				#{notifyUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="notifyCnt != null">
+				#{notifyCnt,jdbcType=DECIMAL},
+			</if>
+			<if test="notifyStatus != null">
+				#{notifyStatus,jdbcType=DECIMAL},
+			</if>
+			<if test="callbackDate != null">
+				#{callbackDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="callbackLongTime != null">
+				#{callbackLongTime,jdbcType=DECIMAL},
+			</if>
+			<if test="isInvestig != null">
+				#{isInvestig,jdbcType=DECIMAL},
+			</if>
+			<if test="markedRed != null">
+				#{markedRed,jdbcType=DECIMAL},
+			</if>
+			<if test="description != null">
+				#{description,jdbcType=VARCHAR},
+			</if>
+			<if test="maori != null">
+				#{maori,jdbcType=DECIMAL},
+			</if>
+			<if test="brokerage != null">
+				#{brokerage,jdbcType=DECIMAL},
+			</if>
+			<if test="otherParam != null">
+				#{otherParam,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.zyzf.polymer.pay.coupon.entity.PmsCouponOrder">
+		update PMS_COUPON_ORDER
+		<set>
+			<if test="orgId != null">
+				ORG_ID = #{orgId,jdbcType=DECIMAL},
+			</if>
+			<if test="clientType != null">
+				CLIENT_TYPE = #{clientType,jdbcType=DECIMAL},
+			</if>
+			<if test="mcode != null">
+				MCODE = #{mcode,jdbcType=VARCHAR},
+			</if>
+			<if test="tcode != null">
+				TCODE = #{tcode,jdbcType=VARCHAR},
+			</if>
+			<if test="merchantOrderId != null">
+				MERCHANT_ORDER_ID = #{merchantOrderId,jdbcType=VARCHAR},
+			</if>
+			<if test="merchantOrderTime != null">
+				MERCHANT_ORDER_TIME = #{merchantOrderTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="orderTypeId != null">
+				ORDER_TYPE_ID = #{orderTypeId,jdbcType=DECIMAL},
+			</if>
+			<if test="payChannelType != null">
+				PAY_CHANNEL_TYPE = #{payChannelType,jdbcType=DECIMAL},
+			</if>
+			<if test="productId != null">
+				PRODUCT_ID = #{productId,jdbcType=DECIMAL},
+			</if>
+			<if test="sellerId != null">
+				SELLER_ID = #{sellerId,jdbcType=DECIMAL},
+			</if>
+			<if test="typeId != null">
+				TYPE_ID = #{typeId,jdbcType=DECIMAL},
+			</if>
+			<if test="ip != null">
+				IP = #{ip,jdbcType=VARCHAR},
+			</if>
+			<if test="snCode != null">
+				SN_CODE = #{snCode,jdbcType=VARCHAR},
+			</if>
+			<if test="clientInfo != null">
+				CLIENT_INFO = #{clientInfo,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				REMARK = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				STATUS = #{status,jdbcType=DECIMAL},
+			</if>
+			<if test="bankOrderNum != null">
+				BANK_ORDER_NUM = #{bankOrderNum,jdbcType=VARCHAR},
+			</if>
+			<if test="couponId != null">
+				COUPON_ID = #{couponId,jdbcType=DECIMAL},
+			</if>
+			<if test="qrcodeUrl != null">
+				QRCODE_URL = #{qrcodeUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="couponCode != null">
+				COUPON_CODE = #{couponCode,jdbcType=VARCHAR},
+			</if>
+			<if test="floorPrice != null">
+				FLOOR_PRICE = #{floorPrice,jdbcType=DECIMAL},
+			</if>
+			<if test="currentPrice != null">
+				CURRENT_PRICE = #{currentPrice,jdbcType=DECIMAL},
+			</if>
+			<if test="price != null">
+				PRICE = #{price,jdbcType=DECIMAL},
+			</if>
+			<if test="goodsTitle != null">
+				GOODS_TITLE = #{goodsTitle,jdbcType=VARCHAR},
+			</if>
+			<if test="goodsBody != null">
+				GOODS_BODY = #{goodsBody,jdbcType=VARCHAR},
+			</if>
+			<if test="thirdOrderNum != null">
+				THIRD_ORDER_NUM = #{thirdOrderNum,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createLongTime != null">
+				CREATE_LONG_TIME = #{createLongTime,jdbcType=DECIMAL},
+			</if>
+			<if test="editTime != null">
+				EDIT_TIME = #{editTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="editLongTime != null">
+				EDIT_LONG_TIME = #{editLongTime,jdbcType=DECIMAL},
+			</if>
+			<if test="payDate != null">
+				PAY_DATE = #{payDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="payLongTime != null">
+				PAY_LONG_TIME = #{payLongTime,jdbcType=DECIMAL},
+			</if>
+			<if test="merchantId != null">
+				MERCHANT_ID = #{merchantId,jdbcType=VARCHAR},
+			</if>
+			<if test="terminalId != null">
+				TERMINAL_ID = #{terminalId,jdbcType=VARCHAR},
+			</if>
+			<if test="reqCode != null">
+				REQ_CODE = #{reqCode,jdbcType=VARCHAR},
+			</if>
+			<if test="reqMsg != null">
+				REQ_MSG = #{reqMsg,jdbcType=VARCHAR},
+			</if>
+			<if test="notifyUrl != null">
+				NOTIFY_URL = #{notifyUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="notifyCnt != null">
+				NOTIFY_CNT = #{notifyCnt,jdbcType=DECIMAL},
+			</if>
+			<if test="notifyStatus != null">
+				NOTIFY_STATUS = #{notifyStatus,jdbcType=DECIMAL},
+			</if>
+			<if test="callbackDate != null">
+				CALLBACK_DATE = #{callbackDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="callbackLongTime != null">
+				CALLBACK_LONG_TIME = #{callbackLongTime,jdbcType=DECIMAL},
+			</if>
+			<if test="isInvestig != null">
+				IS_INVESTIG = #{isInvestig,jdbcType=DECIMAL},
+			</if>
+			<if test="markedRed != null">
+				MARKED_RED = #{markedRed,jdbcType=DECIMAL},
+			</if>
+			<if test="description != null">
+				DESCRIPTION = #{description,jdbcType=VARCHAR},
+			</if>
+			<if test="maori != null">
+				MAORI = #{maori,jdbcType=DECIMAL},
+			</if>
+			<if test="brokerage != null">
+				BROKERAGE = #{brokerage,jdbcType=DECIMAL},
+			</if>
+			<if test="otherParam != null">
+				OTHER_PARAM = #{otherParam,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where ORDER_ID = #{orderId,jdbcType=DECIMAL}
+	</update>
+
+	<update id="updateByPrimaryKey" parameterType="com.zyzf.polymer.pay.coupon.entity.PmsCouponOrder">
+		update PMS_COUPON_ORDER
+		set ORG_ID = #{orgId,jdbcType=DECIMAL},
+		CLIENT_TYPE = #{clientType,jdbcType=DECIMAL},
+		MCODE = #{mcode,jdbcType=VARCHAR},
+		TCODE = #{tcode,jdbcType=VARCHAR},
+		MERCHANT_ORDER_ID = #{merchantOrderId,jdbcType=VARCHAR},
+		MERCHANT_ORDER_TIME = #{merchantOrderTime,jdbcType=TIMESTAMP},
+		ORDER_TYPE_ID = #{orderTypeId,jdbcType=DECIMAL},
+		PAY_CHANNEL_TYPE = #{payChannelType,jdbcType=DECIMAL},
+		PRODUCT_ID = #{productId,jdbcType=DECIMAL},
+		SELLER_ID = #{sellerId,jdbcType=DECIMAL},
+		TYPE_ID = #{typeId,jdbcType=DECIMAL},
+		IP = #{ip,jdbcType=VARCHAR},
+		SN_CODE = #{snCode,jdbcType=VARCHAR},
+		CLIENT_INFO = #{clientInfo,jdbcType=VARCHAR},
+		REMARK = #{remark,jdbcType=VARCHAR},
+		STATUS = #{status,jdbcType=DECIMAL},
+		BANK_ORDER_NUM = #{bankOrderNum,jdbcType=VARCHAR},
+		COUPON_ID = #{couponId,jdbcType=DECIMAL},
+		QRCODE_URL = #{qrcodeUrl,jdbcType=VARCHAR},
+		COUPON_CODE = #{couponCode,jdbcType=VARCHAR},
+		FLOOR_PRICE = #{floorPrice,jdbcType=DECIMAL},
+		CURRENT_PRICE = #{currentPrice,jdbcType=DECIMAL},
+		PRICE = #{price,jdbcType=DECIMAL},
+		GOODS_TITLE = #{goodsTitle,jdbcType=VARCHAR},
+		GOODS_BODY = #{goodsBody,jdbcType=VARCHAR},
+		THIRD_ORDER_NUM = #{thirdOrderNum,jdbcType=VARCHAR},
+		CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+		CREATE_LONG_TIME = #{createLongTime,jdbcType=DECIMAL},
+		EDIT_TIME = #{editTime,jdbcType=TIMESTAMP},
+		EDIT_LONG_TIME = #{editLongTime,jdbcType=DECIMAL},
+		PAY_DATE = #{payDate,jdbcType=TIMESTAMP},
+		PAY_LONG_TIME = #{payLongTime,jdbcType=DECIMAL},
+		MERCHANT_ID = #{merchantId,jdbcType=VARCHAR},
+		TERMINAL_ID = #{terminalId,jdbcType=VARCHAR},
+		REQ_CODE = #{reqCode,jdbcType=VARCHAR},
+		REQ_MSG = #{reqMsg,jdbcType=VARCHAR},
+		NOTIFY_URL = #{notifyUrl,jdbcType=VARCHAR},
+		NOTIFY_CNT = #{notifyCnt,jdbcType=DECIMAL},
+		NOTIFY_STATUS = #{notifyStatus,jdbcType=DECIMAL},
+		CALLBACK_DATE = #{callbackDate,jdbcType=TIMESTAMP},
+		CALLBACK_LONG_TIME = #{callbackLongTime,jdbcType=DECIMAL},
+		IS_INVESTIG = #{isInvestig,jdbcType=DECIMAL},
+		MARKED_RED = #{markedRed,jdbcType=DECIMAL},
+		DESCRIPTION = #{description,jdbcType=VARCHAR},
+		MAORI = #{maori,jdbcType=DECIMAL},
+		BROKERAGE = #{brokerage,jdbcType=DECIMAL},
+		OTHER_PARAM = #{otherParam,jdbcType=VARCHAR}
+		where ORDER_ID = #{orderId,jdbcType=DECIMAL}
+	</update>
+		
+	
+		<sql id="Where_Clause">
+		<if test="merchantOrderId != null and merchantOrderId!='' ">
+			AND O.MERCHANT_ORDER_ID = #{merchantOrderId,jdbcType=VARCHAR},
+		</if>
+		<if test="orderId != null ">
+			AND O.ORDER_ID = #{orderId,jdbcType=DECIMAL}
+		</if>
+		<if test="status != null">
+			AND	O.STATUS = #{status,jdbcType=DECIMAL}
+		</if>
+		<if test="orgId != null">
+			AND O.ORG_ID = #{orgId,jdbcType=DECIMAL}
+		</if>
+		<if test="mcode != null and mcode!='' ">
+			AND O.MCODE = #{mcode,jdbcType=VARCHAR}
+		</if>
+		<if test="tcode != null and tcode!=''">
+			AND O.TCODE = #{tcode,jdbcType=VARCHAR}
+		</if>
+		<if test="sellerId != null" >
+			AND O.SELLER_ID = #{sellerId,jdbcType=DECIMAL}
+		</if>
+		<if test="typeId != null ">
+			AND O.TYPE_ID = #{typeId,jdbcType=DECIMAL}
+		</if>
+		<if test="startDateCreate != null "> 
+			AND O.CREATE_TIME <![CDATA[>=]]> #{startDateCreate,jdbcType=TIMESTAMP}
+		</if>
+		<if test="endDateCreate != null "> 
+			AND O.CREATE_TIME <![CDATA[ <=]]> #{endDateCreate,jdbcType=TIMESTAMP}
+		</if>
+		<if test="startDateEdit != null "> 
+			AND O.EDIT_TIME <![CDATA[>=]]> #{startDateEdit,jdbcType=TIMESTAMP}
+		</if>
+		<if test="endDateEdit != null "> 
+			AND O.EDIT_TIME <![CDATA[ <=]]> #{endDateEdit,jdbcType=TIMESTAMP}
+		</if>
+	</sql>
+	
+	<select id="listPage" parameterType="java.util.Map" resultMap="BaseResultMap">
+		select G.NAME AS ORG_NAME,T.TYPE_NAME,O.ORDER_ID,O.MCODE,O.TCODE,O.COUPON_CODE,O.CURRENT_PRICE,O.PRICE,O.FLOOR_PRICE,O.STATUS,O.EDIT_TIME 
+		from PMS_COUPON_ORDER O 
+		left join PMS_ORGANIZATION G on O.ORG_ID=G.ORG_ID
+		left join PMS_COUPON_TYPE T on O.TYPE_ID=T.TYPE_ID
+		<where>
+			<include refid="Where_Clause" />
+		</where>
+		order by product_Id desc
+	</select>
+	
+
+	<select id="listPageCount" parameterType="java.util.Map"
+		resultType="long">
+		select count(ORDER_ID) 
+		from PMS_COUPON_ORDER O 
+		left join PMS_ORGANIZATION G on O.ORG_ID=G.ORG_ID
+		left join PMS_COUPON_TYPE T on O.TYPE_ID=T.TYPE_ID
+		<where>
+			<include refid="Where_Clause" />
+		</where>
+	</select>
+</mapper>

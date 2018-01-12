@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zyzf.polymer.pay.merchant.dao.impl.PmsMerchantCIntoDaoImpl" >
+  <resultMap id="BaseResultMap" type="com.zyzf.polymer.pay.merchant.entity.PmsMerchantCInto" >
+    <id column="TC_INTO_ID" property="tcIntoId" jdbcType="DECIMAL" />
+    <result column="ORG_ID" property="orgId" jdbcType="DECIMAL" />
+    <result column="MCODE" property="mcode" jdbcType="VARCHAR" />
+    <result column="TCODE" property="tcode" jdbcType="VARCHAR" />
+    <result column="MER_NO" property="merNo" jdbcType="VARCHAR" />
+    <result column="BANK_MCODE" property="bankMcode" jdbcType="VARCHAR" />
+    <result column="BANK_TCODE" property="bankTcode" jdbcType="VARCHAR" />
+    <result column="CREATE_USER" property="createUser" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="EDITOR_USER" property="editorUser" jdbcType="VARCHAR" />
+    <result column="EDIT_TIME" property="editTime" jdbcType="TIMESTAMP" />
+    <result column="STATUS" property="status" jdbcType="DECIMAL" />
+    <result column="ROLE_ID" property="roleId" jdbcType="DECIMAL" />
+    <result column="ORG_NO" property="orgNo" jdbcType="VARCHAR" />
+    <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+    <result column="SIMPLE_MONEY" property="simpleMoney" jdbcType="VARCHAR" />
+    <result column="DAY_MONEY" property="dayMoney" jdbcType="VARCHAR" />
+    <result column="RELATE" property="relate" jdbcType="VARCHAR" />
+    <result column="TMK" property="tmk" jdbcType="VARCHAR" />
+    <result column="TMKCK" property="tmkck" jdbcType="VARCHAR" />
+    <result column="REQ_CODE" property="reqCode" jdbcType="VARCHAR" />
+    <result column="REQ_MSG" property="reqMsg" jdbcType="VARCHAR" />
+    <result column="MCC" property="mcc" jdbcType="VARCHAR" />
+    <result column="GROUP_NO" property="groupNo" jdbcType="VARCHAR" />
+    <result column="CHANNEL_ID" property="channelId" jdbcType="DECIMAL" />
+    <result column="PAY_CHANNEL_TYPE" property="payChannelType" jdbcType="DECIMAL" />
+    <result column="CLEAR_CODE_TYPE" property="clearCodeType" jdbcType="DECIMAL" />
+    <result column="INVOKE_PATTERN" property="invokePattern" jdbcType="DECIMAL" />
+    <result column="IS_DEFAULT" property="isDefault" jdbcType="DECIMAL" />
+    <result column="PRIORITY_LEVEL" property="priorityLevel" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    TC_INTO_ID, ORG_ID, MCODE, TCODE, MER_NO, BANK_MCODE, BANK_TCODE, CREATE_USER, CREATE_TIME, 
+    EDITOR_USER, EDIT_TIME, STATUS, ROLE_ID, ORG_NO, USER_NAME, SIMPLE_MONEY, DAY_MONEY, 
+    RELATE, TMK, TMKCK, REQ_CODE, REQ_MSG, MCC, GROUP_NO, CHANNEL_ID, PAY_CHANNEL_TYPE, 
+    CLEAR_CODE_TYPE, INVOKE_PATTERN, IS_DEFAULT, PRIORITY_LEVEL
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from PMS_MERCHANT_C_INTO
+    where TC_INTO_ID = #{tcIntoId,jdbcType=DECIMAL}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from PMS_MERCHANT_C_INTO
+    where TC_INTO_ID = #{tcIntoId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.zyzf.polymer.pay.merchant.entity.PmsMerchantCInto" >
+    insert into PMS_MERCHANT_C_INTO (TC_INTO_ID, ORG_ID, MCODE, 
+      TCODE, MER_NO, BANK_MCODE, 
+      BANK_TCODE, CREATE_USER, CREATE_TIME, 
+      EDITOR_USER, EDIT_TIME, STATUS, 
+      ROLE_ID, ORG_NO, USER_NAME, 
+      SIMPLE_MONEY, DAY_MONEY, RELATE, 
+      TMK, TMKCK, REQ_CODE, 
+      REQ_MSG, MCC, GROUP_NO, 
+      CHANNEL_ID, PAY_CHANNEL_TYPE, CLEAR_CODE_TYPE, 
+      INVOKE_PATTERN, IS_DEFAULT, PRIORITY_LEVEL
+      )
+    values (#{tcIntoId,jdbcType=DECIMAL}, #{orgId,jdbcType=DECIMAL}, #{mcode,jdbcType=VARCHAR}, 
+      #{tcode,jdbcType=VARCHAR}, #{merNo,jdbcType=VARCHAR}, #{bankMcode,jdbcType=VARCHAR}, 
+      #{bankTcode,jdbcType=VARCHAR}, #{createUser,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{editorUser,jdbcType=VARCHAR}, #{editTime,jdbcType=TIMESTAMP}, #{status,jdbcType=DECIMAL}, 
+      #{roleId,jdbcType=DECIMAL}, #{orgNo,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
+      #{simpleMoney,jdbcType=VARCHAR}, #{dayMoney,jdbcType=VARCHAR}, #{relate,jdbcType=VARCHAR}, 
+      #{tmk,jdbcType=VARCHAR}, #{tmkck,jdbcType=VARCHAR}, #{reqCode,jdbcType=VARCHAR}, 
+      #{reqMsg,jdbcType=VARCHAR}, #{mcc,jdbcType=VARCHAR}, #{groupNo,jdbcType=VARCHAR}, 
+      #{channelId,jdbcType=DECIMAL}, #{payChannelType,jdbcType=DECIMAL}, #{clearCodeType,jdbcType=DECIMAL}, 
+      #{invokePattern,jdbcType=DECIMAL}, #{isDefault,jdbcType=DECIMAL}, #{priorityLevel,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zyzf.polymer.pay.merchant.entity.PmsMerchantCInto" >
+    insert into PMS_MERCHANT_C_INTO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tcIntoId != null" >
+        TC_INTO_ID,
+      </if>
+      <if test="orgId != null" >
+        ORG_ID,
+      </if>
+      <if test="mcode != null" >
+        MCODE,
+      </if>
+      <if test="tcode != null" >
+        TCODE,
+      </if>
+      <if test="merNo != null" >
+        MER_NO,
+      </if>
+      <if test="bankMcode != null" >
+        BANK_MCODE,
+      </if>
+      <if test="bankTcode != null" >
+        BANK_TCODE,
+      </if>
+      <if test="createUser != null" >
+        CREATE_USER,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="editorUser != null" >
+        EDITOR_USER,
+      </if>
+      <if test="editTime != null" >
+        EDIT_TIME,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="roleId != null" >
+        ROLE_ID,
+      </if>
+      <if test="orgNo != null" >
+        ORG_NO,
+      </if>
+      <if test="userName != null" >
+        USER_NAME,
+      </if>
+      <if test="simpleMoney != null" >
+        SIMPLE_MONEY,
+      </if>
+      <if test="dayMoney != null" >
+        DAY_MONEY,
+      </if>
+      <if test="relate != null" >
+        RELATE,
+      </if>
+      <if test="tmk != null" >
+        TMK,
+      </if>
+      <if test="tmkck != null" >
+        TMKCK,
+      </if>
+      <if test="reqCode != null" >
+        REQ_CODE,
+      </if>
+      <if test="reqMsg != null" >
+        REQ_MSG,
+      </if>
+      <if test="mcc != null" >
+        MCC,
+      </if>
+      <if test="groupNo != null" >
+        GROUP_NO,
+      </if>
+      <if test="channelId != null" >
+        CHANNEL_ID,
+      </if>
+      <if test="payChannelType != null" >
+        PAY_CHANNEL_TYPE,
+      </if>
+      <if test="clearCodeType != null" >
+        CLEAR_CODE_TYPE,
+      </if>
+      <if test="invokePattern != null" >
+        INVOKE_PATTERN,
+      </if>
+      <if test="isDefault != null" >
+        IS_DEFAULT,
+      </if>
+      <if test="priorityLevel != null" >
+        PRIORITY_LEVEL,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tcIntoId != null" >
+        #{tcIntoId,jdbcType=DECIMAL},
+      </if>
+      <if test="orgId != null" >
+        #{orgId,jdbcType=DECIMAL},
+      </if>
+      <if test="mcode != null" >
+        #{mcode,jdbcType=VARCHAR},
+      </if>
+      <if test="tcode != null" >
+        #{tcode,jdbcType=VARCHAR},
+      </if>
+      <if test="merNo != null" >
+        #{merNo,jdbcType=VARCHAR},
+      </if>
+      <if test="bankMcode != null" >
+        #{bankMcode,jdbcType=VARCHAR},
+      </if>
+      <if test="bankTcode != null" >
+        #{bankTcode,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="editorUser != null" >
+        #{editorUser,jdbcType=VARCHAR},
+      </if>
+      <if test="editTime != null" >
+        #{editTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="roleId != null" >
+        #{roleId,jdbcType=DECIMAL},
+      </if>
+      <if test="orgNo != null" >
+        #{orgNo,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="simpleMoney != null" >
+        #{simpleMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="dayMoney != null" >
+        #{dayMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="relate != null" >
+        #{relate,jdbcType=VARCHAR},
+      </if>
+      <if test="tmk != null" >
+        #{tmk,jdbcType=VARCHAR},
+      </if>
+      <if test="tmkck != null" >
+        #{tmkck,jdbcType=VARCHAR},
+      </if>
+      <if test="reqCode != null" >
+        #{reqCode,jdbcType=VARCHAR},
+      </if>
+      <if test="reqMsg != null" >
+        #{reqMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="mcc != null" >
+        #{mcc,jdbcType=VARCHAR},
+      </if>
+      <if test="groupNo != null" >
+        #{groupNo,jdbcType=VARCHAR},
+      </if>
+      <if test="channelId != null" >
+        #{channelId,jdbcType=DECIMAL},
+      </if>
+      <if test="payChannelType != null" >
+        #{payChannelType,jdbcType=DECIMAL},
+      </if>
+      <if test="clearCodeType != null" >
+        #{clearCodeType,jdbcType=DECIMAL},
+      </if>
+      <if test="invokePattern != null" >
+        #{invokePattern,jdbcType=DECIMAL},
+      </if>
+      <if test="isDefault != null" >
+        #{isDefault,jdbcType=DECIMAL},
+      </if>
+      <if test="priorityLevel != null" >
+        #{priorityLevel,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zyzf.polymer.pay.merchant.entity.PmsMerchantCInto" >
+    update PMS_MERCHANT_C_INTO
+    <set >
+      <if test="orgId != null" >
+        ORG_ID = #{orgId,jdbcType=DECIMAL},
+      </if>
+      <if test="mcode != null" >
+        MCODE = #{mcode,jdbcType=VARCHAR},
+      </if>
+      <if test="tcode != null" >
+        TCODE = #{tcode,jdbcType=VARCHAR},
+      </if>
+      <if test="merNo != null" >
+        MER_NO = #{merNo,jdbcType=VARCHAR},
+      </if>
+      <if test="bankMcode != null" >
+        BANK_MCODE = #{bankMcode,jdbcType=VARCHAR},
+      </if>
+      <if test="bankTcode != null" >
+        BANK_TCODE = #{bankTcode,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="editorUser != null" >
+        EDITOR_USER = #{editorUser,jdbcType=VARCHAR},
+      </if>
+      <if test="editTime != null" >
+        EDIT_TIME = #{editTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="roleId != null" >
+        ROLE_ID = #{roleId,jdbcType=DECIMAL},
+      </if>
+      <if test="orgNo != null" >
+        ORG_NO = #{orgNo,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        USER_NAME = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="simpleMoney != null" >
+        SIMPLE_MONEY = #{simpleMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="dayMoney != null" >
+        DAY_MONEY = #{dayMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="relate != null" >
+        RELATE = #{relate,jdbcType=VARCHAR},
+      </if>
+      <if test="tmk != null" >
+        TMK = #{tmk,jdbcType=VARCHAR},
+      </if>
+      <if test="tmkck != null" >
+        TMKCK = #{tmkck,jdbcType=VARCHAR},
+      </if>
+      <if test="reqCode != null" >
+        REQ_CODE = #{reqCode,jdbcType=VARCHAR},
+      </if>
+      <if test="reqMsg != null" >
+        REQ_MSG = #{reqMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="mcc != null" >
+        MCC = #{mcc,jdbcType=VARCHAR},
+      </if>
+      <if test="groupNo != null" >
+        GROUP_NO = #{groupNo,jdbcType=VARCHAR},
+      </if>
+      <if test="channelId != null" >
+        CHANNEL_ID = #{channelId,jdbcType=DECIMAL},
+      </if>
+      <if test="payChannelType != null" >
+        PAY_CHANNEL_TYPE = #{payChannelType,jdbcType=DECIMAL},
+      </if>
+      <if test="clearCodeType != null" >
+        CLEAR_CODE_TYPE = #{clearCodeType,jdbcType=DECIMAL},
+      </if>
+      <if test="invokePattern != null" >
+        INVOKE_PATTERN = #{invokePattern,jdbcType=DECIMAL},
+      </if>
+      <if test="isDefault != null" >
+        IS_DEFAULT = #{isDefault,jdbcType=DECIMAL},
+      </if>
+      <if test="priorityLevel != null" >
+        PRIORITY_LEVEL = #{priorityLevel,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where TC_INTO_ID = #{tcIntoId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zyzf.polymer.pay.merchant.entity.PmsMerchantCInto" >
+    update PMS_MERCHANT_C_INTO
+    set ORG_ID = #{orgId,jdbcType=DECIMAL},
+      MCODE = #{mcode,jdbcType=VARCHAR},
+      TCODE = #{tcode,jdbcType=VARCHAR},
+      MER_NO = #{merNo,jdbcType=VARCHAR},
+      BANK_MCODE = #{bankMcode,jdbcType=VARCHAR},
+      BANK_TCODE = #{bankTcode,jdbcType=VARCHAR},
+      CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      EDITOR_USER = #{editorUser,jdbcType=VARCHAR},
+      EDIT_TIME = #{editTime,jdbcType=TIMESTAMP},
+      STATUS = #{status,jdbcType=DECIMAL},
+      ROLE_ID = #{roleId,jdbcType=DECIMAL},
+      ORG_NO = #{orgNo,jdbcType=VARCHAR},
+      USER_NAME = #{userName,jdbcType=VARCHAR},
+      SIMPLE_MONEY = #{simpleMoney,jdbcType=VARCHAR},
+      DAY_MONEY = #{dayMoney,jdbcType=VARCHAR},
+      RELATE = #{relate,jdbcType=VARCHAR},
+      TMK = #{tmk,jdbcType=VARCHAR},
+      TMKCK = #{tmkck,jdbcType=VARCHAR},
+      REQ_CODE = #{reqCode,jdbcType=VARCHAR},
+      REQ_MSG = #{reqMsg,jdbcType=VARCHAR},
+      MCC = #{mcc,jdbcType=VARCHAR},
+      GROUP_NO = #{groupNo,jdbcType=VARCHAR},
+      CHANNEL_ID = #{channelId,jdbcType=DECIMAL},
+      PAY_CHANNEL_TYPE = #{payChannelType,jdbcType=DECIMAL},
+      CLEAR_CODE_TYPE = #{clearCodeType,jdbcType=DECIMAL},
+      INVOKE_PATTERN = #{invokePattern,jdbcType=DECIMAL},
+      IS_DEFAULT = #{isDefault,jdbcType=DECIMAL},
+      PRIORITY_LEVEL = #{priorityLevel,jdbcType=DECIMAL}
+    where TC_INTO_ID = #{tcIntoId,jdbcType=DECIMAL}
+  </update>
+  
+    
+     <select id="listPageCount" parameterType="java.util.Map" resultType="long">
+      select count(1) from PMS_MERCHANT_C_INTO
+   </select>
+   
+   <select id="listPage" parameterType="java.util.Map" resultMap="BaseResultMap">
+	  select 
+	   <include refid="Base_Column_List" />
+	   from PMS_MERCHANT_C_INTO
+   </select>
+</mapper>

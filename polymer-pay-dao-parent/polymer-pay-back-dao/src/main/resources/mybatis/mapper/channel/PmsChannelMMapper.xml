@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zyzf.polymer.pay.channel.dao.impl.PmsChannelMDaoImpl">
+	<resultMap id="BaseResultMap"
+		type="com.zyzf.polymer.pay.channel.entity.PmsChannelM">
+		<id column="CHANNEL_M_ID" property="channelMId" jdbcType="DECIMAL" />
+		<result column="CHANNEL_ID" property="channelId" jdbcType="DECIMAL" />
+		<result column="TERMINAL_ID" property="terminalId" jdbcType="VARCHAR" />
+		<result column="MERCHANT_ID" property="merchantId" jdbcType="VARCHAR" />
+		<result column="OTHER_PARAM" property="otherParam" jdbcType="VARCHAR" />
+		<result column="ROLE_ID" property="roleId" jdbcType="DECIMAL" />
+		<result column="STATUS" property="status" jdbcType="DECIMAL" />
+		<result column="FEE_RATE" property="feeRate" jdbcType="DECIMAL" />
+		<result column="FD_MAX_FEE" property="fdMaxFee" jdbcType="DECIMAL" />
+		<result column="FD_MIN_FEE" property="fdMinFee" jdbcType="DECIMAL" />
+		<result column="SINGLE_LIMIT" property="singleLimit" jdbcType="DECIMAL" />
+		<result column="TOTAL_LIMIT" property="totalLimit" jdbcType="DECIMAL" />
+		<result column="USE_TIME" property="useTime" jdbcType="TIMESTAMP" />
+		<result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+		<result column="USETOTAL" property="usetotal" jdbcType="DECIMAL" />
+		<result column="PROVINCE" property="province" jdbcType="VARCHAR" />
+		<result column="PROVINCE_CODE" property="provinceCode" jdbcType="DECIMAL" />
+		<result column="CITY" property="city" jdbcType="VARCHAR" />
+		<result column="CITY_CODE" property="cityCode" jdbcType="DECIMAL" />
+		<result column="MCC" property="mcc" jdbcType="VARCHAR" />
+		<result column="MAIN_KEY" property="mainKey" jdbcType="VARCHAR" />
+		<result column="PUBLIC_KEY" property="publicKey" jdbcType="VARCHAR" />
+		<result column="PRIVATE_KEY" property="privateKey" jdbcType="VARCHAR" />
+		<result column="SIGN_TYPE" property="signType" jdbcType="DECIMAL" />
+		<result column="CHANNEL_NAME" property="channelName" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		CHANNEL_M_ID, CHANNEL_ID, TERMINAL_ID, MERCHANT_ID, OTHER_PARAM, ROLE_ID, STATUS,
+		FEE_RATE, FD_MAX_FEE, FD_MIN_FEE, SINGLE_LIMIT, TOTAL_LIMIT, USE_TIME,
+		DESCRIPTION,
+		USETOTAL, PROVINCE, PROVINCE_CODE, CITY, CITY_CODE, MCC, MAIN_KEY, PUBLIC_KEY,
+		PRIVATE_KEY,
+		SIGN_TYPE
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from PMS_CHANNEL_M
+		where CHANNEL_M_ID = #{channelMId,jdbcType=DECIMAL}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from PMS_CHANNEL_M
+		where CHANNEL_M_ID = #{channelMId,jdbcType=DECIMAL}
+	</delete>
+	<insert id="insert" parameterType="com.zyzf.polymer.pay.channel.entity.PmsChannelM"
+		keyProperty="channelMId" useGeneratedKeys="true">
+		<selectKey keyProperty="channelMId" order="BEFORE" resultType="java.lang.Long">
+			SELECT SQC_PMS_CHANNEL_M.NEXTVAL AS channelMId FROM DUAL
+		</selectKey>
+		insert into PMS_CHANNEL_M (CHANNEL_M_ID, CHANNEL_ID, TERMINAL_ID,
+		MERCHANT_ID, OTHER_PARAM, ROLE_ID,
+		STATUS, FEE_RATE, FD_MAX_FEE,
+		FD_MIN_FEE, SINGLE_LIMIT, TOTAL_LIMIT,
+		USE_TIME, DESCRIPTION, USETOTAL,
+		PROVINCE, PROVINCE_CODE, CITY,
+		CITY_CODE, MCC, MAIN_KEY,
+		PUBLIC_KEY, PRIVATE_KEY, SIGN_TYPE
+		)
+		values (#{channelMId,jdbcType=DECIMAL}, #{channelId,jdbcType=DECIMAL},
+		#{terminalId,jdbcType=VARCHAR},
+		#{merchantId,jdbcType=VARCHAR}, #{otherParam,jdbcType=VARCHAR}, #{roleId,jdbcType=DECIMAL},
+		#{status,jdbcType=DECIMAL}, #{feeRate,jdbcType=DECIMAL},
+		#{fdMaxFee,jdbcType=DECIMAL},
+		#{fdMinFee,jdbcType=DECIMAL}, #{singleLimit,jdbcType=DECIMAL}, #{totalLimit,jdbcType=DECIMAL},
+		#{useTime,jdbcType=TIMESTAMP}, #{description,jdbcType=VARCHAR},
+		#{usetotal,jdbcType=DECIMAL},
+		#{province,jdbcType=VARCHAR}, #{provinceCode,jdbcType=DECIMAL}, #{city,jdbcType=VARCHAR},
+		#{cityCode,jdbcType=DECIMAL}, #{mcc,jdbcType=VARCHAR},
+		#{mainKey,jdbcType=VARCHAR},
+		#{publicKey,jdbcType=VARCHAR}, #{privateKey,jdbcType=VARCHAR}, #{signType,jdbcType=DECIMAL}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.zyzf.polymer.pay.channel.entity.PmsChannelM">
+		insert into PMS_CHANNEL_M
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="channelMId != null">
+				CHANNEL_M_ID,
+			</if>
+			<if test="channelId != null">
+				CHANNEL_ID,
+			</if>
+			<if test="terminalId != null">
+				TERMINAL_ID,
+			</if>
+			<if test="merchantId != null">
+				MERCHANT_ID,
+			</if>
+			<if test="otherParam != null">
+				OTHER_PARAM,
+			</if>
+			<if test="roleId != null">
+				ROLE_ID,
+			</if>
+			<if test="status != null">
+				STATUS,
+			</if>
+			<if test="feeRate != null">
+				FEE_RATE,
+			</if>
+			<if test="fdMaxFee != null">
+				FD_MAX_FEE,
+			</if>
+			<if test="fdMinFee != null">
+				FD_MIN_FEE,
+			</if>
+			<if test="singleLimit != null">
+				SINGLE_LIMIT,
+			</if>
+			<if test="totalLimit != null">
+				TOTAL_LIMIT,
+			</if>
+			<if test="useTime != null">
+				USE_TIME,
+			</if>
+			<if test="description != null">
+				DESCRIPTION,
+			</if>
+			<if test="usetotal != null">
+				USETOTAL,
+			</if>
+			<if test="province != null">
+				PROVINCE,
+			</if>
+			<if test="provinceCode != null">
+				PROVINCE_CODE,
+			</if>
+			<if test="city != null">
+				CITY,
+			</if>
+			<if test="cityCode != null">
+				CITY_CODE,
+			</if>
+			<if test="mcc != null">
+				MCC,
+			</if>
+			<if test="mainKey != null">
+				MAIN_KEY,
+			</if>
+			<if test="publicKey != null">
+				PUBLIC_KEY,
+			</if>
+			<if test="privateKey != null">
+				PRIVATE_KEY,
+			</if>
+			<if test="signType != null">
+				SIGN_TYPE,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="channelMId != null">
+				#{channelMId,jdbcType=DECIMAL},
+			</if>
+			<if test="channelId != null">
+				#{channelId,jdbcType=DECIMAL},
+			</if>
+			<if test="terminalId != null">
+				#{terminalId,jdbcType=VARCHAR},
+			</if>
+			<if test="merchantId != null">
+				#{merchantId,jdbcType=VARCHAR},
+			</if>
+			<if test="otherParam != null">
+				#{otherParam,jdbcType=VARCHAR},
+			</if>
+			<if test="roleId != null">
+				#{roleId,jdbcType=DECIMAL},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=DECIMAL},
+			</if>
+			<if test="feeRate != null">
+				#{feeRate,jdbcType=DECIMAL},
+			</if>
+			<if test="fdMaxFee != null">
+				#{fdMaxFee,jdbcType=DECIMAL},
+			</if>
+			<if test="fdMinFee != null">
+				#{fdMinFee,jdbcType=DECIMAL},
+			</if>
+			<if test="singleLimit != null">
+				#{singleLimit,jdbcType=DECIMAL},
+			</if>
+			<if test="totalLimit != null">
+				#{totalLimit,jdbcType=DECIMAL},
+			</if>
+			<if test="useTime != null">
+				#{useTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="description != null">
+				#{description,jdbcType=VARCHAR},
+			</if>
+			<if test="usetotal != null">
+				#{usetotal,jdbcType=DECIMAL},
+			</if>
+			<if test="province != null">
+				#{province,jdbcType=VARCHAR},
+			</if>
+			<if test="provinceCode != null">
+				#{provinceCode,jdbcType=DECIMAL},
+			</if>
+			<if test="city != null">
+				#{city,jdbcType=VARCHAR},
+			</if>
+			<if test="cityCode != null">
+				#{cityCode,jdbcType=DECIMAL},
+			</if>
+			<if test="mcc != null">
+				#{mcc,jdbcType=VARCHAR},
+			</if>
+			<if test="mainKey != null">
+				#{mainKey,jdbcType=VARCHAR},
+			</if>
+			<if test="publicKey != null">
+				#{publicKey,jdbcType=VARCHAR},
+			</if>
+			<if test="privateKey != null">
+				#{privateKey,jdbcType=VARCHAR},
+			</if>
+			<if test="signType != null">
+				#{signType,jdbcType=DECIMAL},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.zyzf.polymer.pay.channel.entity.PmsChannelM">
+		update PMS_CHANNEL_M
+		<set>
+			<if test="channelId != null">
+				CHANNEL_ID = #{channelId,jdbcType=DECIMAL},
+			</if>
+			<if test="terminalId != null">
+				TERMINAL_ID = #{terminalId,jdbcType=VARCHAR},
+			</if>
+			<if test="merchantId != null">
+				MERCHANT_ID = #{merchantId,jdbcType=VARCHAR},
+			</if>
+			<if test="otherParam != null">
+				OTHER_PARAM = #{otherParam,jdbcType=VARCHAR},
+			</if>
+			<if test="roleId != null">
+				ROLE_ID = #{roleId,jdbcType=DECIMAL},
+			</if>
+			<if test="status != null">
+				STATUS = #{status,jdbcType=DECIMAL},
+			</if>
+			<if test="feeRate != null">
+				FEE_RATE = #{feeRate,jdbcType=DECIMAL},
+			</if>
+			<if test="fdMaxFee != null">
+				FD_MAX_FEE = #{fdMaxFee,jdbcType=DECIMAL},
+			</if>
+			<if test="fdMinFee != null">
+				FD_MIN_FEE = #{fdMinFee,jdbcType=DECIMAL},
+			</if>
+			<if test="singleLimit != null">
+				SINGLE_LIMIT = #{singleLimit,jdbcType=DECIMAL},
+			</if>
+			<if test="totalLimit != null">
+				TOTAL_LIMIT = #{totalLimit,jdbcType=DECIMAL},
+			</if>
+			<if test="useTime != null">
+				USE_TIME = #{useTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="description != null">
+				DESCRIPTION = #{description,jdbcType=VARCHAR},
+			</if>
+			<if test="usetotal != null">
+				USETOTAL = #{usetotal,jdbcType=DECIMAL},
+			</if>
+			<if test="province != null">
+				PROVINCE = #{province,jdbcType=VARCHAR},
+			</if>
+			<if test="provinceCode != null">
+				PROVINCE_CODE = #{provinceCode,jdbcType=DECIMAL},
+			</if>
+			<if test="city != null">
+				CITY = #{city,jdbcType=VARCHAR},
+			</if>
+			<if test="cityCode != null">
+				CITY_CODE = #{cityCode,jdbcType=DECIMAL},
+			</if>
+			<if test="mcc != null">
+				MCC = #{mcc,jdbcType=VARCHAR},
+			</if>
+			<if test="mainKey != null">
+				MAIN_KEY = #{mainKey,jdbcType=VARCHAR},
+			</if>
+			<if test="publicKey != null">
+				PUBLIC_KEY = #{publicKey,jdbcType=VARCHAR},
+			</if>
+			<if test="privateKey != null">
+				PRIVATE_KEY = #{privateKey,jdbcType=VARCHAR},
+			</if>
+			<if test="signType != null">
+				SIGN_TYPE = #{signType,jdbcType=DECIMAL},
+			</if>
+		</set>
+		where CHANNEL_M_ID = #{channelMId,jdbcType=DECIMAL}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.zyzf.polymer.pay.channel.entity.PmsChannelM">
+		update PMS_CHANNEL_M
+		set CHANNEL_ID = #{channelId,jdbcType=DECIMAL},
+		TERMINAL_ID = #{terminalId,jdbcType=VARCHAR},
+		MERCHANT_ID = #{merchantId,jdbcType=VARCHAR},
+		OTHER_PARAM = #{otherParam,jdbcType=VARCHAR},
+		ROLE_ID = #{roleId,jdbcType=DECIMAL},
+		STATUS = #{status,jdbcType=DECIMAL},
+		FEE_RATE = #{feeRate,jdbcType=DECIMAL},
+		FD_MAX_FEE = #{fdMaxFee,jdbcType=DECIMAL},
+		FD_MIN_FEE = #{fdMinFee,jdbcType=DECIMAL},
+		SINGLE_LIMIT = #{singleLimit,jdbcType=DECIMAL},
+		TOTAL_LIMIT = #{totalLimit,jdbcType=DECIMAL},
+		USE_TIME = #{useTime,jdbcType=TIMESTAMP},
+		DESCRIPTION = #{description,jdbcType=VARCHAR},
+		USETOTAL = #{usetotal,jdbcType=DECIMAL},
+		PROVINCE = #{province,jdbcType=VARCHAR},
+		PROVINCE_CODE = #{provinceCode,jdbcType=DECIMAL},
+		CITY = #{city,jdbcType=VARCHAR},
+		CITY_CODE = #{cityCode,jdbcType=DECIMAL},
+		MCC = #{mcc,jdbcType=VARCHAR},
+		MAIN_KEY = #{mainKey,jdbcType=VARCHAR},
+		PUBLIC_KEY = #{publicKey,jdbcType=VARCHAR},
+		PRIVATE_KEY = #{privateKey,jdbcType=VARCHAR},
+		SIGN_TYPE = #{signType,jdbcType=DECIMAL}
+		where CHANNEL_M_ID = #{channelMId,jdbcType=DECIMAL}
+	</update>
+
+
+	<sql id="Where_Clause">
+		<if test="channelId != null ">
+			and CM.CHANNEL_ID = #{channelId,jdbcType=DECIMAL}
+		</if>
+		<if test="channelName != null and channelName!='' ">
+			and C.CHANNEL_NAME = #{channelName!=,jdbcType=VARCHAR}
+		</if>
+		<if test="tcode != null and tcode!=''">
+			and CM.TCODE = #{tcode,jdbcType=VARCHAR}
+		</if>
+		<if test="status != null ">
+			and CM.STATUS = #{status,jdbcType=DECIMAL}
+		</if>
+	</sql>
+	<select id="listPage" parameterType="java.util.Map" resultMap="BaseResultMap">
+		select
+		CM.CHANNEL_M_ID, CM.CHANNEL_ID,CM.TERMINAL_ID, CM.MERCHANT_ID , CM.OTHER_PARAM, CM.ROLE_ID,
+		CM.STATUS, CM.FEE_RATE,
+		CM.FD_MAX_FEE,CM.FD_MIN_FEE, CM.SINGLE_LIMIT, CM.TOTAL_LIMIT, CM.USE_TIME, CM.DESCRIPTION,
+		CM.USETOTAL,
+		CM.PROVINCE,CM.PROVINCE_CODE, CM.CITY, CM.CITY_CODE, CM.MCC, CM.MAIN_KEY, CM.PUBLIC_KEY,
+		CM.PRIVATE_KEY, CM.SIGN_TYPE,
+		C.CHANNEL_NAME
+		from PMS_CHANNEL_M CM
+		left join PMS_CHANNEL C on CM.CHANNEL_ID=C.CHANNEL_ID
+		<where>
+			<include refid="Where_Clause" />
+		</where>
+		order by CHANNEL_ID desc
+	</select>
+
+	<select id="listPageCount" parameterType="java.util.Map"
+		resultType="long">
+		select count(*) from PMS_CHANNEL_M CM
+		left join PMS_CHANNEL C on CM.CHANNEL_ID=C.CHANNEL_ID
+		<where>
+			<include refid="Where_Clause" />
+		</where>
+	</select>
+</mapper>

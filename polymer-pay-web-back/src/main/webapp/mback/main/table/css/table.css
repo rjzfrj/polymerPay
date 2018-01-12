@@ -1,0 +1,106 @@
+/* CSS Document */ 
+
+body { 
+    font: normal 11px auto "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif; 
+    color: #4f6b72; 
+    background: #E6EAE9;
+    text-align: center;
+    margin: 30px 0 30px 0;
+} 
+
+a { 
+    color: #c75f3e; 
+} 
+
+#mytable { 
+    width: 1148px; 
+    padding: 0; 
+    margin: 0;
+    MARGIN-RIGHT: auto;
+	MARGIN-LEFT: auto; 
+} 
+
+caption { 
+    padding: 0 0 5px 0; 
+    width: 1000px;      
+    font: italic 11px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif; 
+    text-align: left; 
+} 
+
+th { 
+    font: bold 11px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif; 
+    color: #4f6b72; 
+    border-right: 1px solid #C1DAD7; 
+    border-bottom: 1px solid #C1DAD7; 
+    border-top: 1px solid #C1DAD7; 
+    letter-spacing: 2px; 
+    text-transform: uppercase; 
+    text-align: center; 
+    padding: 6px 6px 6px 12px; 
+    background: #CAE8EA url(images/bg_header.jpg) no-repeat; 
+} 
+
+th.nobg { 
+    border-top: 0; 
+    border-left: 0; 
+    border-right: 1px solid #C1DAD7; 
+    background: none;
+} 
+
+td { 
+    border-right: 1px solid #C1DAD7; 
+    border-bottom: 1px solid #C1DAD7; 
+    background: #fff; 
+    font-size:11px; 
+    padding: 6px 6px 6px 12px; 
+    color: #4f6b72; 
+    width:170px;
+} 
+
+
+td.alt { 
+    background: #F5FAFA; 
+    color: #797268; 
+    width:170px;
+} 
+
+th.spec { 
+    border-left: 1px solid #C1DAD7; 
+    border-top: 0; 
+    background: #fff; 
+    font: bold 10px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+    width:125px;
+    text-align:center;
+} 
+
+th.specalt { 
+    border-left: 1px solid #C1DAD7; 
+    border-top: 0; 
+    background: #f5fafa url(images/bullet2.gif) no-repeat; 
+    font: bold 10px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif; 
+    color: #797268; 
+    width:125px;
+    text-align:center;
+}
+
+/************** 表单验证相关样式 ***************/
+.need {
+	width:10px;
+	color:#b20202;
+}
+
+.Validform_wrong{
+	color:red;
+	padding-left:20px;
+	white-space:nowrap;
+	background:url(../images/error.png) no-repeat left center;
+}
+
+.Validform_right {
+	color:#71b83d;
+	padding-left:20px;
+	white-space:nowrap;
+	background:url(../images/right.png) no-repeat left center;
+}
+/*---------for IE 5.x bug*/ 
+html>body td{ font-size:11px;} 

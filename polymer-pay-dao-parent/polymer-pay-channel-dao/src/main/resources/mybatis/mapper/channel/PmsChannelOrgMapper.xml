@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zyzf.polymer.pay.channel.dao.impl.PmsChannelOrgDaoImpl">
+
+	<resultMap id="BaseResultMap"
+		type="com.zyzf.polymer.pay.channel.entity.PmsChannelOrg">
+		<id column="CORG_ID" property="corgId" jdbcType="DECIMAL" />
+		<result column="NAME" property="name" jdbcType="VARCHAR" />
+		<result column="PROVINCE" property="province" jdbcType="DECIMAL" />
+		<result column="CITY" property="city" jdbcType="DECIMAL" />
+		<result column="ADDRESS" property="address" jdbcType="VARCHAR" />
+		<result column="MOBILE" property="mobile" jdbcType="VARCHAR" />
+		<result column="PHONE" property="phone" jdbcType="VARCHAR" />
+		<result column="LEGAL_NAME" property="legalName" jdbcType="VARCHAR" />
+		<result column="ID_CARD" property="idCard" jdbcType="VARCHAR" />
+		<result column="POST" property="post" jdbcType="VARCHAR" />
+		<result column="EMAIL" property="email" jdbcType="VARCHAR" />
+		<result column="SALESMAN" property="salesman" jdbcType="VARCHAR" />
+		<result column="STATUS" property="status" jdbcType="DECIMAL" />
+		<result column="REMARK" property="remark" jdbcType="VARCHAR" />
+		<result column="CREATE_USER" property="createUser" jdbcType="VARCHAR" />
+		<result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="EDITOR_USER" property="editorUser" jdbcType="VARCHAR" />
+		<result column="EDIT_TIME" property="editTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		CORG_ID, NAME, PROVINCE, CITY, ADDRESS, MOBILE, PHONE, LEGAL_NAME, ID_CARD,
+		POST,
+		EMAIL, SALESMAN, STATUS, REMARK, CREATE_USER, CREATE_TIME, EDITOR_USER,
+		EDIT_TIME
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from PMS_CHANNEL_ORG
+		where CORG_ID = #{corgId,jdbcType=DECIMAL}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from PMS_CHANNEL_ORG
+		where CORG_ID = #{corgId,jdbcType=DECIMAL}
+	</delete>
+	<insert id="insert" parameterType="com.zyzf.polymer.pay.channel.entity.PmsChannelOrg"
+		keyProperty="corgId" useGeneratedKeys="true">
+		<selectKey order="BEFORE" keyProperty="corgId" resultType="java.lang.Long">
+			SELECT SQC_PMS_CHANNEL_ORG.NEXTVAL AS corgId FROM DUAL
+		</selectKey>
+		insert into PMS_CHANNEL_ORG (CORG_ID, NAME, PROVINCE,
+		CITY, ADDRESS, MOBILE,
+		PHONE, LEGAL_NAME, ID_CARD,
+		POST, EMAIL, SALESMAN,
+		STATUS, REMARK, CREATE_USER,
+		CREATE_TIME, EDITOR_USER, EDIT_TIME
+		)
+		values (#{corgId,jdbcType=DECIMAL}, #{name,jdbcType=VARCHAR},
+		#{province,jdbcType=DECIMAL},
+		#{city,jdbcType=DECIMAL}, #{address,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR},
+		#{phone,jdbcType=VARCHAR}, #{legalName,jdbcType=VARCHAR},
+		#{idCard,jdbcType=VARCHAR},
+		#{post,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{salesman,jdbcType=VARCHAR},
+		#{status,jdbcType=DECIMAL}, #{remark,jdbcType=VARCHAR},
+		#{createUser,jdbcType=VARCHAR},
+		#{createTime,jdbcType=TIMESTAMP}, #{editorUser,jdbcType=VARCHAR}, #{editTime,jdbcType=TIMESTAMP}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.zyzf.polymer.pay.channel.entity.PmsChannelOrg">
+		insert into PMS_CHANNEL_ORG
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="corgId != null">
+				CORG_ID,
+			</if>
+			<if test="name != null">
+				NAME,
+			</if>
+			<if test="province != null">
+				PROVINCE,
+			</if>
+			<if test="city != null">
+				CITY,
+			</if>
+			<if test="address != null">
+				ADDRESS,
+			</if>
+			<if test="mobile != null">
+				MOBILE,
+			</if>
+			<if test="phone != null">
+				PHONE,
+			</if>
+			<if test="legalName != null">
+				LEGAL_NAME,
+			</if>
+			<if test="idCard != null">
+				ID_CARD,
+			</if>
+			<if test="post != null">
+				POST,
+			</if>
+			<if test="email != null">
+				EMAIL,
+			</if>
+			<if test="salesman != null">
+				SALESMAN,
+			</if>
+			<if test="status != null">
+				STATUS,
+			</if>
+			<if test="remark != null">
+				REMARK,
+			</if>
+			<if test="createUser != null">
+				CREATE_USER,
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME,
+			</if>
+			<if test="editorUser != null">
+				EDITOR_USER,
+			</if>
+			<if test="editTime != null">
+				EDIT_TIME,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="corgId != null">
+				#{corgId,jdbcType=DECIMAL},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="province != null">
+				#{province,jdbcType=DECIMAL},
+			</if>
+			<if test="city != null">
+				#{city,jdbcType=DECIMAL},
+			</if>
+			<if test="address != null">
+				#{address,jdbcType=VARCHAR},
+			</if>
+			<if test="mobile != null">
+				#{mobile,jdbcType=VARCHAR},
+			</if>
+			<if test="phone != null">
+				#{phone,jdbcType=VARCHAR},
+			</if>
+			<if test="legalName != null">
+				#{legalName,jdbcType=VARCHAR},
+			</if>
+			<if test="idCard != null">
+				#{idCard,jdbcType=VARCHAR},
+			</if>
+			<if test="post != null">
+				#{post,jdbcType=VARCHAR},
+			</if>
+			<if test="email != null">
+				#{email,jdbcType=VARCHAR},
+			</if>
+			<if test="salesman != null">
+				#{salesman,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=DECIMAL},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="createUser != null">
+				#{createUser,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="editorUser != null">
+				#{editorUser,jdbcType=VARCHAR},
+			</if>
+			<if test="editTime != null">
+				#{editTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.zyzf.polymer.pay.channel.entity.PmsChannelOrg">
+		update PMS_CHANNEL_ORG
+		<set>
+			<if test="name != null">
+				NAME = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="province != null">
+				PROVINCE = #{province,jdbcType=DECIMAL},
+			</if>
+			<if test="city != null">
+				CITY = #{city,jdbcType=DECIMAL},
+			</if>
+			<if test="address != null">
+				ADDRESS = #{address,jdbcType=VARCHAR},
+			</if>
+			<if test="mobile != null">
+				MOBILE = #{mobile,jdbcType=VARCHAR},
+			</if>
+			<if test="phone != null">
+				PHONE = #{phone,jdbcType=VARCHAR},
+			</if>
+			<if test="legalName != null">
+				LEGAL_NAME = #{legalName,jdbcType=VARCHAR},
+			</if>
+			<if test="idCard != null">
+				ID_CARD = #{idCard,jdbcType=VARCHAR},
+			</if>
+			<if test="post != null">
+				POST = #{post,jdbcType=VARCHAR},
+			</if>
+			<if test="email != null">
+				EMAIL = #{email,jdbcType=VARCHAR},
+			</if>
+			<if test="salesman != null">
+				SALESMAN = #{salesman,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				STATUS = #{status,jdbcType=DECIMAL},
+			</if>
+			<if test="remark != null">
+				REMARK = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="createUser != null">
+				CREATE_USER = #{createUser,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="editorUser != null">
+				EDITOR_USER = #{editorUser,jdbcType=VARCHAR},
+			</if>
+			<if test="editTime != null">
+				EDIT_TIME = #{editTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where CORG_ID = #{corgId,jdbcType=DECIMAL}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.zyzf.polymer.pay.channel.entity.PmsChannelOrg">
+		update PMS_CHANNEL_ORG
+		set NAME = #{name,jdbcType=VARCHAR},
+		PROVINCE = #{province,jdbcType=DECIMAL},
+		CITY = #{city,jdbcType=DECIMAL},
+		ADDRESS = #{address,jdbcType=VARCHAR},
+		MOBILE = #{mobile,jdbcType=VARCHAR},
+		PHONE = #{phone,jdbcType=VARCHAR},
+		LEGAL_NAME = #{legalName,jdbcType=VARCHAR},
+		ID_CARD = #{idCard,jdbcType=VARCHAR},
+		POST = #{post,jdbcType=VARCHAR},
+		EMAIL = #{email,jdbcType=VARCHAR},
+		SALESMAN = #{salesman,jdbcType=VARCHAR},
+		STATUS = #{status,jdbcType=DECIMAL},
+		REMARK = #{remark,jdbcType=VARCHAR},
+		CREATE_USER = #{createUser,jdbcType=VARCHAR},
+		CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+		EDITOR_USER = #{editorUser,jdbcType=VARCHAR},
+		EDIT_TIME = #{editTime,jdbcType=TIMESTAMP}
+		where CORG_ID = #{corgId,jdbcType=DECIMAL}
+	</update>
+	<sql id="Where_Clause">
+		<if test="corgId != null"> AND CORG_ID= #{corgId,jdbcType=DECIMAL}</if>
+		<if test="name != null and name != ''"> AND NAME =#{name,jdbcType=VARCHAR}</if>
+		<if test="status != null "> AND STATUS = #{status,jdbcType=DECIMAL}</if>
+	</sql>
+
+	<select id="listPage" parameterType="java.util.Map" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from PMS_CHANNEL_ORG
+		<where>
+			<include refid="Where_Clause" />
+		</where>
+		order by CORG_ID desc
+	</select>
+
+	<select id="listPageCount" parameterType="java.util.Map"
+		resultType="long">
+		SELECT COUNT(*) FROM
+		PMS_CHANNEL_ORG
+		<where>
+			<include refid="Where_Clause" />
+		</where>
+	</select>
+
+	<resultMap id="ResultMapSelective"
+		type="com.zyzf.polymer.pay.channel.entity.PmsChannelOrg">
+		<id column="CORG_ID" property="corgId" jdbcType="DECIMAL" />
+		<result column="NAME" property="name" jdbcType="VARCHAR" />
+	</resultMap>
+	<select id="selectChannelList" resultMap="ResultMapSelective">
+		SELECT CORG_ID, NAME
+		FROM PMS_CHANNEL_ORG CO WHERE CO.STATUS=1
+	</select>
+</mapper>

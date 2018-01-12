@@ -1,0 +1,812 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zyzf.polymer.pay.tran.dao.impl.PmsScanOrderDaoImpl">
+	<resultMap id="BaseResultMap" type="com.zyzf.polymer.pay.tran.entity.PmsScanOrder">
+		<id column="TRANS_ID" property="transId" jdbcType="VARCHAR" />
+		<result column="ORG_ID" property="orgId" jdbcType="DECIMAL" />
+		<result column="CLIENT_TYPE" property="clientType" jdbcType="DECIMAL" />
+		<result column="MCODE" property="mcode" jdbcType="VARCHAR" />
+		<result column="TCODE" property="tcode" jdbcType="VARCHAR" />
+		<result column="MERCHANT_ORDER_ID" property="merchantOrderId" jdbcType="VARCHAR" />
+		<result column="MERCHANT_ORDER_TIME" property="merchantOrderTime" jdbcType="TIMESTAMP" />
+		<result column="ORDER_TYPE_ID" property="orderTypeId" jdbcType="DECIMAL" />
+		<result column="PAY_CHANNEL_TYPE" property="payChannelType" jdbcType="DECIMAL" />
+		<result column="CLEAR_TYPE" property="clearType" jdbcType="DECIMAL" />
+		<result column="CLEAR_MCODE_TYPE" property="clearMcodeType" jdbcType="DECIMAL" />
+		<result column="TRADE_TYPE" property="tradeType" jdbcType="DECIMAL" />
+		<result column="TRANS_MONEY" property="transMoney" jdbcType="DECIMAL" />
+		<result column="FEE_MONEY" property="feeMoney" jdbcType="DECIMAL" />
+		<result column="FEE_RATE" property="feeRate" jdbcType="DECIMAL" />
+		<result column="CHARGE_AMOUNT" property="chargeAmount" jdbcType="DECIMAL" />
+		<result column="IP" property="ip" jdbcType="VARCHAR" />
+		<result column="CLIENT_INFO" property="clientInfo" jdbcType="VARCHAR" />
+		<result column="REMARK" property="remark" jdbcType="VARCHAR" />
+		<result column="STATUS" property="status" jdbcType="DECIMAL" />
+		<result column="CHANNEL_ID" property="channelId" jdbcType="DECIMAL" />
+		<result column="BANK_ORDER_NUM" property="bankOrderNum" jdbcType="VARCHAR" />
+		<result column="QRCODE_URL" property="qrcodeUrl" jdbcType="VARCHAR" />
+		<result column="QRCODE_IMG_URL" property="qrcodeImgUrl" jdbcType="VARCHAR" />
+		<result column="AUTH_CODE" property="authCode" jdbcType="VARCHAR" />
+		<result column="ORG_TRANS_ID" property="orgTransId" jdbcType="VARCHAR" />
+		<result column="THIRD_ORDER_NUM" property="thirdOrderNum" jdbcType="VARCHAR" />
+		<result column="BANK_TYPE" property="bankType" jdbcType="VARCHAR" />
+		<result column="BANK_BILL_NO" property="bankBillNo" jdbcType="VARCHAR" />
+		<result column="COUPON_FEE" property="couponFee" jdbcType="VARCHAR" />
+		<result column="REFUND_CHANNEL" property="refundChannel" jdbcType="VARCHAR" />
+		<result column="CARD_TYPE" property="cardType" jdbcType="DECIMAL" />
+		<result column="OPENING_BANK" property="openingBank" jdbcType="VARCHAR" />
+		<result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="CREATE_LONG_TIME" property="createLongTime" jdbcType="DECIMAL" />
+		<result column="EDIT_TIME" property="editTime" jdbcType="TIMESTAMP" />
+		<result column="EDIT_LONG_TIME" property="editLongTime" jdbcType="DECIMAL" />
+		<result column="PAY_DATE" property="payDate" jdbcType="TIMESTAMP" />
+		<result column="PAY_LONG_TIME" property="payLongTime" jdbcType="DECIMAL" />
+		<result column="MERCHANT_ID" property="merchantId" jdbcType="VARCHAR" />
+		<result column="TERMINAL_ID" property="terminalId" jdbcType="VARCHAR" />
+		<result column="SON_MCODE" property="sonMcode" jdbcType="VARCHAR" />
+		<result column="REQ_CODE" property="reqCode" jdbcType="VARCHAR" />
+		<result column="REQ_MSG" property="reqMsg" jdbcType="VARCHAR" />
+		<result column="NOTIFY_URL" property="notifyUrl" jdbcType="VARCHAR" />
+		<result column="NOTIFY_CNT" property="notifyCnt" jdbcType="DECIMAL" />
+		<result column="NOTIFY_STATUS" property="notifyStatus" jdbcType="DECIMAL" />
+		<result column="CALLBACK_DATE" property="callbackDate" jdbcType="TIMESTAMP" />
+		<result column="CALLBACK_LONG_TIME" property="callbackLongTime" jdbcType="DECIMAL" />
+		<result column="IS_INVESTIG" property="isInvestig" jdbcType="DECIMAL" />
+		<result column="MARKED_RED" property="markedRed" jdbcType="DECIMAL" />
+		<result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+		<result column="ISS_STATUS" property="issStatus" jdbcType="DECIMAL" />
+		<result column="ISS_REQ_CODE" property="issReqCode" jdbcType="VARCHAR" />
+		<result column="ISS_REQ_MSG" property="issReqMsg" jdbcType="VARCHAR" />
+		<result column="REVENUE_FEE_MONEY" property="revenueFeeMoney" jdbcType="DECIMAL" />
+		<result column="RECEIVABLE_MONEY" property="receivableMoney" jdbcType="DECIMAL" />
+		<result column="MAORI" property="maori" jdbcType="DECIMAL" />
+		<result column="OTHER_PARAM" property="otherParam" jdbcType="VARCHAR" />
+		<result column="MER_NAME" property="merName" jdbcType="VARCHAR" />
+		<result column="CHANNEL_NAME" property="channelName" jdbcType="VARCHAR" />
+		<result column="ORGNAME" property="orgName" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		TRANS_ID, ORG_ID, CLIENT_TYPE, MCODE, TCODE, MERCHANT_ORDER_ID,
+		MERCHANT_ORDER_TIME,
+		ORDER_TYPE_ID, PAY_CHANNEL_TYPE, CLEAR_TYPE, CLEAR_MCODE_TYPE, TRADE_TYPE,
+		TRANS_MONEY,
+		FEE_MONEY, FEE_RATE, CHARGE_AMOUNT, IP, CLIENT_INFO, REMARK, STATUS, CHANNEL_ID,
+		BANK_ORDER_NUM, QRCODE_URL, QRCODE_IMG_URL, AUTH_CODE, ORG_TRANS_ID,
+		THIRD_ORDER_NUM,
+		BANK_TYPE, BANK_BILL_NO, COUPON_FEE, REFUND_CHANNEL, CARD_TYPE, OPENING_BANK,
+		CREATE_TIME,
+		CREATE_LONG_TIME, EDIT_TIME, EDIT_LONG_TIME, PAY_DATE, PAY_LONG_TIME, MERCHANT_ID,
+		TERMINAL_ID, SON_MCODE, REQ_CODE, REQ_MSG, NOTIFY_URL, NOTIFY_CNT,
+		NOTIFY_STATUS,
+		CALLBACK_DATE, CALLBACK_LONG_TIME, IS_INVESTIG, MARKED_RED, DESCRIPTION, ISS_STATUS,
+		ISS_REQ_CODE, ISS_REQ_MSG, REVENUE_FEE_MONEY, RECEIVABLE_MONEY, MAORI,
+		OTHER_PARAM
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select S.*,M.MER_NAME,CH.CHANNEL_NAME,O.NAME from PMS_SCAN_ORDER S 
+			left join PMS_MERCHANT M  ON S.MCODE=M.MCODE
+			left join PMS_CHANNEL CH on CH.CHANNEL_ID=S.CHANNEL_ID
+			left join  PMS_ORGANIZATION O on S.ORG_ID=O.ORG_ID
+		where TRANS_ID = #{transId,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from PMS_SCAN_ORDER
+		where TRANS_ID = #{transId,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.zyzf.polymer.pay.tran.entity.PmsScanOrder">
+		insert into PMS_SCAN_ORDER (TRANS_ID, ORG_ID, CLIENT_TYPE,
+		MCODE, TCODE, MERCHANT_ORDER_ID,
+		MERCHANT_ORDER_TIME, ORDER_TYPE_ID, PAY_CHANNEL_TYPE,
+		CLEAR_TYPE, CLEAR_MCODE_TYPE, TRADE_TYPE,
+		TRANS_MONEY, FEE_MONEY, FEE_RATE,
+		CHARGE_AMOUNT, IP, CLIENT_INFO,
+		REMARK, STATUS, CHANNEL_ID,
+		BANK_ORDER_NUM, QRCODE_URL, QRCODE_IMG_URL,
+		AUTH_CODE, ORG_TRANS_ID, THIRD_ORDER_NUM,
+		BANK_TYPE, BANK_BILL_NO, COUPON_FEE,
+		REFUND_CHANNEL, CARD_TYPE, OPENING_BANK,
+		CREATE_TIME, CREATE_LONG_TIME, EDIT_TIME,
+		EDIT_LONG_TIME, PAY_DATE, PAY_LONG_TIME,
+		MERCHANT_ID, TERMINAL_ID, SON_MCODE,
+		REQ_CODE, REQ_MSG, NOTIFY_URL,
+		NOTIFY_CNT, NOTIFY_STATUS, CALLBACK_DATE,
+		CALLBACK_LONG_TIME, IS_INVESTIG, MARKED_RED,
+		DESCRIPTION, ISS_STATUS, ISS_REQ_CODE,
+		ISS_REQ_MSG, REVENUE_FEE_MONEY, RECEIVABLE_MONEY,
+		MAORI, OTHER_PARAM)
+		values (#{transId,jdbcType=VARCHAR}, #{orgId,jdbcType=DECIMAL},
+		#{clientType,jdbcType=DECIMAL},
+		#{mcode,jdbcType=VARCHAR}, #{tcode,jdbcType=VARCHAR}, #{merchantOrderId,jdbcType=VARCHAR},
+		#{merchantOrderTime,jdbcType=TIMESTAMP},
+		#{orderTypeId,jdbcType=DECIMAL}, #{payChannelType,jdbcType=DECIMAL},
+		#{clearType,jdbcType=DECIMAL}, #{clearMcodeType,jdbcType=DECIMAL},
+		#{tradeType,jdbcType=DECIMAL},
+		#{transMoney,jdbcType=DECIMAL}, #{feeMoney,jdbcType=DECIMAL}, #{feeRate,jdbcType=DECIMAL},
+		#{chargeAmount,jdbcType=DECIMAL}, #{ip,jdbcType=VARCHAR},
+		#{clientInfo,jdbcType=VARCHAR},
+		#{remark,jdbcType=VARCHAR}, #{status,jdbcType=DECIMAL}, #{channelId,jdbcType=DECIMAL},
+		#{bankOrderNum,jdbcType=VARCHAR}, #{qrcodeUrl,jdbcType=VARCHAR},
+		#{qrcodeImgUrl,jdbcType=VARCHAR},
+		#{authCode,jdbcType=VARCHAR}, #{orgTransId,jdbcType=VARCHAR}, #{thirdOrderNum,jdbcType=VARCHAR},
+		#{bankType,jdbcType=VARCHAR}, #{bankBillNo,jdbcType=VARCHAR},
+		#{couponFee,jdbcType=VARCHAR},
+		#{refundChannel,jdbcType=VARCHAR}, #{cardType,jdbcType=DECIMAL}, #{openingBank,jdbcType=VARCHAR},
+		#{createTime,jdbcType=TIMESTAMP}, #{createLongTime,jdbcType=DECIMAL},
+		#{editTime,jdbcType=TIMESTAMP},
+		#{editLongTime,jdbcType=DECIMAL}, #{payDate,jdbcType=TIMESTAMP}, #{payLongTime,jdbcType=DECIMAL},
+		#{merchantId,jdbcType=VARCHAR}, #{terminalId,jdbcType=VARCHAR},
+		#{sonMcode,jdbcType=VARCHAR},
+		#{reqCode,jdbcType=VARCHAR}, #{reqMsg,jdbcType=VARCHAR}, #{notifyUrl,jdbcType=VARCHAR},
+		#{notifyCnt,jdbcType=DECIMAL}, #{notifyStatus,jdbcType=DECIMAL},
+		#{callbackDate,jdbcType=TIMESTAMP},
+		#{callbackLongTime,jdbcType=DECIMAL}, #{isInvestig,jdbcType=DECIMAL},
+		#{markedRed,jdbcType=DECIMAL},
+		#{description,jdbcType=VARCHAR}, #{issStatus,jdbcType=DECIMAL}, #{issReqCode,jdbcType=VARCHAR},
+		#{issReqMsg,jdbcType=VARCHAR}, #{revenueFeeMoney,jdbcType=DECIMAL},
+		#{receivableMoney,jdbcType=DECIMAL},
+		#{maori,jdbcType=DECIMAL}, #{otherParam,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.zyzf.polymer.pay.tran.entity.PmsScanOrder">
+		insert into PMS_SCAN_ORDER
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="transId != null">
+				TRANS_ID,
+			</if>
+			<if test="orgId != null">
+				ORG_ID,
+			</if>
+			<if test="clientType != null">
+				CLIENT_TYPE,
+			</if>
+			<if test="mcode != null">
+				MCODE,
+			</if>
+			<if test="tcode != null">
+				TCODE,
+			</if>
+			<if test="merchantOrderId != null">
+				MERCHANT_ORDER_ID,
+			</if>
+			<if test="merchantOrderTime != null">
+				MERCHANT_ORDER_TIME,
+			</if>
+			<if test="orderTypeId != null">
+				ORDER_TYPE_ID,
+			</if>
+			<if test="payChannelType != null">
+				PAY_CHANNEL_TYPE,
+			</if>
+			<if test="clearType != null">
+				CLEAR_TYPE,
+			</if>
+			<if test="clearMcodeType != null">
+				CLEAR_MCODE_TYPE,
+			</if>
+			<if test="tradeType != null">
+				TRADE_TYPE,
+			</if>
+			<if test="transMoney != null">
+				TRANS_MONEY,
+			</if>
+			<if test="feeMoney != null">
+				FEE_MONEY,
+			</if>
+			<if test="feeRate != null">
+				FEE_RATE,
+			</if>
+			<if test="chargeAmount != null">
+				CHARGE_AMOUNT,
+			</if>
+			<if test="ip != null">
+				IP,
+			</if>
+			<if test="clientInfo != null">
+				CLIENT_INFO,
+			</if>
+			<if test="remark != null">
+				REMARK,
+			</if>
+			<if test="status != null">
+				STATUS,
+			</if>
+			<if test="channelId != null">
+				CHANNEL_ID,
+			</if>
+			<if test="bankOrderNum != null">
+				BANK_ORDER_NUM,
+			</if>
+			<if test="qrcodeUrl != null">
+				QRCODE_URL,
+			</if>
+			<if test="qrcodeImgUrl != null">
+				QRCODE_IMG_URL,
+			</if>
+			<if test="authCode != null">
+				AUTH_CODE,
+			</if>
+			<if test="orgTransId != null">
+				ORG_TRANS_ID,
+			</if>
+			<if test="thirdOrderNum != null">
+				THIRD_ORDER_NUM,
+			</if>
+			<if test="bankType != null">
+				BANK_TYPE,
+			</if>
+			<if test="bankBillNo != null">
+				BANK_BILL_NO,
+			</if>
+			<if test="couponFee != null">
+				COUPON_FEE,
+			</if>
+			<if test="refundChannel != null">
+				REFUND_CHANNEL,
+			</if>
+			<if test="cardType != null">
+				CARD_TYPE,
+			</if>
+			<if test="openingBank != null">
+				OPENING_BANK,
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME,
+			</if>
+			<if test="createLongTime != null">
+				CREATE_LONG_TIME,
+			</if>
+			<if test="editTime != null">
+				EDIT_TIME,
+			</if>
+			<if test="editLongTime != null">
+				EDIT_LONG_TIME,
+			</if>
+			<if test="payDate != null">
+				PAY_DATE,
+			</if>
+			<if test="payLongTime != null">
+				PAY_LONG_TIME,
+			</if>
+			<if test="merchantId != null">
+				MERCHANT_ID,
+			</if>
+			<if test="terminalId != null">
+				TERMINAL_ID,
+			</if>
+			<if test="sonMcode != null">
+				SON_MCODE,
+			</if>
+			<if test="reqCode != null">
+				REQ_CODE,
+			</if>
+			<if test="reqMsg != null">
+				REQ_MSG,
+			</if>
+			<if test="notifyUrl != null">
+				NOTIFY_URL,
+			</if>
+			<if test="notifyCnt != null">
+				NOTIFY_CNT,
+			</if>
+			<if test="notifyStatus != null">
+				NOTIFY_STATUS,
+			</if>
+			<if test="callbackDate != null">
+				CALLBACK_DATE,
+			</if>
+			<if test="callbackLongTime != null">
+				CALLBACK_LONG_TIME,
+			</if>
+			<if test="isInvestig != null">
+				IS_INVESTIG,
+			</if>
+			<if test="markedRed != null">
+				MARKED_RED,
+			</if>
+			<if test="description != null">
+				DESCRIPTION,
+			</if>
+			<if test="issStatus != null">
+				ISS_STATUS,
+			</if>
+			<if test="issReqCode != null">
+				ISS_REQ_CODE,
+			</if>
+			<if test="issReqMsg != null">
+				ISS_REQ_MSG,
+			</if>
+			<if test="revenueFeeMoney != null">
+				REVENUE_FEE_MONEY,
+			</if>
+			<if test="receivableMoney != null">
+				RECEIVABLE_MONEY,
+			</if>
+			<if test="maori != null">
+				MAORI,
+			</if>
+			<if test="otherParam != null">
+				OTHER_PARAM,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="transId != null">
+				#{transId,jdbcType=VARCHAR},
+			</if>
+			<if test="orgId != null">
+				#{orgId,jdbcType=DECIMAL},
+			</if>
+			<if test="clientType != null">
+				#{clientType,jdbcType=DECIMAL},
+			</if>
+			<if test="mcode != null">
+				#{mcode,jdbcType=VARCHAR},
+			</if>
+			<if test="tcode != null">
+				#{tcode,jdbcType=VARCHAR},
+			</if>
+			<if test="merchantOrderId != null">
+				#{merchantOrderId,jdbcType=VARCHAR},
+			</if>
+			<if test="merchantOrderTime != null">
+				#{merchantOrderTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="orderTypeId != null">
+				#{orderTypeId,jdbcType=DECIMAL},
+			</if>
+			<if test="payChannelType != null">
+				#{payChannelType,jdbcType=DECIMAL},
+			</if>
+			<if test="clearType != null">
+				#{clearType,jdbcType=DECIMAL},
+			</if>
+			<if test="clearMcodeType != null">
+				#{clearMcodeType,jdbcType=DECIMAL},
+			</if>
+			<if test="tradeType != null">
+				#{tradeType,jdbcType=DECIMAL},
+			</if>
+			<if test="transMoney != null">
+				#{transMoney,jdbcType=DECIMAL},
+			</if>
+			<if test="feeMoney != null">
+				#{feeMoney,jdbcType=DECIMAL},
+			</if>
+			<if test="feeRate != null">
+				#{feeRate,jdbcType=DECIMAL},
+			</if>
+			<if test="chargeAmount != null">
+				#{chargeAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="ip != null">
+				#{ip,jdbcType=VARCHAR},
+			</if>
+			<if test="clientInfo != null">
+				#{clientInfo,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=DECIMAL},
+			</if>
+			<if test="channelId != null">
+				#{channelId,jdbcType=DECIMAL},
+			</if>
+			<if test="bankOrderNum != null">
+				#{bankOrderNum,jdbcType=VARCHAR},
+			</if>
+			<if test="qrcodeUrl != null">
+				#{qrcodeUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="qrcodeImgUrl != null">
+				#{qrcodeImgUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="authCode != null">
+				#{authCode,jdbcType=VARCHAR},
+			</if>
+			<if test="orgTransId != null">
+				#{orgTransId,jdbcType=VARCHAR},
+			</if>
+			<if test="thirdOrderNum != null">
+				#{thirdOrderNum,jdbcType=VARCHAR},
+			</if>
+			<if test="bankType != null">
+				#{bankType,jdbcType=VARCHAR},
+			</if>
+			<if test="bankBillNo != null">
+				#{bankBillNo,jdbcType=VARCHAR},
+			</if>
+			<if test="couponFee != null">
+				#{couponFee,jdbcType=VARCHAR},
+			</if>
+			<if test="refundChannel != null">
+				#{refundChannel,jdbcType=VARCHAR},
+			</if>
+			<if test="cardType != null">
+				#{cardType,jdbcType=DECIMAL},
+			</if>
+			<if test="openingBank != null">
+				#{openingBank,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createLongTime != null">
+				#{createLongTime,jdbcType=DECIMAL},
+			</if>
+			<if test="editTime != null">
+				#{editTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="editLongTime != null">
+				#{editLongTime,jdbcType=DECIMAL},
+			</if>
+			<if test="payDate != null">
+				#{payDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="payLongTime != null">
+				#{payLongTime,jdbcType=DECIMAL},
+			</if>
+			<if test="merchantId != null">
+				#{merchantId,jdbcType=VARCHAR},
+			</if>
+			<if test="terminalId != null">
+				#{terminalId,jdbcType=VARCHAR},
+			</if>
+			<if test="sonMcode != null">
+				#{sonMcode,jdbcType=VARCHAR},
+			</if>
+			<if test="reqCode != null">
+				#{reqCode,jdbcType=VARCHAR},
+			</if>
+			<if test="reqMsg != null">
+				#{reqMsg,jdbcType=VARCHAR},
+			</if>
+			<if test="notifyUrl != null">
+				#{notifyUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="notifyCnt != null">
+				#{notifyCnt,jdbcType=DECIMAL},
+			</if>
+			<if test="notifyStatus != null">
+				#{notifyStatus,jdbcType=DECIMAL},
+			</if>
+			<if test="callbackDate != null">
+				#{callbackDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="callbackLongTime != null">
+				#{callbackLongTime,jdbcType=DECIMAL},
+			</if>
+			<if test="isInvestig != null">
+				#{isInvestig,jdbcType=DECIMAL},
+			</if>
+			<if test="markedRed != null">
+				#{markedRed,jdbcType=DECIMAL},
+			</if>
+			<if test="description != null">
+				#{description,jdbcType=VARCHAR},
+			</if>
+			<if test="issStatus != null">
+				#{issStatus,jdbcType=DECIMAL},
+			</if>
+			<if test="issReqCode != null">
+				#{issReqCode,jdbcType=VARCHAR},
+			</if>
+			<if test="issReqMsg != null">
+				#{issReqMsg,jdbcType=VARCHAR},
+			</if>
+			<if test="revenueFeeMoney != null">
+				#{revenueFeeMoney,jdbcType=DECIMAL},
+			</if>
+			<if test="receivableMoney != null">
+				#{receivableMoney,jdbcType=DECIMAL},
+			</if>
+			<if test="maori != null">
+				#{maori,jdbcType=DECIMAL},
+			</if>
+			<if test="otherParam != null">
+				#{otherParam,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.zyzf.polymer.pay.tran.entity.PmsScanOrder">
+		update PMS_SCAN_ORDER
+		<set>
+			<if test="orgId != null">
+				ORG_ID = #{orgId,jdbcType=DECIMAL},
+			</if>
+			<if test="clientType != null">
+				CLIENT_TYPE = #{clientType,jdbcType=DECIMAL},
+			</if>
+			<if test="mcode != null">
+				MCODE = #{mcode,jdbcType=VARCHAR},
+			</if>
+			<if test="tcode != null">
+				TCODE = #{tcode,jdbcType=VARCHAR},
+			</if>
+			<if test="merchantOrderId != null">
+				MERCHANT_ORDER_ID = #{merchantOrderId,jdbcType=VARCHAR},
+			</if>
+			<if test="merchantOrderTime != null">
+				MERCHANT_ORDER_TIME = #{merchantOrderTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="orderTypeId != null">
+				ORDER_TYPE_ID = #{orderTypeId,jdbcType=DECIMAL},
+			</if>
+			<if test="payChannelType != null">
+				PAY_CHANNEL_TYPE = #{payChannelType,jdbcType=DECIMAL},
+			</if>
+			<if test="clearType != null">
+				CLEAR_TYPE = #{clearType,jdbcType=DECIMAL},
+			</if>
+			<if test="clearMcodeType != null">
+				CLEAR_MCODE_TYPE = #{clearMcodeType,jdbcType=DECIMAL},
+			</if>
+			<if test="tradeType != null">
+				TRADE_TYPE = #{tradeType,jdbcType=DECIMAL},
+			</if>
+			<if test="transMoney != null">
+				TRANS_MONEY = #{transMoney,jdbcType=DECIMAL},
+			</if>
+			<if test="feeMoney != null">
+				FEE_MONEY = #{feeMoney,jdbcType=DECIMAL},
+			</if>
+			<if test="feeRate != null">
+				FEE_RATE = #{feeRate,jdbcType=DECIMAL},
+			</if>
+			<if test="chargeAmount != null">
+				CHARGE_AMOUNT = #{chargeAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="ip != null">
+				IP = #{ip,jdbcType=VARCHAR},
+			</if>
+			<if test="clientInfo != null">
+				CLIENT_INFO = #{clientInfo,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				REMARK = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				STATUS = #{status,jdbcType=DECIMAL},
+			</if>
+			<if test="channelId != null">
+				CHANNEL_ID = #{channelId,jdbcType=DECIMAL},
+			</if>
+			<if test="bankOrderNum != null">
+				BANK_ORDER_NUM = #{bankOrderNum,jdbcType=VARCHAR},
+			</if>
+			<if test="qrcodeUrl != null">
+				QRCODE_URL = #{qrcodeUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="qrcodeImgUrl != null">
+				QRCODE_IMG_URL = #{qrcodeImgUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="authCode != null">
+				AUTH_CODE = #{authCode,jdbcType=VARCHAR},
+			</if>
+			<if test="orgTransId != null">
+				ORG_TRANS_ID = #{orgTransId,jdbcType=VARCHAR},
+			</if>
+			<if test="thirdOrderNum != null">
+				THIRD_ORDER_NUM = #{thirdOrderNum,jdbcType=VARCHAR},
+			</if>
+			<if test="bankType != null">
+				BANK_TYPE = #{bankType,jdbcType=VARCHAR},
+			</if>
+			<if test="bankBillNo != null">
+				BANK_BILL_NO = #{bankBillNo,jdbcType=VARCHAR},
+			</if>
+			<if test="couponFee != null">
+				COUPON_FEE = #{couponFee,jdbcType=VARCHAR},
+			</if>
+			<if test="refundChannel != null">
+				REFUND_CHANNEL = #{refundChannel,jdbcType=VARCHAR},
+			</if>
+			<if test="cardType != null">
+				CARD_TYPE = #{cardType,jdbcType=DECIMAL},
+			</if>
+			<if test="openingBank != null">
+				OPENING_BANK = #{openingBank,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createLongTime != null">
+				CREATE_LONG_TIME = #{createLongTime,jdbcType=DECIMAL},
+			</if>
+			<if test="editTime != null">
+				EDIT_TIME = #{editTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="editLongTime != null">
+				EDIT_LONG_TIME = #{editLongTime,jdbcType=DECIMAL},
+			</if>
+			<if test="payDate != null">
+				PAY_DATE = #{payDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="payLongTime != null">
+				PAY_LONG_TIME = #{payLongTime,jdbcType=DECIMAL},
+			</if>
+			<if test="merchantId != null">
+				MERCHANT_ID = #{merchantId,jdbcType=VARCHAR},
+			</if>
+			<if test="terminalId != null">
+				TERMINAL_ID = #{terminalId,jdbcType=VARCHAR},
+			</if>
+			<if test="sonMcode != null">
+				SON_MCODE = #{sonMcode,jdbcType=VARCHAR},
+			</if>
+			<if test="reqCode != null">
+				REQ_CODE = #{reqCode,jdbcType=VARCHAR},
+			</if>
+			<if test="reqMsg != null">
+				REQ_MSG = #{reqMsg,jdbcType=VARCHAR},
+			</if>
+			<if test="notifyUrl != null">
+				NOTIFY_URL = #{notifyUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="notifyCnt != null">
+				NOTIFY_CNT = #{notifyCnt,jdbcType=DECIMAL},
+			</if>
+			<if test="notifyStatus != null">
+				NOTIFY_STATUS = #{notifyStatus,jdbcType=DECIMAL},
+			</if>
+			<if test="callbackDate != null">
+				CALLBACK_DATE = #{callbackDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="callbackLongTime != null">
+				CALLBACK_LONG_TIME = #{callbackLongTime,jdbcType=DECIMAL},
+			</if>
+			<if test="isInvestig != null">
+				IS_INVESTIG = #{isInvestig,jdbcType=DECIMAL},
+			</if>
+			<if test="markedRed != null">
+				MARKED_RED = #{markedRed,jdbcType=DECIMAL},
+			</if>
+			<if test="description != null">
+				DESCRIPTION = #{description,jdbcType=VARCHAR},
+			</if>
+			<if test="issStatus != null">
+				ISS_STATUS = #{issStatus,jdbcType=DECIMAL},
+			</if>
+			<if test="issReqCode != null">
+				ISS_REQ_CODE = #{issReqCode,jdbcType=VARCHAR},
+			</if>
+			<if test="issReqMsg != null">
+				ISS_REQ_MSG = #{issReqMsg,jdbcType=VARCHAR},
+			</if>
+			<if test="revenueFeeMoney != null">
+				REVENUE_FEE_MONEY = #{revenueFeeMoney,jdbcType=DECIMAL},
+			</if>
+			<if test="receivableMoney != null">
+				RECEIVABLE_MONEY = #{receivableMoney,jdbcType=DECIMAL},
+			</if>
+			<if test="maori != null">
+				MAORI = #{maori,jdbcType=DECIMAL},
+			</if>
+			<if test="otherParam != null">
+				OTHER_PARAM = #{otherParam,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where TRANS_ID = #{transId,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.zyzf.polymer.pay.tran.entity.PmsScanOrder">
+		update PMS_SCAN_ORDER
+		set ORG_ID = #{orgId,jdbcType=DECIMAL},
+		CLIENT_TYPE = #{clientType,jdbcType=DECIMAL},
+		MCODE = #{mcode,jdbcType=VARCHAR},
+		TCODE = #{tcode,jdbcType=VARCHAR},
+		MERCHANT_ORDER_ID = #{merchantOrderId,jdbcType=VARCHAR},
+		MERCHANT_ORDER_TIME = #{merchantOrderTime,jdbcType=TIMESTAMP},
+		ORDER_TYPE_ID = #{orderTypeId,jdbcType=DECIMAL},
+		PAY_CHANNEL_TYPE = #{payChannelType,jdbcType=DECIMAL},
+		CLEAR_TYPE = #{clearType,jdbcType=DECIMAL},
+		CLEAR_MCODE_TYPE = #{clearMcodeType,jdbcType=DECIMAL},
+		TRADE_TYPE = #{tradeType,jdbcType=DECIMAL},
+		TRANS_MONEY = #{transMoney,jdbcType=DECIMAL},
+		FEE_MONEY = #{feeMoney,jdbcType=DECIMAL},
+		FEE_RATE = #{feeRate,jdbcType=DECIMAL},
+		CHARGE_AMOUNT = #{chargeAmount,jdbcType=DECIMAL},
+		IP = #{ip,jdbcType=VARCHAR},
+		CLIENT_INFO = #{clientInfo,jdbcType=VARCHAR},
+		REMARK = #{remark,jdbcType=VARCHAR},
+		STATUS = #{status,jdbcType=DECIMAL},
+		CHANNEL_ID = #{channelId,jdbcType=DECIMAL},
+		BANK_ORDER_NUM = #{bankOrderNum,jdbcType=VARCHAR},
+		QRCODE_URL = #{qrcodeUrl,jdbcType=VARCHAR},
+		QRCODE_IMG_URL = #{qrcodeImgUrl,jdbcType=VARCHAR},
+		AUTH_CODE = #{authCode,jdbcType=VARCHAR},
+		ORG_TRANS_ID = #{orgTransId,jdbcType=VARCHAR},
+		THIRD_ORDER_NUM = #{thirdOrderNum,jdbcType=VARCHAR},
+		BANK_TYPE = #{bankType,jdbcType=VARCHAR},
+		BANK_BILL_NO = #{bankBillNo,jdbcType=VARCHAR},
+		COUPON_FEE = #{couponFee,jdbcType=VARCHAR},
+		REFUND_CHANNEL = #{refundChannel,jdbcType=VARCHAR},
+		CARD_TYPE = #{cardType,jdbcType=DECIMAL},
+		OPENING_BANK = #{openingBank,jdbcType=VARCHAR},
+		CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+		CREATE_LONG_TIME = #{createLongTime,jdbcType=DECIMAL},
+		EDIT_TIME = #{editTime,jdbcType=TIMESTAMP},
+		EDIT_LONG_TIME = #{editLongTime,jdbcType=DECIMAL},
+		PAY_DATE = #{payDate,jdbcType=TIMESTAMP},
+		PAY_LONG_TIME = #{payLongTime,jdbcType=DECIMAL},
+		MERCHANT_ID = #{merchantId,jdbcType=VARCHAR},
+		TERMINAL_ID = #{terminalId,jdbcType=VARCHAR},
+		SON_MCODE = #{sonMcode,jdbcType=VARCHAR},
+		REQ_CODE = #{reqCode,jdbcType=VARCHAR},
+		REQ_MSG = #{reqMsg,jdbcType=VARCHAR},
+		NOTIFY_URL = #{notifyUrl,jdbcType=VARCHAR},
+		NOTIFY_CNT = #{notifyCnt,jdbcType=DECIMAL},
+		NOTIFY_STATUS = #{notifyStatus,jdbcType=DECIMAL},
+		CALLBACK_DATE = #{callbackDate,jdbcType=TIMESTAMP},
+		CALLBACK_LONG_TIME = #{callbackLongTime,jdbcType=DECIMAL},
+		IS_INVESTIG = #{isInvestig,jdbcType=DECIMAL},
+		MARKED_RED = #{markedRed,jdbcType=DECIMAL},
+		DESCRIPTION = #{description,jdbcType=VARCHAR},
+		ISS_STATUS = #{issStatus,jdbcType=DECIMAL},
+		ISS_REQ_CODE = #{issReqCode,jdbcType=VARCHAR},
+		ISS_REQ_MSG = #{issReqMsg,jdbcType=VARCHAR},
+		REVENUE_FEE_MONEY = #{revenueFeeMoney,jdbcType=DECIMAL},
+		RECEIVABLE_MONEY = #{receivableMoney,jdbcType=DECIMAL},
+		MAORI = #{maori,jdbcType=DECIMAL},
+		OTHER_PARAM = #{otherParam,jdbcType=VARCHAR}
+		where TRANS_ID = #{transId,jdbcType=VARCHAR}
+	</update>
+	
+	<sql id="Where_Clause">
+		<if test="transId != null and transId!=''"> 
+			AND S.TRANS_ID = #{transId,jdbcType=VARCHAR}
+		</if>
+		<if test="orgId != null"> 
+			AND S.ORG_ID = #{orgId,jdbcType=DECIMAL}
+		</if>
+		<if test="merchantOrderId != null and merchantOrderId!='' ">
+			AND S.MERCHANT_ORDER_ID = #{merchantOrderId,jdbcType=VARCHAR}
+		</if>
+		<if test="orderTypeId != null ">
+			AND S.ORDER_TYPE_ID = #{orderTypeId,jdbcType=DECIMAL}
+		</if>
+		<if test="status != null "> 
+			AND S.STATUS = #{status,jdbcType=DECIMAL}
+		</if>
+		<if test="mcode != null and mcode!='' ">
+			AND S.MCODE = #{mcode,jdbcType=VARCHAR}
+		</if>
+		<if test="tcode != null and tcode!='' ">
+			AND S.TCODE = #{tcode,jdbcType=VARCHAR}
+		</if>
+		<if test="channelId != null">
+			AND S.CHANNEL_ID = #{channelId,jdbcType=DECIMAL}
+		</if>
+		<if test="startDateCreate != null "> 
+			AND S.CREATE_TIME <![CDATA[>=]]> #{startDateCreate,jdbcType=TIMESTAMP}
+		</if>
+		<if test="endDateCreate != null "> 
+			AND S.CREATE_TIME <![CDATA[ <=]]> #{endDateCreate,jdbcType=TIMESTAMP}
+		</if>
+		<if test="startDateEdit != null "> 
+			AND S.EDIT_TIME <![CDATA[>=]]> #{startDateEdit,jdbcType=TIMESTAMP}
+		</if>
+		<if test="endDateEdit != null "> 
+			AND S.EDIT_TIME <![CDATA[ <=]]> #{endDateEdit,jdbcType=TIMESTAMP}
+		</if>
+	</sql>
+
+	<select id="listPage" parameterType="java.util.Map" resultMap="BaseResultMap">
+		select S.*,M.MER_NAME,CH.CHANNEL_NAME,O.NAME AS ORGNAME from PMS_SCAN_ORDER S 
+		left join PMS_MERCHANT M  ON S.MCODE=M.MCODE
+		left join PMS_CHANNEL CH on CH.CHANNEL_ID=S.CHANNEL_ID
+		LEFT JOIN PMS_ORGANIZATION O ON O.ORG_ID = S.ORG_ID
+		<where>
+			<include refid="Where_Clause" />
+		</where>
+		order by TRANS_ID desc
+	</select>
+
+	<select id="listPageCount" parameterType="java.util.Map"
+		resultType="long">
+		SELECT COUNT(*) FROM
+		PMS_SCAN_ORDER S
+		<where>
+			<include refid="Where_Clause" />
+		</where>
+	</select>
+</mapper>

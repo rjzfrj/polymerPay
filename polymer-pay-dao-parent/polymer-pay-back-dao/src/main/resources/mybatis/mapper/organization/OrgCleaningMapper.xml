@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zyzf.polymer.pay.organization.dao.impl.OrgCleaningDaoImpl">
+	<resultMap id="BaseResultMap"
+		type="com.zyzf.polymer.pay.organization.entity.OrgCleaning">
+		<result column="ORG_ID" property="orgId" jdbcType="DECIMAL" />
+	    <result column="CARDHOLDER" property="cardholder" jdbcType="VARCHAR" />
+	    <result column="CLEANTYPE" property="cleanType" jdbcType="DECIMAL" />
+	    <result column="OPENING_BANK" property="openingBank" jdbcType="VARCHAR" />
+	    <result column="BRANCHES_BANK" property="branchesBank" jdbcType="VARCHAR" />
+	    <result column="BBANK_PROVINCE" property="bbankProvince" jdbcType="DECIMAL" />
+	    <result column="BBANK_CITY" property="bbankCity" jdbcType="DECIMAL" />
+	    <result column="BANK_CARD" property="bankCard" jdbcType="VARCHAR" />
+	    <result column="FEE_RATE" property="feeRate" jdbcType="DECIMAL" />
+	    <result column="CLEAR_FEE" property="clearFee" jdbcType="DECIMAL" />
+	    <result column="MIN_FEE" property="minFee" jdbcType="DECIMAL" />
+	    <result column="MAX_FEE" property="maxFee" jdbcType="DECIMAL" />
+	    <result column="BRANCHES_BANKCODE" property="branchesBankCode" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<!-- 供organizationMap调用 -->
+	<resultMap id="organizationListMap" type="com.zyzf.polymer.pay.organization.entity.OrgCleaning">
+	    <result column="CARDHOLDER" property="cardholder" jdbcType="VARCHAR" />
+	    <result column="CLEANTYPE" property="cleanType" jdbcType="DECIMAL" />
+	    <result column="OPENING_BANK" property="openingBank" jdbcType="VARCHAR" />
+	    <result column="BRANCHES_BANK" property="branchesBank" jdbcType="VARCHAR" />
+	    <result column="BBANK_PROVINCE" property="bbankProvince" jdbcType="DECIMAL" />
+	    <result column="BBANK_CITY" property="bbankCity" jdbcType="DECIMAL" />
+	    <result column="BANK_CARD" property="bankCard" jdbcType="VARCHAR" />
+	    <result column="FEE_RATE" property="feeRate" jdbcType="DECIMAL" />
+	    <result column="CLEAR_FEE" property="clearFee" jdbcType="DECIMAL" />
+	    <result column="MIN_FEE" property="minFee" jdbcType="DECIMAL" />
+	    <result column="MAX_FEE" property="maxFee" jdbcType="DECIMAL" />
+	    <result column="BRANCHES_BANKCODE" property="branchesBankCode" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<resultMap id="cleaningResultMap" type="com.zyzf.polymer.pay.organization.entity.OrgCleaning">
+		<result column="FEE_RATE" property="feeRate" jdbcType="DECIMAL" />
+	    <result column="CLEAR_FEE" property="clearFee" jdbcType="DECIMAL" />
+	    <result column="MIN_FEE" property="minFee" jdbcType="DECIMAL" />
+	    <result column="MAX_FEE" property="maxFee" jdbcType="DECIMAL" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		ORG_ID, CARDHOLDER, CLEANTYPE, OPENING_BANK, BRANCHES_BANK, 
+		BBANK_PROVINCE, BBANK_CITY, BANK_CARD, FEE_RATE, CLEAR_FEE, 
+		MIN_FEE, MAX_FEE, BRANCHES_BANKCODE
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Long"
+		resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM PMS_ORG_CLEANING
+		WHERE ORG_ID = #{orgId,jdbcType=DECIMAL}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		DELETE FROM
+		PMS_ORG_CLEANING
+		WHERE ORG_ID = #{orgId,jdbcType=DECIMAL}
+	</delete>
+	<insert id="insert"
+		parameterType="com.zyzf.polymer.pay.organization.entity.OrgCleaning">
+		INSERT INTO PMS_ORG_CLEANING
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+	      <if test="orgId != null" >
+	        ORG_ID,
+	      </if>
+	      <if test="cardholder != null and cardholder != ''" >
+	        CARDHOLDER,
+	      </if>
+	      <if test="cleanType != null" >
+	        CLEANTYPE,
+	      </if>
+	      <if test="openingBank != null and openingBank != ''" >
+	        OPENING_BANK,
+	      </if>
+	      <if test="branchesBank != null and branchesBank != ''" >
+	        BRANCHES_BANK,
+	      </if>
+	      <if test="bbankProvince != null" >
+	        BBANK_PROVINCE,
+	      </if>
+	      <if test="bbankCity != null" >
+	        BBANK_CITY,
+	      </if>
+	      <if test="bankCard != null and bankCard != ''" >
+	        BANK_CARD,
+	      </if>
+	      <if test="feeRate != null" >
+	        FEE_RATE,
+	      </if>
+	      <if test="clearFee != null" >
+	        CLEAR_FEE,
+	      </if>
+	      <if test="minFee != null" >
+	        MIN_FEE,
+	      </if>
+	      <if test="maxFee != null" >
+	        MAX_FEE,
+	      </if>
+	      <if test="branchesBankCode != null and branchesBankCode != ''" >
+	        BRANCHES_BANKCODE,
+	      </if>
+	    </trim>
+	    <trim prefix="values (" suffix=")" suffixOverrides="," >
+	      <if test="orgId != null" >
+	        #{orgId,jdbcType=DECIMAL},
+	      </if>
+	      <if test="cardholder != null and cardholder != ''" >
+	        #{cardholder,jdbcType=VARCHAR},
+	      </if>
+	      <if test="cleanType != null" >
+	        #{cleanType,jdbcType=DECIMAL},
+	      </if>
+	      <if test="openingBank != null and openingBank != ''" >
+	        #{openingBank,jdbcType=VARCHAR},
+	      </if>
+	      <if test="branchesBank != null and branchesBank != ''" >
+	        #{branchesBank,jdbcType=VARCHAR},
+	      </if>
+	      <if test="bbankProvince != null" >
+	        #{bbankProvince,jdbcType=DECIMAL},
+	      </if>
+	      <if test="bbankCity != null" >
+	        #{bbankCity,jdbcType=DECIMAL},
+	      </if>
+	      <if test="bankCard != null and bankCard != ''" >
+	        #{bankCard,jdbcType=VARCHAR},
+	      </if>
+	      <if test="feeRate != null" >
+	        #{feeRate,jdbcType=DECIMAL},
+	      </if>
+	      <if test="clearFee != null" >
+	        #{clearFee,jdbcType=DECIMAL},
+	      </if>
+	      <if test="minFee != null" >
+	        #{minFee,jdbcType=DECIMAL},
+	      </if>
+	      <if test="maxFee != null" >
+	        #{maxFee,jdbcType=DECIMAL},
+	      </if>
+	      <if test="branchesBankCode != null and branchesBankCode != ''" >
+	        #{branchesBankCode,jdbcType=VARCHAR},
+	      </if>
+	    </trim>
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.zyzf.polymer.pay.organization.entity.OrgCleaning">
+		INSERT INTO PMS_ORG_CLEANING
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+	      <if test="orgId != null" >
+	        ORG_ID,
+	      </if>
+	      <if test="cardholder != null and cardholder != ''" >
+	        CARDHOLDER,
+	      </if>
+	      <if test="cleanType != null" >
+	        CLEANTYPE,
+	      </if>
+	      <if test="openingBank != null and openingBank != ''" >
+	        OPENING_BANK,
+	      </if>
+	      <if test="branchesBank != null and branchesBank != ''" >
+	        BRANCHES_BANK,
+	      </if>
+	      <if test="bbankProvince != null" >
+	        BBANK_PROVINCE,
+	      </if>
+	      <if test="bbankCity != null" >
+	        BBANK_CITY,
+	      </if>
+	      <if test="bankCard != null and bankCard != ''" >
+	        BANK_CARD,
+	      </if>
+	      <if test="feeRate != null" >
+	        FEE_RATE,
+	      </if>
+	      <if test="clearFee != null" >
+	        CLEAR_FEE,
+	      </if>
+	      <if test="minFee != null" >
+	        MIN_FEE,
+	      </if>
+	      <if test="maxFee != null" >
+	        MAX_FEE,
+	      </if>
+	      <if test="branchesBankCode != null and branchesBankCode != ''" >
+	        BRANCHES_BANKCODE,
+	      </if>
+	    </trim>
+	    <trim prefix="values (" suffix=")" suffixOverrides="," >
+	      <if test="orgId != null" >
+	        #{orgId,jdbcType=DECIMAL},
+	      </if>
+	      <if test="cardholder != null and cardholder != ''" >
+	        #{cardholder,jdbcType=VARCHAR},
+	      </if>
+	      <if test="cleanType != null" >
+	        #{cleanType,jdbcType=DECIMAL},
+	      </if>
+	      <if test="openingBank != null and openingBank != ''" >
+	        #{openingBank,jdbcType=VARCHAR},
+	      </if>
+	      <if test="branchesBank != null and branchesBank != ''" >
+	        #{branchesBank,jdbcType=VARCHAR},
+	      </if>
+	      <if test="bbankProvince != null" >
+	        #{bbankProvince,jdbcType=DECIMAL},
+	      </if>
+	      <if test="bbankCity != null" >
+	        #{bbankCity,jdbcType=DECIMAL},
+	      </if>
+	      <if test="bankCard != null and bankCard != ''" >
+	        #{bankCard,jdbcType=VARCHAR},
+	      </if>
+	      <if test="feeRate != null" >
+	        #{feeRate,jdbcType=DECIMAL},
+	      </if>
+	      <if test="clearFee != null" >
+	        #{clearFee,jdbcType=DECIMAL},
+	      </if>
+	      <if test="minFee != null" >
+	        #{minFee,jdbcType=DECIMAL},
+	      </if>
+	      <if test="maxFee != null" >
+	        #{maxFee,jdbcType=DECIMAL},
+	      </if>
+	      <if test="branchesBankCode != null and branchesBankCode != ''" >
+	        #{branchesBankCode,jdbcType=VARCHAR},
+	      </if>
+	    </trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.zyzf.polymer.pay.organization.entity.OrgCleaning">
+		UPDATE PMS_ORG_CLEANING
+		<set>
+			<if test="cardholder != null and cardholder != ''">
+				CARDHOLDER = #{cardholder,jdbcType=VARCHAR},
+			</if>
+			<if test="cleanType != null">
+				CLEANTYPE = #{cleanType,jdbcType=DECIMAL},
+			</if>
+			<if test="openingBank != null and openingBank != ''">
+				OPENING_BANK = #{openingBank,jdbcType=VARCHAR},
+			</if>
+			<if test="branchesBank != null and branchesBank != ''">
+				BRANCHES_BANK = #{branchesBank,jdbcType=VARCHAR},
+			</if>
+			<if test="bbankProvince != null">
+				BBANK_PROVINCE = #{bbankProvince,jdbcType=DECIMAL},
+			</if>
+			<if test="bbankCity != null">
+				BBANK_CITY = #{bbankCity,jdbcType=DECIMAL},
+			</if>
+			<if test="bankCard != null and bankCard != ''">
+				BANK_CARD = #{bankCard,jdbcType=VARCHAR},
+			</if>
+			<if test="feeRate != null">
+				FEE_RATE = #{feeRate,jdbcType=DECIMAL},
+			</if>
+			<if test="clearFee != null">
+				CLEAR_FEE = #{clearFee,jdbcType=DECIMAL},
+			</if>
+			<if test="minFee != null">
+				MIN_FEE = #{minFee,jdbcType=DECIMAL},
+			</if>
+			<if test="maxFee != null">
+				MAX_FEE = #{maxFee,jdbcType=DECIMAL},
+			</if>
+			<if test="branchesBankCode != null and branchesBankCode != ''">
+				BRANCHES_BANKCODE = #{branchesBankCode,jdbcType=VARCHAR},
+			</if>
+		</set>
+		WHERE ORG_ID = #{orgId,jdbcType=DECIMAL}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.zyzf.polymer.pay.organization.entity.OrgCleaning">
+		UPDATE PMS_ORG_CLEANING
+		<set>
+			<if test="cardholder != null and cardholder != ''">
+				CARDHOLDER = #{cardholder,jdbcType=VARCHAR},
+			</if>
+			<if test="cleanType != null">
+				CLEANTYPE = #{cleanType,jdbcType=DECIMAL},
+			</if>
+			<if test="openingBank != null and openingBank != ''">
+				OPENING_BANK = #{openingBank,jdbcType=VARCHAR},
+			</if>
+			<if test="branchesBank != null and branchesBank != ''">
+				BRANCHES_BANK = #{branchesBank,jdbcType=VARCHAR},
+			</if>
+			<if test="bbankProvince != null">
+				BBANK_PROVINCE = #{bbankProvince,jdbcType=DECIMAL},
+			</if>
+			<if test="bbankCity != null">
+				BBANK_CITY = #{bbankCity,jdbcType=DECIMAL},
+			</if>
+			<if test="bankCard != null and bankCard != ''">
+				BANK_CARD = #{bankCard,jdbcType=VARCHAR},
+			</if>
+			<if test="feeRate != null">
+				FEE_RATE = #{feeRate,jdbcType=DECIMAL},
+			</if>
+			<if test="clearFee != null">
+				CLEAR_FEE = #{clearFee,jdbcType=DECIMAL},
+			</if>
+			<if test="minFee != null">
+				MIN_FEE = #{minFee,jdbcType=DECIMAL},
+			</if>
+			<if test="maxFee != null">
+				MAX_FEE = #{maxFee,jdbcType=DECIMAL},
+			</if>
+			<if test="branchesBankCode != null and branchesBankCode != ''">
+				BRANCHES_BANKCODE = #{branchesBankCode,jdbcType=VARCHAR},
+			</if>
+		</set>
+		WHERE ORG_ID = #{orgId,jdbcType=DECIMAL}
+	</update>
+
+	<sql id="condition_sql">
+		<!-- Equal query -->
+		<if test="cardholder != null and cardholder != ''">
+			AND CARDHOLDER = #{cardholder,jdbcType=VARCHAR}
+		</if>
+		<if test="cleanType != null">
+			AND CLEANTYPE = #{cleanType,jdbcType=DECIMAL}
+		</if>
+		<if test="openingBank != null and openingBank != ''">
+			AND OPENING_BANK = #{openingBank,jdbcType=VARCHAR}
+		</if>
+		<if test="branchesBank != null and branchesBank != ''">
+			AND BRANCHES_BANK = #{branchesBank,jdbcType=VARCHAR}
+		</if>
+		<if test="bbankProvince != null">
+			AND BBANK_PROVINCE = #{bbankProvince,jdbcType=DECIMAL}
+		</if>
+		<if test="bbankCity != null">
+			AND BBANK_CITY = #{bbankCity,jdbcType=DECIMAL}
+		</if>
+		<if test="bankCard != null and bankCard != ''">
+			AND BANK_CARD = #{bankCard,jdbcType=VARCHAR}
+		</if>
+		<if test="feeRate != null">
+			AND FEE_RATE = #{feeRate,jdbcType=DECIMAL}
+		</if>
+		<if test="clearFee != null">
+			AND CLEAR_FEE = #{clearFee,jdbcType=DECIMAL}
+		</if>
+		<if test="minFee != null">
+			AND MIN_FEE = #{minFee,jdbcType=DECIMAL}
+		</if>
+		<if test="maxFee != null">
+			AND MAX_FEE = #{maxFee,jdbcType=DECIMAL}
+		</if>
+		<if test="branchesBankCode != null and branchesBankCode != ''">
+			AND BRANCHES_BANKCODE = #{branchesBankCode,jdbcType=VARCHAR}
+		</if>
+	</sql>
+	
+	<select id="getSonOrgMinCleans" parameterType="java.lang.String" resultMap="cleaningResultMap">
+		SELECT MIN(FEE_RATE) AS FEERATE, 
+			MIN(CLEAR_FEE) AS CLEARFEE, 
+			MIN(MIN_FEE) AS MINFEE, 
+			MIN(MAX_FEE) AS MAXFEE
+		FROM PMS_ORG_CLEANING
+		WHERE ORG_ID IN (${_parameter})
+	</select>
+</mapper>

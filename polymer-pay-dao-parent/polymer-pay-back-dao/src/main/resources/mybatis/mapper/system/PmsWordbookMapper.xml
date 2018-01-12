@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zyzf.polymer.pay.system.dao.impl.PmsWordbookDaoImpl">
+	<resultMap id="BaseResultMap"
+		type="com.zyzf.polymer.pay.system.entity.PmsWordbook">
+		<id column="ID" property="id" jdbcType="DECIMAL" />
+		<result column="TYPE" property="type" jdbcType="VARCHAR" />
+		<result column="NAME" property="name" jdbcType="VARCHAR" />
+		<result column="VALUE1" property="value1" jdbcType="VARCHAR" />
+		<result column="VALUE2" property="value2" jdbcType="VARCHAR" />
+		<result column="STATUS" property="status" jdbcType="DECIMAL" />
+		<result column="CREATE_USER" property="createUser" jdbcType="VARCHAR" />
+		<result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="EDITOR_USER" property="editorUser" jdbcType="VARCHAR" />
+		<result column="EDIT_TIME" property="editTime" jdbcType="TIMESTAMP" />
+		<result column="REMARK" property="remark" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID, TYPE, NAME, VALUE1, VALUE2, STATUS, CREATE_USER, CREATE_TIME,
+		EDITOR_USER, EDIT_TIME,
+		REMARK
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from PMS_WORDBOOK
+		where ID = #{id,jdbcType=DECIMAL}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from PMS_WORDBOOK
+		where ID = #{id,jdbcType=DECIMAL}
+	</delete>
+	<insert id="insert" parameterType="com.zyzf.polymer.pay.system.entity.PmsWordbook"
+		keyProperty="id" useGeneratedKeys="true">
+		<selectKey keyProperty="id" resultType="java.lang.Long"
+			order="BEFORE">
+			SELECT SQC_PMS_WORDBOOK.NEXTVAL AS ID FROM DUAL
+		</selectKey>
+		insert into PMS_WORDBOOK (ID, TYPE, NAME,
+		VALUE1, VALUE2, STATUS,
+		CREATE_USER, CREATE_TIME, EDITOR_USER,
+		EDIT_TIME, REMARK)
+		values (#{id,jdbcType=DECIMAL}, #{type,jdbcType=VARCHAR},
+		#{name,jdbcType=VARCHAR},
+		#{value1,jdbcType=VARCHAR}, #{value2,jdbcType=VARCHAR}, #{status,jdbcType=DECIMAL},
+		#{createUser,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
+		#{editorUser,jdbcType=VARCHAR},
+		#{editTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.zyzf.polymer.pay.system.entity.PmsWordbook">
+		insert into PMS_WORDBOOK
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="type != null">
+				TYPE,
+			</if>
+			<if test="name != null">
+				NAME,
+			</if>
+			<if test="value1 != null">
+				VALUE1,
+			</if>
+			<if test="value2 != null">
+				VALUE2,
+			</if>
+			<if test="status != null">
+				STATUS,
+			</if>
+			<if test="createUser != null">
+				CREATE_USER,
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME,
+			</if>
+			<if test="editorUser != null">
+				EDITOR_USER,
+			</if>
+			<if test="editTime != null">
+				EDIT_TIME,
+			</if>
+			<if test="remark != null">
+				REMARK,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=DECIMAL},
+			</if>
+			<if test="type != null">
+				#{type,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="value1 != null">
+				#{value1,jdbcType=VARCHAR},
+			</if>
+			<if test="value2 != null">
+				#{value2,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=DECIMAL},
+			</if>
+			<if test="createUser != null">
+				#{createUser,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="editorUser != null">
+				#{editorUser,jdbcType=VARCHAR},
+			</if>
+			<if test="editTime != null">
+				#{editTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.zyzf.polymer.pay.system.entity.PmsWordbook">
+		update PMS_WORDBOOK
+		<set>
+			<if test="type != null">
+				TYPE = #{type,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null">
+				NAME = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="value1 != null">
+				VALUE1 = #{value1,jdbcType=VARCHAR},
+			</if>
+			<if test="value2 != null">
+				VALUE2 = #{value2,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				STATUS = #{status,jdbcType=DECIMAL},
+			</if>
+			<if test="createUser != null">
+				CREATE_USER = #{createUser,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="editorUser != null">
+				EDITOR_USER = #{editorUser,jdbcType=VARCHAR},
+			</if>
+			<if test="editTime != null">
+				EDIT_TIME = #{editTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="remark != null">
+				REMARK = #{remark,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where ID = #{id,jdbcType=DECIMAL}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.zyzf.polymer.pay.system.entity.PmsWordbook">
+		update PMS_WORDBOOK
+		set TYPE = #{type,jdbcType=VARCHAR},
+		NAME = #{name,jdbcType=VARCHAR},
+		VALUE1 = #{value1,jdbcType=VARCHAR},
+		VALUE2 = #{value2,jdbcType=VARCHAR},
+		STATUS = #{status,jdbcType=DECIMAL},
+		CREATE_USER = #{createUser,jdbcType=VARCHAR},
+		CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+		EDITOR_USER = #{editorUser,jdbcType=VARCHAR},
+		EDIT_TIME = #{editTime,jdbcType=TIMESTAMP},
+		REMARK = #{remark,jdbcType=VARCHAR}
+		where ID = #{id,jdbcType=DECIMAL}
+	</update>
+	<sql id="Where_Clause">
+		<if test="type != null and type != ''"> and TYPE = #{type,jdbcType=VARCHAR}</if>
+		<if test="status != null"> and STATUS = #{status,jdbcType=DECIMAL}</if>
+		<if test="likeName != null and likeName != ''"> and NAME like CONCAT(CONCAT('%',#{likeName}), '%')</if>
+		<if test="likeRemark != null and likeRemark != ''"> and REMARK like CONCAT(CONCAT('%',#{likeRemark}), '%')</if>
+		<if test="value1 != null and value1 != ''"> and VALUE1 = #{value1,jdbcType=VARCHAR}</if>
+		<if test="value2 != null and value2 != ''"> and VALUE2 = #{value2,jdbcType=VARCHAR}</if>
+	</sql>
+	<select id="listPage" parameterType="java.util.Map" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from PMS_WORDBOOK
+		<where>
+			<include refid="Where_Clause" />
+		</where>
+		order by id desc
+	</select>
+
+	<select id="listPageCount" parameterType="java.util.Map"
+		resultType="long">
+		SELECT COUNT(ID) FROM
+		PMS_WORDBOOK
+		<where>
+			<include refid="Where_Clause" />
+		</where>
+	</select>
+	<!-- 更具类型查询字典列表 -->
+	<select id="selectWordbookListByType" resultMap="BaseResultMap">
+	
+		SELECT ID, TYPE, NAME, VALUE1, VALUE2, STATUS 
+		 FROM
+		PMS_WORDBOOK WHERE STATUS=1 AND TYPE = #{type,jdbcType=VARCHAR}
+		
+	</select>
+	
+	<!-- 批量删除真删除 -->
+	<delete id="batchDeleteByIds">
+		delete from PMS_WORDBOOK
+		where ID in 
+		<foreach item="item" collection="list" separator="," open="(" close=")" >
+			#{item}
+		</foreach>
+	</delete>
+	<!-- 批量假删除 -->
+	<update id="batchUpdateStatusByIds">
+		update PMS_WORDBOOK set STATUS=2 WHERE ID in 
+		<foreach item="item" collection="list" separator="," open="(" close=")" >
+			#{item}
+		</foreach>
+	</update>
+</mapper>

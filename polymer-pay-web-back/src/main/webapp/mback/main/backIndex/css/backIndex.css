@@ -1,0 +1,101 @@
+/*清除浮动*/
+.clear{
+	height:0px;
+	line-height:0px;
+	font-size:0px;
+	clear:both;
+	}
+.fright{ float:right}
+#wrap{ width:100%;}
+#header{ height:100px; background:url(../images/index-header-bg002.png) repeat-x;}
+.logo{ width:289px; height:100px; background:url(../images/index-logo001.png);}
+.headright{ width:159px; height:100px; background:url(../images/index-headright.png);}
+.logout{ width:40px; height:24px; margin-top:45px; color: #effaff; margin-right: 30px;}
+.logout:hover{ color: #000;}
+.personal_settings{ width:52px; height:17px; margin:45px 10px 0 0; color: #effaff;  border-right:1px solid #effaff; padding-right: 8px;}
+.personal_settings:hover{  color: #000;}
+.nav ul{ height:51px; overflow:hidden; color:#effaff}
+.nav li{ float:left; padding-top:27px; width:93px; height:51px; background:url(../images/index-nav-bg.png); text-align:center;}
+.nav li:hover{ background-position:0 -52px; cursor:pointer;}
+.nav li a{ color:#effaff}
+.nav li a:hover{ text-decoration:none}
+.nav .first{ background:url(../images/index-nav-firstbg.png);}
+.nav .first:hover{ background-position:0 -52px;}
+
+.nav-left{ width:34px; height:51px; background:url(../images/index-nav-left.png);}
+.nav-right{ width:34px; height:51px; background:url(../images/index-nav-right.png);}
+.subnav{ height:27px; background:url(../images/index-subnav-bg.gif)}
+.subnav .subnavLeft{ width:17px; height:27px; background:url(../images/index-subnav-left001.png)}
+.subnav .subnavRight{ width:17px; height:27px; background:url(../images/index-subnav-right001.png)}
+
+
+
+#content .space{ height:5px; font-size:0px; background:#066cae}
+#main-title{ font-family:Tahoma, Geneva, sans-serif; font-size:50px; text-align:center; color:#075587}
+#main-content{ font-family:Tahoma, Geneva, sans-serif; font-size:30px; text-align:center; color:#000;}
+#main-content b{ color:#F00;}
+
+#footer{ width:100%; height:26px; line-height:26px; background:url(../images/index-footer-bg001.png); text-align:center; color:#effaff;}
+
+/*6.5*/
+.upload{ margin:5px 5px 0 0}
+.download{ margin:5px 5px 0 0}
+.document{ margin:5px 5px 0 0}
+
+div#rMenu{ position:absolute; visibility:hidden; top:0; background-color: #EEEEEE;text-align: left;padding: 2px; font-size: 14px;}
+div#rMenu ul li{ margin: 1px 0; padding: 2px 5px; cursor: pointer; list-style: none outside none; background-color: #EEEEEE;}
+
+.divTable{ width: 265px; text-align: left; font-size: 12; line-height: 30px; Text-indent:30px;}
+.divTableTit{ font-size: 20px; color:#effaff; font-weight:bold; text-align: center; background-color: #3da9ff; line-height: 30px; Text-indent:0px;}
+
+/* 首页一级菜单 */
+.freshMenu{ margin-left: 10px; border: none; cursor:pointer;}
+.freshMenu5{ width: 70px; height: 80px; background:url(../images/index-header-ico0.png) no-repeat;}
+.freshMenu6{ width: 70px; height: 80px; background:url(../images/index-header-ico1.png) no-repeat;}
+.freshMenu13{ width: 70px; height: 80px; background:url(../images/index-header-ico2.png) no-repeat;}
+.freshMenu35{ width: 70px; height: 80px; background:url(../images/index-header-ico3.png) no-repeat;}
+.freshMenu165{ width: 70px; height: 80px; background:url(../images/index-header-ico4.png) no-repeat;}
+.freshMenu295{ width: 70px; height: 80px; background:url(../images/index-header-ico5.png) no-repeat;}
+.freshMenu395{ width: 70px; height: 80px; background:url(../images/index-header-ico6.png) no-repeat;}
+.freshMenu54{ width: 70px; height: 80px; background:url(../images/index-header-ico7.png) no-repeat;}
+.freshMenu429{ width: 70px; height: 80px; background:url(../images/index-header-ico8.png) no-repeat;}
+.freshMenu465{ width: 70px; height: 80px; background:url(../images/index-header-ico9.png) no-repeat;}
+
+.freshMenuNew5{background:url(../images/index-header-hoverico0.png) no-repeat;}
+.freshMenuNew6{background:url(../images/index-header-hoverico1.png) no-repeat;}
+.freshMenuNew13{background:url(../images/index-header-hoverico2.png) no-repeat;}
+.freshMenuNew35{background:url(../images/index-header-hoverico3.png) no-repeat;}
+.freshMenuNew165{background:url(../images/index-header-hoverico4.png) no-repeat;}
+.freshMenuNew295{background:url(../images/index-header-hoverico5.png) no-repeat;}
+.freshMenuNew395{background:url(../images/index-header-hoverico6.png) no-repeat;}
+.freshMenuNew54{background:url(../images/index-header-hoverico7.png) no-repeat;}
+.freshMenuNew429{background:url(../images/index-header-hoverico8.png) no-repeat;}
+.freshMenuNew465{background:url(../images/index-header-hoverico9.png) no-repeat;}
+
+.freshMenu5:hover{background:url(../images/index-header-hoverico0.png) no-repeat;}
+.freshMenu6:hover{background:url(../images/index-header-hoverico1.png) no-repeat;}
+.freshMenu13:hover{background:url(../images/index-header-hoverico2.png) no-repeat;}
+.freshMenu35:hover{background:url(../images/index-header-hoverico3.png) no-repeat;}
+.freshMenu165:hover{background:url(../images/index-header-hoverico4.png) no-repeat;}
+.freshMenu295:hover{background:url(../images/index-header-hoverico5.png) no-repeat;}
+.freshMenu395:hover{background:url(../images/index-header-hoverico6.png) no-repeat;}
+.freshMenu54:hover{background:url(../images/index-header-hoverico7.png) no-repeat;}
+.freshMenu429:hover{background:url(../images/index-header-hoverico8.png) no-repeat;}
+.freshMenu465:hover{background:url(../images/index-header-hoverico9.png) no-repeat;}
+
+.freshMenu5:active{background:url(../images/index-header-onclickico0.png) no-repeat;}
+.freshMenu6:active{background:url(../images/index-header-onclickico1.png) no-repeat;}
+.freshMenu13:active{background:url(../images/index-header-onclickico2.png) no-repeat;}
+.freshMenu35:active{background:url(../images/index-header-onclickico3.png) no-repeat;}
+.freshMenu165:active{background:url(../images/index-header-onclickico4.png) no-repeat;}
+.freshMenu295:active{background:url(../images/index-header-onclickico5.png) no-repeat;}
+.freshMenu395:active{background:url(../images/index-header-onclickico6.png) no-repeat;}
+.freshMenu54:active{background:url(../images/index-header-onclickico7.png) no-repeat;}
+.freshMenu429:active{background:url(../images/index-header-onclickico8.png) no-repeat;}
+.freshMenu465:active{background:url(../images/index-header-onclickico9.png) no-repeat;}
+
+.treeTableClsoe{ background: rgba(0, 0, 0, 0) url("../images/allbgs.png") no-repeat scroll -16px 0;width: 16px;display: inline-block;height: 13px; margin: 0;padding: 0;}
+.treeTableOpen{ background: rgba(0, 0, 0, 0) url("../images/allbgs.png") no-repeat scroll -32px 0;width: 16px;display: inline-block;height: 13px; margin: 0;padding: 0;}
+.treeOpen{ background: rgba(0, 0, 0, 0) url("../images/leaf.png") no-repeat scroll -95px -73px;width: 16px;display: inline-block;height: 13px; margin: 0;padding: 0;}
+.treeClose{ background: rgba(0, 0, 0, 0) url("../images/leaf.png") no-repeat scroll -78px -73px;width: 16px;display: inline-block;height: 13px; margin: 0;padding: 0;}
+.sonline{ background:url(../images/line_conn_02.gif) repeat-y scroll 0 0 ;width: 16px; display: inline-block;height: 13px;margin: 0;padding: 0;}

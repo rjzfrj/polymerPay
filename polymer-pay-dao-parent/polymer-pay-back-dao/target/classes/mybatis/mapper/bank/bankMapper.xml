@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zyzf.polymer.pay.bank.dao.BankDao">
+	<!-- 自定义返回结果集 -->
+    <resultMap id="bankResult" type="com.zyzf.polymer.pay.bank.entity.Bank">
+		<id property="id" column="id" javaType="java.lang.Long"></id>
+		<result column="name" property="name" javaType="java.lang.String"/>
+		<result column="code" property="code" javaType="java.lang.String"/>
+		<result column="description" property="description" javaType="java.lang.String"/>
+		<result column="create_Time" property="createTime" javaType="java.util.Date"/>
+		<result column="catgno" property="catgno" javaType="java.lang.Integer"/>
+		<result column="catg_Name" property="catgName" javaType="java.lang.String"/>
+		<result column="status" property="status" javaType="java.lang.Integer"/>
+		<result column="bank_Code" property="bankCode" javaType="java.lang.String"/>
+		<result column="zx_Bank_Code" property="zxBankCode" javaType="java.lang.String"/>
+		<result column="is_Common" property="isCommon" javaType="java.lang.Integer"/>
+		<result column="short_Code" property="shortCode" javaType="java.lang.String"/>
+	</resultMap>
+    
+    <!-- 查询sql -->
+    <sql id="getAllFieldSql">
+    	SELECT ID,
+    		   NAME,
+    		   CODE,
+    		   DESCRIPTION,
+    		   CREATE_TIME,
+    		   CATGNO,
+    		   CATG_NAME,
+    		   STATUS,
+    		   BANK_CODE,
+    		   ZX_BANK_CODE,
+    		   IS_COMMON,
+    		   SHORT_CODE
+		FROM PMS_BANK
+    </sql>
+    
+    <sql id="whereList">
+    	<trim prefix="WHERE" prefixOverrides="AND ">
+    		<if test="id != null">
+    			AND ID = #{id}
+    		</if>
+    		<if test="name != null and name != ''">
+    			AND NAME = #{name}
+    		</if>
+    		<if test="code != null">
+    			AND CODE = #{code}
+    		</if>
+    		<if test="catgno != null">
+    			AND CATGNO = #{catgno}
+    		</if>
+    		<if test="status != null">
+    			AND STATUS = #{status}
+    		</if>
+    		<if test="otherParam != null and otherParam != ''">
+    			AND $otherParam$
+    		</if>
+    		<if test="isCommon != null">
+    			AND IS_COMMON = #{isCommon}
+    		</if>
+    	</trim>
+    </sql>
+    
+    <!-- 查询 Entity 列表-->
+	<select id="searchEntityList" resultMap="bankResult" parameterType="com.zyzf.polymer.pay.bank.entity.Bank">
+   		SELECT ROW_.*, ROWNUM ROWNUM_ FROM (
+   			<include refid="getAllFieldSql"/>
+   			<include refid="whereList"/>
+		    ORDER BY CATGNO, STATUS ASC
+   		) ROW_
+	</select>
+	
+	<!-- 查询单个 Entity -->
+	<select id="searchEntity" resultMap="bankResult" parameterType="com.zyzf.polymer.pay.bank.entity.Bank">
+		<include refid="getAllFieldSql"/>
+		<include refid="whereList"/>
+	</select>
+	
+	<!-- 查询总数 -->
+	<select id="getEntityCount" resultType="int" parameterType="com.zyzf.polymer.pay.bank.entity.Bank">
+		SELECT COUNT(*) FROM PMS_BANK
+    	<include refid="whereList"/>
+	</select>
+	
+	<!-- 修改单个 Entity -->
+	<update id="updateEntity" parameterType="com.zyzf.polymer.pay.bank.entity.Bank">
+		UPDATE PMS_BANK
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="name != null and name != ''">
+				NAME = #{name},
+			</if>
+			<if test="description != null and description != ''">
+				DESCRIPTION = #{description},
+			</if>
+			<if test="code != null">
+				CODE = #{code},
+			</if>
+			<if test="catgno != null">
+				CATGNO = #{catgno},
+			</if>
+			<if test="catgName != null and catgName != ''">
+				CATG_NAME = #{catgName},
+			</if>
+			<if test="catgno != null">
+				STATUS = #{catgno},
+			</if>
+			<if test="bankCode != null and bankCode != ''">
+				bank_Code = #{bankCode},
+			</if>
+			<if test="zxBankCode != null and zxBankCode != ''">
+				zx_Bank_Code = #{zxBankCode},
+			</if>
+			<if test="isCommon != null">
+				is_Common = #{isCommon},
+			</if>
+			<if test="shortCode != null and shortCode != ''">
+				short_Code = #{shortCode},
+			</if>
+		</trim>
+		WHERE ID = #{id}
+	</update>
+
+	<!-- 添加 -->
+    <insert id="insertEntity" parameterType="com.zyzf.polymer.pay.bank.entity.Bank">
+		INSERT INTO PMS_BANK(
+			ID,
+			NAME,
+			CODE,
+			DESCRIPTION,
+			CREATE_TIME,
+			CATGNO,
+    		CATG_NAME,
+    		STATUS,
+    		BANK_CODE,
+    		ZX_BANK_CODE,
+    		IS_COMMON,
+    		SHORT_CODE
+		) values (
+			#{id},
+			#{name},
+			#{code},
+			#{description},
+    	    SYSDATE,
+    	    #{catgno},
+    	    #{catgName},
+    	    #{status},
+    	    #{bankCode},
+    	    #{zxBankCode},
+    	    #{isCommon},
+    	    #{shortCode}
+		)
+    </insert>
+    
+    <!-- 删除 -->
+    <delete id="deleteEntity" parameterType="com.zyzf.polymer.pay.bank.entity.Bank">
+    	DELETE FROM PMS_BANK WHERE ID = #{id}
+    </delete>
+    
+    <!-- 批量删除 -->
+    <delete id="deleteEntities" parameterType="java.lang.String">
+		DELETE FROM PMS_BANK WHERE ID IN (${value})
+	</delete>
+</mapper>

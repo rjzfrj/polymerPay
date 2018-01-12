@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zyzf.polymer.pay.merchant.dao.impl.PmsMerchantFeeRateDaoImpl" >
+               
+
+  <resultMap id="BaseResultMap" type="com.zyzf.polymer.pay.merchant.entity.PmsMerchantFeeRate" >
+    <result column="TCODE" property="tcode" jdbcType="VARCHAR" />
+    <result column="MCODE" property="mcode" jdbcType="VARCHAR" />
+    <result column="PAY_CHANNEL_TYPE" property="payChannelType" jdbcType="DECIMAL" />
+    <result column="FEE_RATE" property="feeRate" jdbcType="DECIMAL" />
+    <result column="PAY_FEE" property="payFee" jdbcType="DECIMAL" />
+    <result column="FD_MAX_FEE" property="fdMaxFee" jdbcType="DECIMAL" />
+    <result column="FD_MIN_FEE" property="fdMinFee" jdbcType="DECIMAL" />
+    <result column="DEBIT_FEE_RATE" property="debitFeeRate" jdbcType="DECIMAL" />
+    <result column="DEBIT_FD_MAX_FEE" property="debitFdMaxFee" jdbcType="DECIMAL" />
+    <result column="DEBIT_FD_MIN_FEE" property="debitFdMinFee" jdbcType="DECIMAL" />
+    <result column="D0_FJ_RATE" property="d0FjRate" jdbcType="DECIMAL" />
+    <result column="D0_FJ_FEE" property="d0FjFee" jdbcType="DECIMAL" />
+    <result column="CREATE_USER" property="createUser" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="EDITOR_USER" property="editorUser" jdbcType="VARCHAR" />
+    <result column="EDIT_TIME" property="editTime" jdbcType="TIMESTAMP" />
+    <result column="STATUS" property="status" jdbcType="DECIMAL" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <!-- 查询商户费率 -->
+  <sql id="Base_Column_List" >
+      TCODE, MCODE, PAY_CHANNEL_TYPE, 
+      FEE_RATE, PAY_FEE, FD_MAX_FEE, 
+      FD_MIN_FEE, DEBIT_FEE_RATE, DEBIT_FD_MAX_FEE, 
+      DEBIT_FD_MIN_FEE, D0_FJ_RATE, D0_FJ_FEE, 
+      CREATE_USER, CREATE_TIME, EDITOR_USER, 
+      EDIT_TIME, STATUS, REMARK
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from PMS_MERCHANT_FEERATE
+    where MCODE = #{mcode,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="listByColumn" resultMap="BaseResultMap" parameterType="com.zyzf.polymer.pay.merchant.entity.PmsMerchantFeeRate" >
+    select 
+    <include refid="Base_Column_List" />
+    from PMS_MERCHANT_FEERATE
+    <where>
+    	<if test="mcode != null" >
+	        MCODE = #{mcode,jdbcType=VARCHAR} and
+		</if>
+		<if test="payChannelType != null" >
+	        PAY_CHANNEL_TYPE = #{payChannelType,jdbcType=DECIMAL} and
+		</if>
+    </where>
+  </select>
+  
+  <insert id="insert" parameterType="com.zyzf.polymer.pay.merchant.entity.PmsMerchantFeeRate" >
+     insert into PMS_MERCHANT_FEERATE (TCODE, MCODE, PAY_CHANNEL_TYPE, 
+      FEE_RATE, PAY_FEE, FD_MAX_FEE, 
+      FD_MIN_FEE, DEBIT_FEE_RATE, DEBIT_FD_MAX_FEE, 
+      DEBIT_FD_MIN_FEE, D0_FJ_RATE, D0_FJ_FEE, 
+      CREATE_USER, CREATE_TIME, EDITOR_USER, 
+      EDIT_TIME, STATUS, REMARK
+      )
+    values (#{tcode,jdbcType=VARCHAR}, #{mcode,jdbcType=VARCHAR}, #{payChannelType,jdbcType=DECIMAL}, 
+      #{feeRate,jdbcType=DECIMAL}, #{payFee,jdbcType=DECIMAL}, #{fdMaxFee,jdbcType=DECIMAL}, 
+      #{fdMinFee,jdbcType=DECIMAL}, #{debitFeeRate,jdbcType=DECIMAL}, #{debitFdMaxFee,jdbcType=DECIMAL}, 
+      #{debitFdMinFee,jdbcType=DECIMAL}, #{d0FjRate,jdbcType=DECIMAL}, #{d0FjFee,jdbcType=DECIMAL}, 
+      #{createUser,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{editorUser,jdbcType=VARCHAR}, 
+      #{editTime,jdbcType=TIMESTAMP}, #{status,jdbcType=DECIMAL}, #{remark,jdbcType=VARCHAR}
+      )
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.zyzf.polymer.pay.merchant.entity.PmsMerchantFeeRate" >
+    insert into PMS_MERCHANT_FEERATE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tcode != null" >
+        TCODE,
+      </if>
+      <if test="mcode != null" >
+        MCODE,
+      </if>
+      <if test="payChannelType != null" >
+        PAY_CHANNEL_TYPE,
+      </if>
+      <if test="feeRate != null" >
+        FEE_RATE,
+      </if>
+      <if test="payFee != null" >
+        PAY_FEE,
+      </if>
+      <if test="fdMaxFee != null" >
+        FD_MAX_FEE,
+      </if>
+      <if test="fdMinFee != null" >
+        FD_MIN_FEE,
+      </if>
+      <if test="debitFeeRate != null" >
+        DEBIT_FEE_RATE,
+      </if>
+      <if test="debitFdMaxFee != null" >
+        DEBIT_FD_MAX_FEE,
+      </if>
+      <if test="debitFdMinFee != null" >
+        DEBIT_FD_MIN_FEE,
+      </if>
+      <if test="d0FjRate != null" >
+        D0_FJ_RATE,
+      </if>
+      <if test="d0FjFee != null" >
+        D0_FJ_FEE,
+      </if>
+      <if test="createUser != null" >
+        CREATE_USER,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="editorUser != null" >
+        EDITOR_USER,
+      </if>
+      <if test="editTime != null" >
+        EDIT_TIME,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tcode != null" >
+        #{tcode,jdbcType=VARCHAR},
+      </if>
+      <if test="mcode != null" >
+        #{mcode,jdbcType=VARCHAR},
+      </if>
+      <if test="payChannelType != null" >
+        #{payChannelType,jdbcType=DECIMAL},
+      </if>
+      <if test="feeRate != null" >
+        #{feeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="payFee != null" >
+        #{payFee,jdbcType=DECIMAL},
+      </if>
+      <if test="fdMaxFee != null" >
+        #{fdMaxFee,jdbcType=DECIMAL},
+      </if>
+      <if test="fdMinFee != null" >
+        #{fdMinFee,jdbcType=DECIMAL},
+      </if>
+      <if test="debitFeeRate != null" >
+        #{debitFeeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="debitFdMaxFee != null" >
+        #{debitFdMaxFee,jdbcType=DECIMAL},
+      </if>
+      <if test="debitFdMinFee != null" >
+        #{debitFdMinFee,jdbcType=DECIMAL},
+      </if>
+      <if test="d0FjRate != null" >
+        #{d0FjRate,jdbcType=DECIMAL},
+      </if>
+      <if test="d0FjFee != null" >
+        #{d0FjFee,jdbcType=DECIMAL},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="editorUser != null" >
+        #{editorUser,jdbcType=VARCHAR},
+      </if>
+      <if test="editTime != null" >
+        #{editTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <!-- add 修改费率信息 -->
+  <update id="updateByPrimaryKeySelective" parameterType="com.zyzf.polymer.pay.merchant.entity.PmsMerchantFeeRate" >
+      update  PMS_MERCHANT_FEERATE
+      <set>
+      <!-- <if test="tcode != null" >
+      TCODE=  #{tcode,jdbcType=VARCHAR},
+      </if>
+      <if test="mcode != null" >
+      MCODE=  #{mcode,jdbcType=VARCHAR},
+      </if> -->
+      <if test="payChannelType != null" >
+       PAY_CHANNEL_TYPE= #{payChannelType,jdbcType=DECIMAL},
+      </if>
+      <if test="feeRate != null" >
+       FEE_RATE= #{feeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="payFee != null" >
+       PAY_FEE= #{payFee,jdbcType=DECIMAL},
+      </if>
+      <if test="fdMaxFee != null" >
+       FD_MAX_FEE= #{fdMaxFee,jdbcType=DECIMAL},
+      </if>
+      <if test="fdMinFee != null" >
+       FD_MIN_FEE= #{fdMinFee,jdbcType=DECIMAL},
+      </if>
+      <if test="debitFeeRate != null" >
+      DEBIT_FEE_RATE=  #{debitFeeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="debitFdMaxFee != null" >
+       DEBIT_FD_MAX_FEE= #{debitFdMaxFee,jdbcType=DECIMAL},
+      </if>
+      <if test="debitFdMinFee != null" >
+       DEBIT_FD_MIN_FEE= #{debitFdMinFee,jdbcType=DECIMAL},
+      </if>
+      <if test="d0FjRate != null" >
+       D0_FJ_RATE= #{d0FjRate,jdbcType=DECIMAL},
+      </if>
+      <if test="d0FjFee != null" >
+      D0_FJ_FEE=  #{d0FjFee,jdbcType=DECIMAL},
+      </if>
+      <if test="createUser != null" >
+      CREATE_USER=  #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME=#{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="editorUser != null" >
+      EDITOR_USER=  #{editorUser,jdbcType=VARCHAR},
+      </if>
+      <if test="editTime != null" >
+       EDIT_TIME= #{editTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+       STATUS= #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="remark != null" >
+       REMARK= #{remark,jdbcType=VARCHAR},
+      </if>
+      </set>
+        where MCODE = #{mcode,jdbcType=VARCHAR}
+  </update>
+  
+  <resultMap type="java.util.HashMap" id="merchantFreeId">
+   <id column="id" property="id" jdbcType="INTEGER" />
+   <result column="mcode" property="mcode" jdbcType="VARCHAR" />
+   <result column="payChannelType" property="payChannelType" jdbcType="DECIMAL" />
+   <result column="clearMcodeType" property="clearMcodeType" jdbcType="DECIMAL" />
+   <result column="feeRate" property="feeRate" jdbcType="DECIMAL" />
+   <result column="payFee" property="payFee" jdbcType="DECIMAL" />
+   <result column="fdMaxFee" property="fdMaxFee" jdbcType="DECIMAL" />
+   <result column="fdMinFee" property="fdMinFee" jdbcType="DECIMAL" />
+   <result column="debitFeeRate" property="debitFeeRate" jdbcType="DECIMAL" />
+   <result column="debitFdMaxFee" property="debitFdMaxFee" jdbcType="DECIMAL" />
+   <result column="debitFdMinFee" property="debitFdMinFee" jdbcType="DECIMAL" />
+   <result column="d0FjRate" property="d0FjRate" jdbcType="DECIMAL" />
+   <result column="d0FjFee" property="d0FjFee" jdbcType="DECIMAL" />
+   <result column="status" property="status" jdbcType="DECIMAL" />
+  </resultMap>
+
+<sql id="Where_Clause">
+		<if test="mcode != null and mcode!=''" > AND c.mcode =#{mcode,jdbcType=VARCHAR}</if>
+	</sql>
+  
+  <!-- 商户费率列表 -->
+  <!-- 总条数 -->
+   <select id="listPageCount" parameterType="java.util.Map" resultType="long">
+      select count(1)
+      from pms_merchant_feeRate c
+      left join pms_merchant d
+      on c.mcode = d.mcode
+       <where>
+			<include refid="Where_Clause" />
+		</where>
+   <!-- 列表展示信息 -->
+   </select>
+   
+   <select id="listPage" parameterType="java.util.Map" resultMap="merchantFreeId">
+		select 
+		c.mcode             as mcode,
+		c.pay_Channel_Type  as payChannelType,
+		c.fee_Rate          as feeRate,
+		c.pay_Fee           as payFee,
+		c.fd_Max_Fee        as fdMaxFee,
+		c.fd_Min_Fee        as fdMinFee,
+		c.debit_Fee_Rate    as debitFeeRate,
+		c.debit_Fd_Max_Fee  as debitFdMaxFee,
+		c.debit_Fd_Min_Fee  as  debitFdMinFee,
+		c.d0_Fj_Rate        as  d0FjRate,
+		c.d0_Fj_Fee         as  d0FjFee,
+		d.status            as  status,
+		d.clear_Mcode_Type  as  clearMcodeType
+		from pms_merchant_feeRate c
+		left join pms_merchant d
+		on c.mcode = d.mcode
+		 <where>
+			<include refid="Where_Clause" />
+		</where>
+   </select>
+   
+   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from PMS_MERCHANT_FEERATE
+    where MCODE = #{mcode,jdbcType=VARCHAR}
+  </delete>
+</mapper>

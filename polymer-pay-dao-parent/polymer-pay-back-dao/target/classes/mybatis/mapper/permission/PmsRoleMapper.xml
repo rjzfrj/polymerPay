@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zyzf.polymer.pay.permission.dao.impl.PmsRoleDaoImpl">
+
+	<!-- Pms权限管理：角色表 -->
+	<sql id="pms_role"> PMS_ROLE </sql>
+	<sql id="pms_role_permission"> PMS_ROLE_PERMISSION </sql>
+	<resultMap id="BaseResultMap"
+		type="com.zyzf.polymer.pay.permission.entity.PmsRole">
+		<id column="ID" property="id" jdbcType="DECIMAL" />
+		<result column="STATUS" property="status" jdbcType="DECIMAL" />
+		<result column="REMARK" property="remark" jdbcType="VARCHAR" />
+		<result column="TYPE" property="type" jdbcType="DECIMAL" />
+		<result column="CREATE_USER" property="createUser" jdbcType="VARCHAR" />
+		<result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="EDITOR_USER" property="editorUser" jdbcType="VARCHAR" />
+		<result column="EDIT_TIME" property="editTime" jdbcType="TIMESTAMP" />
+		<result column="ROLE_CODE" property="roleCode" jdbcType="VARCHAR" />
+		<result column="ROLE_NAME" property="roleName" jdbcType="VARCHAR" />
+		<result column="ORG_ID" property="orgId" jdbcType="DECIMAL" />
+		<result column="ASSIGN_ORG_ID" property="assignOrgId" jdbcType="DECIMAL" />
+		<result column="NAME" property="orgName" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		R.ID, R.STATUS, R.REMARK, R.TYPE, R.CREATE_USER, R.CREATE_TIME, R.EDITOR_USER,
+		R.EDIT_TIME, R.ROLE_CODE,
+		R.ROLE_NAME, R.ORG_ID, R.ASSIGN_ORG_ID
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		,O.NAME
+		 from PMS_ROLE R LEFT JOIN PMS_ORGANIZATION O  on R.ORG_ID=O.ORG_ID
+		where R.ID = #{id,jdbcType=DECIMAL}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from PMS_ROLE
+		where ID = #{id,jdbcType=DECIMAL}
+	</delete>
+	<insert id="insert" parameterType="com.zyzf.polymer.pay.permission.entity.PmsRole"
+		keyProperty="id" useGeneratedKeys="true">
+		<selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Long">
+			SELECT SQC_PMS_ROLE.NEXTVAL AS ID FROM DUAL
+		</selectKey>
+		insert into PMS_ROLE (ID, STATUS, REMARK,
+		TYPE, CREATE_USER, CREATE_TIME,
+		EDITOR_USER, EDIT_TIME, ROLE_CODE,
+		ROLE_NAME, ORG_ID, ASSIGN_ORG_ID
+		)
+		values (#{id,jdbcType=DECIMAL}, #{status,jdbcType=DECIMAL},
+		#{remark,jdbcType=VARCHAR},
+		#{type,jdbcType=DECIMAL}, #{createUser,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
+		#{editorUser,jdbcType=VARCHAR}, #{editTime,jdbcType=TIMESTAMP},
+		#{roleCode,jdbcType=VARCHAR},
+		#{roleName,jdbcType=VARCHAR}, #{orgId,jdbcType=DECIMAL}, #{assignOrgId,jdbcType=DECIMAL}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.zyzf.polymer.pay.permission.entity.PmsRole">
+		insert into PMS_ROLE
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="status != null">
+				STATUS,
+			</if>
+			<if test="remark != null">
+				REMARK,
+			</if>
+			<if test="type != null">
+				TYPE,
+			</if>
+			<if test="createUser != null">
+				CREATE_USER,
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME,
+			</if>
+			<if test="editorUser != null">
+				EDITOR_USER,
+			</if>
+			<if test="editTime != null">
+				EDIT_TIME,
+			</if>
+			<if test="roleCode != null">
+				ROLE_CODE,
+			</if>
+			<if test="roleName != null">
+				ROLE_NAME,
+			</if>
+			<if test="orgId != null">
+				ORG_ID,
+			</if>
+			<if test="assignOrgId != null">
+				ASSIGN_ORG_ID,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=DECIMAL},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=DECIMAL},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="type != null">
+				#{type,jdbcType=DECIMAL},
+			</if>
+			<if test="createUser != null">
+				#{createUser,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="editorUser != null">
+				#{editorUser,jdbcType=VARCHAR},
+			</if>
+			<if test="editTime != null">
+				#{editTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="roleCode != null">
+				#{roleCode,jdbcType=VARCHAR},
+			</if>
+			<if test="roleName != null">
+				#{roleName,jdbcType=VARCHAR},
+			</if>
+			<if test="orgId != null">
+				#{orgId,jdbcType=DECIMAL},
+			</if>
+			<if test="assignOrgId != null">
+				#{assignOrgId,jdbcType=DECIMAL},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.zyzf.polymer.pay.permission.entity.PmsRole">
+		update PMS_ROLE
+		<set>
+			<if test="status != null">
+				STATUS = #{status,jdbcType=DECIMAL},
+			</if>
+			<if test="remark != null">
+				REMARK = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="type != null">
+				TYPE = #{type,jdbcType=DECIMAL},
+			</if>
+			<if test="createUser != null">
+				CREATE_USER = #{createUser,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="editorUser != null">
+				EDITOR_USER = #{editorUser,jdbcType=VARCHAR},
+			</if>
+			<if test="editTime != null">
+				EDIT_TIME = #{editTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="roleCode != null">
+				ROLE_CODE = #{roleCode,jdbcType=VARCHAR},
+			</if>
+			<if test="roleName != null">
+				ROLE_NAME = #{roleName,jdbcType=VARCHAR},
+			</if>
+			<if test="orgId != null">
+				ORG_ID = #{orgId,jdbcType=DECIMAL},
+			</if>
+			<if test="assignOrgId != null">
+				ASSIGN_ORG_ID = #{assignOrgId,jdbcType=DECIMAL},
+			</if>
+		</set>
+		where ID = #{id,jdbcType=DECIMAL}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.zyzf.polymer.pay.permission.entity.PmsRole">
+		update PMS_ROLE
+		set STATUS = #{status,jdbcType=DECIMAL},
+		REMARK = #{remark,jdbcType=VARCHAR},
+		TYPE = #{type,jdbcType=DECIMAL},
+		CREATE_USER = #{createUser,jdbcType=VARCHAR},
+		CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+		EDITOR_USER = #{editorUser,jdbcType=VARCHAR},
+		EDIT_TIME = #{editTime,jdbcType=TIMESTAMP},
+		ROLE_CODE = #{roleCode,jdbcType=VARCHAR},
+		ROLE_NAME = #{roleName,jdbcType=VARCHAR},
+		ORG_ID = #{orgId,jdbcType=DECIMAL},
+		ASSIGN_ORG_ID = #{assignOrgId,jdbcType=DECIMAL}
+		where ID = #{id,jdbcType=DECIMAL}
+	</update>
+
+	<select id="getByRoleNameOrRoleCode" parameterType="java.util.Map"
+		resultMap="BaseResultMap">
+		select * from
+		PMS_ROLE R
+		<where>
+			<include refid="condition_sql" />
+		</where>
+	</select>
+
+	<select id="findByRoleNameNotEqId" parameterType="java.util.Map"
+		resultMap="BaseResultMap">
+		select * from
+		<include refid="pms_role" />
+		where id != #{id} and role_name = #{roleName}
+	</select>
+
+	<select id="listAll" resultMap="BaseResultMap">
+		select * from
+		<include refid="pms_role" />
+		order by id
+	</select>
+
+	<sql id="condition_sql">
+		<!-- Equal query -->
+		<!-- Like query -->
+		<if test="roleCode != null and roleCode != ''"> 
+			and R.role_code = #{roleCode,jdbcType=VARCHAR}
+		</if>
+		<if test="orgId != null"> 
+			and R.ORG_ID = #{orgId,jdbcType=DECIMAL}
+		</if>
+		<if test="roleName != null and roleName != ''"> 
+			and R.role_name like CONCAT(CONCAT('%', #{roleName,jdbcType=VARCHAR}), '%')
+		</if>
+	</sql>
+
+	<select id="listPage" parameterType="java.util.Map" resultMap="BaseResultMap">
+		select R.*,O.NAME from PMS_ROLE R left join PMS_ORGANIZATION O on R.ORG_ID=O.ORG_ID
+		<where>
+			<include refid="condition_sql" />
+		</where>
+		<![CDATA[ order by id desc]]>
+	</select>
+
+	<select id="listPageCount" parameterType="java.util.Map"
+		resultType="long">
+		select count(1) from
+		PMS_ROLE R
+		<where>
+			<include refid="condition_sql" />
+		</where>
+	</select>
+
+	<select id="listByPermissionId" parameterType="Long" resultMap="BaseResultMap">
+		select R.* from
+		<include refid="pms_role" />
+		R
+		LEFT JOIN
+		<include refid="pms_role_permission" />
+		RA
+		ON R.id = RA.role_id where RA.permission_id = #{permissionId}
+		order
+		by R.id ASC
+	</select>
+
+
+</mapper>

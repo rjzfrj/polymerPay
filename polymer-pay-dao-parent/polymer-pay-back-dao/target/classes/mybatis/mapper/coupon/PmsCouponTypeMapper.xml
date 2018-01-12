@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zyzf.polymer.pay.coupon.dao.impl.PmsCouponTypeDaoImpl">
+	<resultMap id="BaseResultMap"
+		type="com.zyzf.polymer.pay.coupon.entity.PmsCouponType">
+		<id column="TYPE_ID" property="typeId" jdbcType="DECIMAL" />
+		<result column="SELLER_ID" property="sellerId" jdbcType="DECIMAL" />
+		<result column="TYPE_NAME" property="typeName" jdbcType="VARCHAR" />
+		<result column="PARENT_ID" property="parentId" jdbcType="DECIMAL" />
+		<result column="TYPE_CODE" property="typeCode" jdbcType="VARCHAR" />
+		<result column="CREATE_USER" property="createUser" jdbcType="VARCHAR" />
+		<result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="EDITOR_USER" property="editorUser" jdbcType="VARCHAR" />
+		<result column="EDIT_TIME" property="editTime" jdbcType="TIMESTAMP" />
+		<result column="REMARK" property="remark" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		TYPE_ID, SELLER_ID, TYPE_NAME, PARENT_ID, TYPE_CODE, CREATE_USER, CREATE_TIME,
+		EDITOR_USER,
+		EDIT_TIME, REMARK
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from PMS_COUPON_TYPE
+		where TYPE_ID = #{typeId,jdbcType=DECIMAL}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from PMS_COUPON_TYPE
+		where TYPE_ID = #{typeId,jdbcType=DECIMAL}
+	</delete>
+	<insert id="insert" parameterType="com.zyzf.polymer.pay.coupon.entity.PmsCouponType" 
+	 keyProperty="typeId" useGeneratedKeys="true">
+	  <selectKey order="BEFORE" keyProperty="typeId" resultType="java.lang.Long">
+	   SELECT SQC_pms_coupon_type.NEXTVAL AS TYPE_ID FROM DUAL
+	  </selectKey>
+		insert into PMS_COUPON_TYPE (TYPE_ID, SELLER_ID, TYPE_NAME,
+		PARENT_ID, TYPE_CODE, CREATE_USER,
+		CREATE_TIME, EDITOR_USER, EDIT_TIME,
+		REMARK)
+		values (#{typeId,jdbcType=DECIMAL}, #{sellerId,jdbcType=DECIMAL},
+		#{typeName,jdbcType=VARCHAR},
+		#{parentId,jdbcType=DECIMAL}, #{typeCode,jdbcType=VARCHAR}, #{createUser,jdbcType=VARCHAR},
+		#{createTime,jdbcType=TIMESTAMP}, #{editorUser,jdbcType=VARCHAR},
+		#{editTime,jdbcType=TIMESTAMP},
+		#{remark,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.zyzf.polymer.pay.coupon.entity.PmsCouponType">
+		insert into PMS_COUPON_TYPE
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="typeId != null">
+				TYPE_ID,
+			</if>
+			<if test="sellerId != null">
+				SELLER_ID,
+			</if>
+			<if test="typeName != null">
+				TYPE_NAME,
+			</if>
+			<if test="parentId != null">
+				PARENT_ID,
+			</if>
+			<if test="typeCode != null">
+				TYPE_CODE,
+			</if>
+			<if test="createUser != null">
+				CREATE_USER,
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME,
+			</if>
+			<if test="editorUser != null">
+				EDITOR_USER,
+			</if>
+			<if test="editTime != null">
+				EDIT_TIME,
+			</if>
+			<if test="remark != null">
+				REMARK,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="typeId != null">
+				#{typeId,jdbcType=DECIMAL},
+			</if>
+			<if test="sellerId != null">
+				#{sellerId,jdbcType=DECIMAL},
+			</if>
+			<if test="typeName != null">
+				#{typeName,jdbcType=VARCHAR},
+			</if>
+			<if test="parentId != null">
+				#{parentId,jdbcType=DECIMAL},
+			</if>
+			<if test="typeCode != null">
+				#{typeCode,jdbcType=VARCHAR},
+			</if>
+			<if test="createUser != null">
+				#{createUser,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="editorUser != null">
+				#{editorUser,jdbcType=VARCHAR},
+			</if>
+			<if test="editTime != null">
+				#{editTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.zyzf.polymer.pay.coupon.entity.PmsCouponType">
+		update PMS_COUPON_TYPE
+		<set>
+			<if test="sellerId != null">
+				SELLER_ID = #{sellerId,jdbcType=DECIMAL},
+			</if>
+			<if test="typeName != null and typeName!=''">
+				TYPE_NAME = #{typeName,jdbcType=VARCHAR},
+			</if>
+			<if test="parentId != null">
+				PARENT_ID = #{parentId,jdbcType=DECIMAL},
+			</if>
+			<if test="typeCode != null and typeCode!=''">
+				TYPE_CODE = #{typeCode,jdbcType=VARCHAR},
+			</if>
+			<if test="createUser != null and createUser!=''">
+				CREATE_USER = #{createUser,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="editorUser != null and editorUser!=''">
+				EDITOR_USER = #{editorUser,jdbcType=VARCHAR},
+			</if>
+			<if test="editTime != null">
+				EDIT_TIME = #{editTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="remark != null">
+				REMARK = #{remark,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where TYPE_ID = #{typeId,jdbcType=DECIMAL}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.zyzf.polymer.pay.coupon.entity.PmsCouponType">
+		update PMS_COUPON_TYPE
+		set SELLER_ID = #{sellerId,jdbcType=DECIMAL},
+		TYPE_NAME = #{typeName,jdbcType=VARCHAR},
+		PARENT_ID = #{parentId,jdbcType=DECIMAL},
+		TYPE_CODE = #{typeCode,jdbcType=VARCHAR},
+		CREATE_USER = #{createUser,jdbcType=VARCHAR},
+		CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+		EDITOR_USER = #{editorUser,jdbcType=VARCHAR},
+		EDIT_TIME = #{editTime,jdbcType=TIMESTAMP},
+		REMARK = #{remark,jdbcType=VARCHAR}
+		where TYPE_ID = #{typeId,jdbcType=DECIMAL}
+	</update>
+	
+	<sql id="Where_Card">
+	 <if test="typeName != null and typeName!=''" >
+           AND a.TYPE_NAME = #{typeName,jdbcType=VARCHAR}
+      </if>
+      <if test="parentName != null and parentName!=''" >
+           AND  c.TYPE_NAME = #{parentName,jdbcType=VARCHAR}
+      </if>
+      <if test="sellerName != null and sellerName!=''" >
+           AND  b.SELLER_NAME = #{sellerName,jdbcType=VARCHAR}
+      </if>
+     </sql>
+
+	<select id="listPage" parameterType="java.util.Map"
+		resultType="com.zyzf.polymer.pay.coupon.entity.PmsCouponType">
+		select
+		a.type_id       as typeId,
+		a.parent_id     as parentId,
+		a.type_name     as typeName,
+		a.editor_user   as editorUser,
+		a.edit_time     as editTime,
+		c.type_name     as parentName,
+		b.seller_name   as sellerName
+		from
+		pms_coupon_type a
+		left join pms_coupon_seller b
+		on a.seller_id=b.seller_id
+		left join pms_coupon_type c
+		on a.parent_id=c.type_id
+    <where>
+	  <include refid="Where_Card" />
+    </where>
+	</select>
+
+	<select id="listPageCount" parameterType="java.util.Map"
+		resultType="long">
+		select
+		count(1)
+		from pms_coupon_type a
+		left join pms_coupon_seller b
+		on a.seller_id=b.seller_id
+		left join pms_coupon_type c
+		on a.parent_id=c.type_id
+	<where>
+	  <include refid="Where_Card" />
+    </where>
+	</select>
+
+	<select id="selectParentList" resultMap="BaseResultMap">
+		select TYPE_ID,  TYPE_NAME, PARENT_ID from   PMS_COUPON_TYPE  where parent_id=0
+	</select>
+	
+	<select id="selectChildList" resultMap="BaseResultMap" parameterType="com.zyzf.polymer.pay.coupon.entity.PmsCouponType">
+		select TYPE_ID,  TYPE_NAME, PARENT_ID from   PMS_COUPON_TYPE   where PARENT_ID = #{parentId,jdbcType=DECIMAL}
+	</select>
+	
+	 <!-- 批量删除数据 -->
+   <delete id="batchDeleteByIds" parameterType="list">
+    delete from PMS_COUPON_TYPE where
+    TYPE_ID in
+   <foreach  separator="," index="index" item="item" collection="list"  open="(" close=")">   
+     #{item}  
+   </foreach>
+  </delete>
+
+</mapper>

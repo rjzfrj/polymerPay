@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zyzf.polymer.pay.coupon.dao.impl.PmsCouponSellerDaoImpl" >
+  <resultMap id="BaseResultMap" type="com.zyzf.polymer.pay.coupon.entity.PmsCouponSeller" >
+    <id column="SELLER_ID" property="sellerId" jdbcType="DECIMAL" />
+    <result column="SELLER_NAME" property="sellerName" jdbcType="VARCHAR" />
+    <result column="INDUSTRY_TYPE_ID" property="industryTypeId" jdbcType="DECIMAL" />
+    <result column="LINKMAN" property="linkman" jdbcType="VARCHAR" />
+    <result column="PHONE" property="phone" jdbcType="VARCHAR" />
+    <result column="QQ" property="qq" jdbcType="VARCHAR" />
+    <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+    <result column="WE_CHAT" property="weChat" jdbcType="VARCHAR" />
+    <result column="CREATE_USER" property="createUser" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="EDITOR_USER" property="editorUser" jdbcType="VARCHAR" />
+    <result column="EDIT_TIME" property="editTime" jdbcType="TIMESTAMP" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <!-- 商家列表map -->
+  <resultMap id="BaseResultTypeMap" type="com.zyzf.polymer.pay.coupon.entity.PmsCouponSeller" >
+    <id column="SELLER_ID" property="sellerId" jdbcType="DECIMAL" />
+    <result column="SELLER_NAME" property="sellerName" jdbcType="VARCHAR" />
+    <result column="INDUSTRY_TYPE_ID" property="industryTypeId" jdbcType="DECIMAL" />
+    <result column="LINKMAN" property="linkman" jdbcType="VARCHAR" />
+    <result column="PHONE" property="phone" jdbcType="VARCHAR" />
+    <result column="QQ" property="qq" jdbcType="VARCHAR" />
+    <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+    <result column="WE_CHAT" property="weChat" jdbcType="VARCHAR" />
+    <result column="CREATE_USER" property="createUser" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="EDITOR_USER" property="editorUser" jdbcType="VARCHAR" />
+    <result column="EDIT_TIME" property="editTime" jdbcType="TIMESTAMP" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <association property="pmsIndustryType" javaType="com.zyzf.polymer.pay.coupon.entity.PmsIndustryType"> 
+    <id column="TYPE_ID" property="typeId" jdbcType="DECIMAL" />
+    <result column="TYPE_NAME" property="typeName" jdbcType="VARCHAR" />
+    </association>
+    
+  </resultMap>
+  <sql id="Base_Column_List" >
+    SELLER_ID, SELLER_NAME, INDUSTRY_TYPE_ID, LINKMAN, PHONE, QQ, EMAIL, WE_CHAT, CREATE_USER, 
+    CREATE_TIME, EDITOR_USER, EDIT_TIME, REMARK
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from PMS_COUPON_SELLER
+    where SELLER_ID = #{sellerId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from PMS_COUPON_SELLER
+    where SELLER_ID = #{sellerId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.zyzf.polymer.pay.coupon.entity.PmsCouponSeller" 
+  keyProperty="sellerId" useGeneratedKeys="true">
+   <selectKey order="BEFORE" keyProperty="sellerId" resultType="java.lang.Long">
+	   SELECT SQC_PMS_COUPON_SELLER.NEXTVAL AS SELLER_ID FROM DUAL
+	 </selectKey>
+    
+    insert into PMS_COUPON_SELLER (SELLER_ID, SELLER_NAME, INDUSTRY_TYPE_ID, 
+      LINKMAN, PHONE, QQ, 
+      EMAIL, WE_CHAT, CREATE_USER, 
+      CREATE_TIME, EDITOR_USER, EDIT_TIME, 
+      REMARK)
+    values (#{sellerId,jdbcType=DECIMAL}, #{sellerName,jdbcType=VARCHAR}, #{industryTypeId,jdbcType=DECIMAL}, 
+      #{linkman,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{weChat,jdbcType=VARCHAR}, #{createUser,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{editorUser,jdbcType=VARCHAR}, #{editTime,jdbcType=TIMESTAMP}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zyzf.polymer.pay.coupon.entity.PmsCouponSeller" >
+    insert into PMS_COUPON_SELLER
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sellerId != null" >
+        SELLER_ID,
+      </if>
+      <if test="sellerName != null" >
+        SELLER_NAME,
+      </if>
+      <if test="industryTypeId != null" >
+        INDUSTRY_TYPE_ID,
+      </if>
+      <if test="linkman != null" >
+        LINKMAN,
+      </if>
+      <if test="phone != null" >
+        PHONE,
+      </if>
+      <if test="qq != null" >
+        QQ,
+      </if>
+      <if test="email != null" >
+        EMAIL,
+      </if>
+      <if test="weChat != null" >
+        WE_CHAT,
+      </if>
+      <if test="createUser != null" >
+        CREATE_USER,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="editorUser != null" >
+        EDITOR_USER,
+      </if>
+      <if test="editTime != null" >
+        EDIT_TIME,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sellerId != null" >
+        #{sellerId,jdbcType=DECIMAL},
+      </if>
+      <if test="sellerName != null" >
+        #{sellerName,jdbcType=VARCHAR},
+      </if>
+      <if test="industryTypeId != null" >
+        #{industryTypeId,jdbcType=DECIMAL},
+      </if>
+      <if test="linkman != null" >
+        #{linkman,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="qq != null" >
+        #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="weChat != null" >
+        #{weChat,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="editorUser != null" >
+        #{editorUser,jdbcType=VARCHAR},
+      </if>
+      <if test="editTime != null" >
+        #{editTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zyzf.polymer.pay.coupon.entity.PmsCouponSeller" >
+    update PMS_COUPON_SELLER
+    <set >
+      <if test="sellerName != null" >
+        SELLER_NAME = #{sellerName,jdbcType=VARCHAR},
+      </if>
+      <if test="industryTypeId != null" >
+        INDUSTRY_TYPE_ID = #{industryTypeId,jdbcType=DECIMAL},
+      </if>
+      <if test="linkman != null" >
+        LINKMAN = #{linkman,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        PHONE = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="qq != null" >
+        QQ = #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        EMAIL = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="weChat != null" >
+        WE_CHAT = #{weChat,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="editorUser != null" >
+        EDITOR_USER = #{editorUser,jdbcType=VARCHAR},
+      </if>
+      <if test="editTime != null" >
+        EDIT_TIME = #{editTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where SELLER_ID = #{sellerId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zyzf.polymer.pay.coupon.entity.PmsCouponSeller" >
+    update PMS_COUPON_SELLER
+    set SELLER_NAME = #{sellerName,jdbcType=VARCHAR},
+      INDUSTRY_TYPE_ID = #{industryTypeId,jdbcType=DECIMAL},
+      LINKMAN = #{linkman,jdbcType=VARCHAR},
+      PHONE = #{phone,jdbcType=VARCHAR},
+      QQ = #{qq,jdbcType=VARCHAR},
+      EMAIL = #{email,jdbcType=VARCHAR},
+      WE_CHAT = #{weChat,jdbcType=VARCHAR},
+      CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      EDITOR_USER = #{editorUser,jdbcType=VARCHAR},
+      EDIT_TIME = #{editTime,jdbcType=TIMESTAMP},
+      REMARK = #{remark,jdbcType=VARCHAR}
+    where SELLER_ID = #{sellerId,jdbcType=DECIMAL}
+  </update>
+  
+  <sql id="Where_Card">
+	 <if test="sellerName != null and sellerName!=''" >
+           AND c.SELLER_NAME = #{sellerName,jdbcType=VARCHAR}
+      </if>
+      <if test="linkman != null and linkman!=''" >
+           AND  c.LINKMAN = #{linkman,jdbcType=VARCHAR}
+      </if>
+      <if test="industryTypeId != null and industryTypeId!=''" >
+           AND  c.INDUSTRY_TYPE_ID = #{industryTypeId,jdbcType=VARCHAR}
+      </if>
+      
+      </sql>
+  
+  <select id="listPage" parameterType="java.util.Map" resultMap="BaseResultTypeMap">
+   select 
+     c.SELLER_ID,
+     c.SELLER_NAME ,
+     c.LINKMAN ,
+     c.PHONE ,
+     c.EDITOR_USER ,
+     c.EDIT_TIME ,
+     c.INDUSTRY_TYPE_ID,
+     d.TYPE_NAME ,
+     d.TYPE_ID      
+     from pms_coupon_seller c
+     left join pms_industry_type d
+     on  c.industry_type_id=d.type_id
+      <where>
+	     <include refid="Where_Card" />
+      </where>
+  </select>
+  
+  <select id="listPageCount" parameterType="java.util.Map" resultType="long">
+     select 
+     count(1)
+     from 
+     pms_coupon_seller c
+     left join pms_industry_type d
+     on  c.industry_type_id=d.type_id
+      <where>
+	     <include refid="Where_Card" />
+      </where>
+  </select>
+  
+   <!-- 根据商户名查询商户信息 -->
+  <select id="selectByName" parameterType="string" resultType="com.zyzf.polymer.pay.coupon.entity.PmsCouponSeller">
+    select * from PMS_COUPON_SELLER where  SELLER_NAME = #{sellerName}
+   </select>
+   
+   <!-- 优惠券商户批量删除 -->
+   <delete id="batchDeleteByIds" parameterType="list">
+      delete from PMS_COUPON_SELLER where
+      SELLER_ID in
+   <foreach  separator="," index="index" item="item" collection="list"  open="(" close=")">   
+     #{item}  
+   </foreach>
+  </delete>
+  
+    <!--查询全部  -->
+   <select id="listAll" parameterType="java.util.Map" resultMap="BaseResultTypeMap">
+   select 
+     SELLER_ID,
+     SELLER_NAME 
+     from pms_coupon_seller
+  </select>
+  
+  
+</mapper>

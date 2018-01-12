@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zyzf.polymer.pay.coupon.dao.impl.PmsCouponProductDaoImpl">
+	<resultMap id="BaseResultMap"
+		type="com.zyzf.polymer.pay.coupon.entity.PmsCouponProduct">
+		<id column="PRODUCT_ID" property="productId" jdbcType="DECIMAL" />
+		<result column="SELLER_ID" property="sellerId" jdbcType="DECIMAL" />
+		<result column="TYPE_ID" property="typeId" jdbcType="DECIMAL" />
+		<result column="PRODUCT_NAME" property="productName" jdbcType="VARCHAR" />
+		<result column="FLOOR_PRICE" property="floorPrice" jdbcType="DECIMAL" />
+		<result column="CURRENT_PRICE" property="currentPrice" jdbcType="DECIMAL" />
+		<result column="PRICE" property="price" jdbcType="DECIMAL" />
+		<result column="STOCK_NUM" property="stockNum" jdbcType="DECIMAL" />
+		<result column="SUCC_NUM" property="succNum" jdbcType="DECIMAL" />
+		<result column="GOODS_IMG" property="goodsImg" jdbcType="VARCHAR" />
+		<result column="GOODS_TITLE" property="goodsTitle" jdbcType="VARCHAR" />
+		<result column="GOODS_BODY" property="goodsBody" jdbcType="VARCHAR" />
+		<result column="CREATE_USER" property="createUser" jdbcType="VARCHAR" />
+		<result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="EDITOR_USER" property="editorUser" jdbcType="VARCHAR" />
+		<result column="EDIT_TIME" property="editTime" jdbcType="TIMESTAMP" />
+		<result column="REMARK" property="remark" jdbcType="VARCHAR" />
+		<result column="SELLER_NAME" property="sellerName" jdbcType="VARCHAR" />
+		<result column="TYPE_NAME" property="typeName" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		PRODUCT_ID, SELLER_ID, TYPE_ID, PRODUCT_NAME, FLOOR_PRICE, CURRENT_PRICE, PRICE,
+		STOCK_NUM, SUCC_NUM, GOODS_IMG, GOODS_TITLE, GOODS_BODY, CREATE_USER,
+		CREATE_TIME,
+		EDITOR_USER, EDIT_TIME, REMARK
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from PMS_COUPON_PRODUCT
+		where PRODUCT_ID = #{productId,jdbcType=DECIMAL}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from PMS_COUPON_PRODUCT
+		where PRODUCT_ID = #{productId,jdbcType=DECIMAL}
+	</delete>
+	<insert id="insert" parameterType="com.zyzf.polymer.pay.coupon.entity.PmsCouponProduct" useGeneratedKeys="true" keyProperty="productId">
+		<selectKey keyProperty="productId" order="BEFORE" resultType="java.lang.Long">
+			select SQC_PMS_COUPON_PRODUCT.NEXTVAL AS productId FROM DUAL
+		</selectKey>
+		insert into PMS_COUPON_PRODUCT (PRODUCT_ID, SELLER_ID, TYPE_ID,
+		PRODUCT_NAME, FLOOR_PRICE, CURRENT_PRICE,
+		PRICE, STOCK_NUM, SUCC_NUM,
+		GOODS_IMG, GOODS_TITLE, GOODS_BODY,
+		CREATE_USER, CREATE_TIME, EDITOR_USER,
+		EDIT_TIME, REMARK)
+		values (#{productId,jdbcType=DECIMAL}, #{sellerId,jdbcType=DECIMAL},
+		#{typeId,jdbcType=DECIMAL},
+		#{productName,jdbcType=VARCHAR}, #{floorPrice,jdbcType=DECIMAL}, #{currentPrice,jdbcType=DECIMAL},
+		#{price,jdbcType=DECIMAL}, #{stockNum,jdbcType=DECIMAL},
+		#{succNum,jdbcType=DECIMAL},
+		#{goodsImg,jdbcType=VARCHAR}, #{goodsTitle,jdbcType=VARCHAR}, #{goodsBody,jdbcType=VARCHAR},
+		#{createUser,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
+		#{editorUser,jdbcType=VARCHAR},
+		#{editTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.zyzf.polymer.pay.coupon.entity.PmsCouponProduct">
+		insert into PMS_COUPON_PRODUCT
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="productId != null">
+				PRODUCT_ID,
+			</if>
+			<if test="sellerId != null">
+				SELLER_ID,
+			</if>
+			<if test="typeId != null">
+				TYPE_ID,
+			</if>
+			<if test="productName != null">
+				PRODUCT_NAME,
+			</if>
+			<if test="floorPrice != null">
+				FLOOR_PRICE,
+			</if>
+			<if test="currentPrice != null">
+				CURRENT_PRICE,
+			</if>
+			<if test="price != null">
+				PRICE,
+			</if>
+			<if test="stockNum != null">
+				STOCK_NUM,
+			</if>
+			<if test="succNum != null">
+				SUCC_NUM,
+			</if>
+			<if test="goodsImg != null">
+				GOODS_IMG,
+			</if>
+			<if test="goodsTitle != null">
+				GOODS_TITLE,
+			</if>
+			<if test="goodsBody != null">
+				GOODS_BODY,
+			</if>
+			<if test="createUser != null">
+				CREATE_USER,
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME,
+			</if>
+			<if test="editorUser != null">
+				EDITOR_USER,
+			</if>
+			<if test="editTime != null">
+				EDIT_TIME,
+			</if>
+			<if test="remark != null">
+				REMARK,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="productId != null">
+				#{productId,jdbcType=DECIMAL},
+			</if>
+			<if test="sellerId != null">
+				#{sellerId,jdbcType=DECIMAL},
+			</if>
+			<if test="typeId != null">
+				#{typeId,jdbcType=DECIMAL},
+			</if>
+			<if test="productName != null">
+				#{productName,jdbcType=VARCHAR},
+			</if>
+			<if test="floorPrice != null">
+				#{floorPrice,jdbcType=DECIMAL},
+			</if>
+			<if test="currentPrice != null">
+				#{currentPrice,jdbcType=DECIMAL},
+			</if>
+			<if test="price != null">
+				#{price,jdbcType=DECIMAL},
+			</if>
+			<if test="stockNum != null">
+				#{stockNum,jdbcType=DECIMAL},
+			</if>
+			<if test="succNum != null">
+				#{succNum,jdbcType=DECIMAL},
+			</if>
+			<if test="goodsImg != null">
+				#{goodsImg,jdbcType=VARCHAR},
+			</if>
+			<if test="goodsTitle != null">
+				#{goodsTitle,jdbcType=VARCHAR},
+			</if>
+			<if test="goodsBody != null">
+				#{goodsBody,jdbcType=VARCHAR},
+			</if>
+			<if test="createUser != null">
+				#{createUser,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="editorUser != null">
+				#{editorUser,jdbcType=VARCHAR},
+			</if>
+			<if test="editTime != null">
+				#{editTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.zyzf.polymer.pay.coupon.entity.PmsCouponProduct">
+		update PMS_COUPON_PRODUCT
+		<set>
+			<if test="sellerId != null">
+				SELLER_ID = #{sellerId,jdbcType=DECIMAL},
+			</if>
+			<if test="typeId != null">
+				TYPE_ID = #{typeId,jdbcType=DECIMAL},
+			</if>
+			<if test="productName != null and productName!=''">
+				PRODUCT_NAME = #{productName,jdbcType=VARCHAR},
+			</if>
+			<if test="floorPrice != null">
+				FLOOR_PRICE = #{floorPrice,jdbcType=DECIMAL},
+			</if>
+			<if test="currentPrice != null">
+				CURRENT_PRICE = #{currentPrice,jdbcType=DECIMAL},
+			</if>
+			<if test="price != null">
+				PRICE = #{price,jdbcType=DECIMAL},
+			</if>
+			<if test="stockNum != null">
+				STOCK_NUM = #{stockNum,jdbcType=DECIMAL},
+			</if>
+			<if test="succNum != null">
+				SUCC_NUM = #{succNum,jdbcType=DECIMAL},
+			</if>
+			<if test="goodsImg != null and  goodsImg!='' ">
+				GOODS_IMG = #{goodsImg,jdbcType=VARCHAR},
+			</if>
+			<if test="goodsTitle != null and goodsTitle!='' ">
+				GOODS_TITLE = #{goodsTitle,jdbcType=VARCHAR},
+			</if>
+			<if test="goodsBody != null and goodsBody!='' ">
+				GOODS_BODY = #{goodsBody,jdbcType=VARCHAR},
+			</if>
+			<if test="createUser != null and createUser!='' ">
+				CREATE_USER = #{createUser,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="editorUser != null and editorUser!='' ">
+				EDITOR_USER = #{editorUser,jdbcType=VARCHAR},
+			</if>
+			<if test="editTime != null">
+				EDIT_TIME = #{editTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="remark != null and remark!=''">
+				REMARK = #{remark,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where PRODUCT_ID = #{productId,jdbcType=DECIMAL}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.zyzf.polymer.pay.coupon.entity.PmsCouponProduct">
+		update PMS_COUPON_PRODUCT
+		set SELLER_ID = #{sellerId,jdbcType=DECIMAL},
+		TYPE_ID = #{typeId,jdbcType=DECIMAL},
+		PRODUCT_NAME = #{productName,jdbcType=VARCHAR},
+		FLOOR_PRICE = #{floorPrice,jdbcType=DECIMAL},
+		CURRENT_PRICE = #{currentPrice,jdbcType=DECIMAL},
+		PRICE = #{price,jdbcType=DECIMAL},
+		STOCK_NUM = #{stockNum,jdbcType=DECIMAL},
+		SUCC_NUM = #{succNum,jdbcType=DECIMAL},
+		GOODS_IMG = #{goodsImg,jdbcType=VARCHAR},
+		GOODS_TITLE = #{goodsTitle,jdbcType=VARCHAR},
+		GOODS_BODY = #{goodsBody,jdbcType=VARCHAR},
+		CREATE_USER = #{createUser,jdbcType=VARCHAR},
+		CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+		EDITOR_USER = #{editorUser,jdbcType=VARCHAR},
+		EDIT_TIME = #{editTime,jdbcType=TIMESTAMP},
+		REMARK = #{remark,jdbcType=VARCHAR}
+		where PRODUCT_ID = #{productId,jdbcType=DECIMAL}
+	</update>
+	
+	<sql id="Where_Clause">
+	
+		<if test="sellerName != null and sellerName!='' " >
+			AND S.SELLER_NAME = #{sellerName,jdbcType=VARCHAR}
+		</if>
+		<if test="typeName != null and typeName!=''">
+			AND T.TYPE_NAME = #{typeName,jdbcType=VARCHAR}
+		</if>
+		<if test="productName != null and productName!=''">
+			AND P.PRODUCT_NAME = #{productName,jdbcType=VARCHAR}
+		</if>
+		<if test="goodsTitle != null and goodsTitle!=''">
+			AND P.GOODS_TITLE = #{goodsTitle,jdbcType=VARCHAR}
+		</if>
+		<if test="editorUser != null and editorUser!=''">
+			AND P.EDITOR_USER = #{editorUser,jdbcType=VARCHAR}
+		</if>
+			
+		<if test="startDateCreate != null "> 
+			AND P.CREATE_TIME <![CDATA[>=]]> #{startDateCreate,jdbcType=TIMESTAMP}
+		</if>
+		<if test="endDateCreate != null "> 
+			AND P.CREATE_TIME <![CDATA[ <=]]> #{endDateCreate,jdbcType=TIMESTAMP}
+		</if>
+		<if test="startDateEdit != null "> 
+			AND P.EDIT_TIME <![CDATA[>=]]> #{startDateEdit,jdbcType=TIMESTAMP}
+		</if>
+		<if test="endDateEdit != null "> 
+			AND P.EDIT_TIME <![CDATA[ <=]]> #{endDateEdit,jdbcType=TIMESTAMP}
+		</if>
+	
+	</sql>
+	<select id="listPage" parameterType="java.util.Map" resultMap="BaseResultMap">
+		select P.PRODUCT_ID, P.SELLER_ID,S.SELLER_NAME, P.TYPE_ID, T.TYPE_NAME,P.PRODUCT_NAME, P.FLOOR_PRICE, P.CURRENT_PRICE, P.PRICE, P.STOCK_NUM, P.SUCC_NUM,
+				P.GOODS_IMG, P.GOODS_TITLE, P.GOODS_BODY, P.CREATE_USER, P.CREATE_TIME, P.EDITOR_USER, P.EDIT_TIME, P.REMARK  
+		from PMS_COUPON_PRODUCT p 
+		left join PMS_COUPON_SELLER S on P.SELLER_ID=S.SELLER_ID
+		left join PMS_COUPON_TYPE T on P.TYPE_ID=T.TYPE_ID
+		<where>
+			<include refid="Where_Clause" />
+		</where>
+		order by product_Id desc
+	</select>
+	
+
+	<select id="listPageCount" parameterType="java.util.Map"
+		resultType="long">
+		select count(PRODUCT_ID)
+		from PMS_COUPON_PRODUCT p 
+		left join PMS_COUPON_SELLER S on P.SELLER_ID=S.SELLER_ID
+		left join PMS_COUPON_TYPE T on P.TYPE_ID=T.TYPE_ID
+		<where>
+			<include refid="Where_Clause" />
+		</where>
+	</select>
+	
+	
+	<update id="batchUpdateByIds"  parameterType="Map">
+		update PMS_COUPON_PRODUCT
+		<set>
+			<if test="floorPrice != null">
+				FLOOR_PRICE = #{floorPrice,jdbcType=DECIMAL},
+			</if>
+			<if test="currentPrice != null">
+				CURRENT_PRICE = #{currentPrice,jdbcType=DECIMAL},
+			</if>
+			<if test="price != null">
+				PRICE = #{price,jdbcType=DECIMAL},
+			</if>
+			<if test="stockNum != null">
+				STOCK_NUM = #{stockNum,jdbcType=DECIMAL},
+			</if>
+			<if test="succNum != null">
+				SUCC_NUM = #{succNum,jdbcType=DECIMAL},
+			</if>
+			<if test="editorUser != null and editorUser!='' ">
+				EDITOR_USER = #{editorUser,jdbcType=VARCHAR},
+			</if>
+			<if test="editTime != null">
+				EDIT_TIME = #{editTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where PRODUCT_ID in 
+		<foreach item="item" collection="list" separator="," open="(" close=")" >
+			#{item}
+		</foreach>
+	</update>
+	
+	<delete id="batchDeleteByIds">
+		delete from PMS_COUPON_PRODUCT
+		where PRODUCT_ID in
+		<foreach item="item" collection="list" separator="," open="(" close=")">
+			#{item,jdbcType=DECIMAL}
+		</foreach>
+	</delete>
+	
+	 <!--查询全部  -->
+   <select id="listAll" parameterType="java.util.Map" resultMap="BaseResultMap" >
+     select 
+     PRODUCT_ID,
+     PRODUCT_NAME 
+     from PMS_COUPON_PRODUCT
+  </select>
+	
+</mapper>

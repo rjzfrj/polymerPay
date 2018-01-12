@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zyzf.polymer.pay.terminal.dao.impl.PmsTerminalDaoImpl" >
+  <resultMap id="BaseResultMap" type="com.zyzf.polymer.pay.terminal.entity.PmsTerminal" >
+    <id column="TCODE" property="tcode" jdbcType="VARCHAR" />
+    <result column="MCODE" property="mcode" jdbcType="VARCHAR" />
+    <result column="MAIN_KEY" property="mainKey" jdbcType="VARCHAR" />
+    <result column="PIN_KEY" property="pinKey" jdbcType="VARCHAR" />
+    <result column="TRACK_KEY" property="trackKey" jdbcType="VARCHAR" />
+    <result column="CALLBACK_KEY" property="callbackKey" jdbcType="VARCHAR" />
+    <result column="SENSITIVE_KEY" property="sensitiveKey" jdbcType="VARCHAR" />
+    <result column="ACTIVE" property="active" jdbcType="DECIMAL" />
+    <result column="DELETED" property="deleted" jdbcType="DECIMAL" />
+    <result column="ROLE_ID" property="roleId" jdbcType="DECIMAL" />
+    <result column="CREATE_USER" property="createUser" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="EDITOR_USER" property="editorUser" jdbcType="VARCHAR" />
+    <result column="EDIT_TIME" property="editTime" jdbcType="TIMESTAMP" />
+    <result column="CHANNEL_ID" property="channelId" jdbcType="DECIMAL" />
+    <result column="STATUS" property="status" jdbcType="DECIMAL" />
+    <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+    <result column="CLIENT_TYPE" property="clientType" jdbcType="DECIMAL" />
+    <result column="SN_CODE" property="snCode" jdbcType="VARCHAR" />
+    <result column="TERMINAL_INFO" property="terminalINFO" jdbcType="VARCHAR" />
+  </resultMap>
+ 
+   <sql id="pms_terminal"> PMS_TERMINAL </sql>        <!-- 终端表 -->
+   <sql id="pms_merchant"> PMS_MERCHANT </sql>        <!--商户表  -->
+   <sql id="pms_channel"> PMS_CHANNEL </sql>          <!-- 通道表 -->
+   <sql id="pms_channel_org"> PMS_CHANNEL_ORG </sql>  <!-- 渠道机构表 --> 
+   <sql id="pms_operator"> PMS_OPERATOR </sql>        <!-- 后台用户表 -->
+  
+  <sql id="Base_Column_List" >
+    TCODE, MCODE, MAIN_KEY, PIN_KEY, TRACK_KEY, CALLBACK_KEY, SENSITIVE_KEY, ACTIVE, 
+    DELETED, ROLE_ID, CREATE_USER, CREATE_TIME, EDITOR_USER, EDIT_TIME, CHANNEL_ID, STATUS, 
+    DESCRIPTION, CLIENT_TYPE
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from PMS_TERMINAL
+    where TCODE = #{tcode,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from PMS_TERMINAL
+    where TCODE = #{tcode,jdbcType=VARCHAR}
+  </delete>
+  
+   <!-- 查询序列插入设置终端号 -->
+   <select id="selectTcodeId" resultType="long">
+     SELECT SQC_PMS_TERMINAL.NEXTVAL AS tcod FROM DUAL
+   </select>
+   
+    <!-- 查询单个entity -->
+  <select id="listByColumn" parameterType="com.zyzf.polymer.pay.terminal.entity.PmsTerminal" resultMap="BaseResultMap">
+	  select * from PMS_TERMINAL
+	  where MTODE = #{tcode,jdbcType=VARCHAR}
+  </select>
+  
+  <insert id="insert" parameterType="com.zyzf.polymer.pay.terminal.entity.PmsTerminal"  >
+      insert into PMS_TERMINAL (TCODE, MCODE, MAIN_KEY, 
+      PIN_KEY, TRACK_KEY, CALLBACK_KEY, 
+      SENSITIVE_KEY, ACTIVE, DELETED, 
+      ROLE_ID, CREATE_USER, CREATE_TIME, 
+      EDITOR_USER, EDIT_TIME, CHANNEL_ID, 
+      STATUS, DESCRIPTION, CLIENT_TYPE
+      )
+    values (#{tcode,jdbcType=VARCHAR}, #{mcode,jdbcType=VARCHAR}, #{mainKey,jdbcType=VARCHAR}, 
+      #{pinKey,jdbcType=VARCHAR}, #{trackKey,jdbcType=VARCHAR}, #{callbackKey,jdbcType=VARCHAR}, 
+      #{sensitiveKey,jdbcType=VARCHAR}, #{active,jdbcType=DECIMAL}, #{deleted,jdbcType=DECIMAL}, 
+      #{roleId,jdbcType=DECIMAL}, #{createUser,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{editorUser,jdbcType=VARCHAR}, #{editTime,jdbcType=TIMESTAMP}, #{channelId,jdbcType=DECIMAL}, 
+      #{status,jdbcType=DECIMAL}, #{description,jdbcType=VARCHAR}, #{clientType,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zyzf.polymer.pay.terminal.entity.PmsTerminal" >
+    insert into PMS_TERMINAL
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tcode != null" >
+        TCODE,
+      </if>
+      <if test="mcode != null" >
+        MCODE,
+      </if>
+      <if test="mainKey != null" >
+        MAIN_KEY,
+      </if>
+      <if test="pinKey != null" >
+        PIN_KEY,
+      </if>
+      <if test="trackKey != null" >
+        TRACK_KEY,
+      </if>
+      <if test="callbackKey != null" >
+        CALLBACK_KEY,
+      </if>
+      <if test="sensitiveKey != null" >
+        SENSITIVE_KEY,
+      </if>
+      <if test="active != null" >
+        ACTIVE,
+      </if>
+      <if test="deleted != null" >
+        DELETED,
+      </if>
+      <if test="roleId != null" >
+        ROLE_ID,
+      </if>
+      <if test="createUser != null" >
+        CREATE_USER,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="editorUser != null" >
+        EDITOR_USER,
+      </if>
+      <if test="editTime != null" >
+        EDIT_TIME,
+      </if>
+      <if test="channelId != null" >
+        CHANNEL_ID,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="description != null" >
+        DESCRIPTION,
+      </if>
+      <if test="clientType != null" >
+        CLIENT_TYPE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tcode != null" >
+        #{tcode,jdbcType=VARCHAR},
+      </if>
+      <if test="mcode != null" >
+        #{mcode,jdbcType=VARCHAR},
+      </if>
+      <if test="mainKey != null" >
+        #{mainKey,jdbcType=VARCHAR},
+      </if>
+      <if test="pinKey != null" >
+        #{pinKey,jdbcType=VARCHAR},
+      </if>
+      <if test="trackKey != null" >
+        #{trackKey,jdbcType=VARCHAR},
+      </if>
+      <if test="callbackKey != null" >
+        #{callbackKey,jdbcType=VARCHAR},
+      </if>
+      <if test="sensitiveKey != null" >
+        #{sensitiveKey,jdbcType=VARCHAR},
+      </if>
+      <if test="active != null" >
+        #{active,jdbcType=DECIMAL},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=DECIMAL},
+      </if>
+      <if test="roleId != null" >
+        #{roleId,jdbcType=DECIMAL},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="editorUser != null" >
+        #{editorUser,jdbcType=VARCHAR},
+      </if>
+      <if test="editTime != null" >
+        #{editTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="channelId != null" >
+        #{channelId,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="clientType != null" >
+        #{clientType,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  
+  <!--  updateByPrimaryKeySelective-->
+  <update id="updateByPrimaryKeySelective" parameterType="com.zyzf.polymer.pay.terminal.entity.PmsTerminal" >
+    update PMS_TERMINAL
+    <set >
+      <if test="mcode != null" >
+        MCODE = #{mcode,jdbcType=VARCHAR},
+      </if>
+      <if test="mainKey != null" >
+        MAIN_KEY = #{mainKey,jdbcType=VARCHAR},
+      </if>
+      <if test="pinKey != null" >
+        PIN_KEY = #{pinKey,jdbcType=VARCHAR},
+      </if>
+      <if test="trackKey != null" >
+        TRACK_KEY = #{trackKey,jdbcType=VARCHAR},
+      </if>
+      <if test="callbackKey != null" >
+        CALLBACK_KEY = #{callbackKey,jdbcType=VARCHAR},
+      </if>
+      <if test="sensitiveKey != null" >
+        SENSITIVE_KEY = #{sensitiveKey,jdbcType=VARCHAR},
+      </if>
+      <if test="active != null" >
+        ACTIVE = #{active,jdbcType=DECIMAL},
+      </if>
+      <if test="deleted != null" >
+        DELETED = #{deleted,jdbcType=DECIMAL},
+      </if>
+      <if test="roleId != null" >
+        ROLE_ID = #{roleId,jdbcType=DECIMAL},
+      </if>
+      <if test="createUser != null" >
+        CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="editorUser != null" >
+        EDITOR_USER = #{editorUser,jdbcType=VARCHAR},
+      </if>
+      <if test="editTime != null" >
+        EDIT_TIME = #{editTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="channelId != null" >
+        CHANNEL_ID = #{channelId,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="description != null" >
+        DESCRIPTION = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="clientType != null" >
+        CLIENT_TYPE = #{clientType,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where TCODE = #{tcode,jdbcType=VARCHAR}
+  </update>
+  
+  
+  <!-- updateByPrimaryKey -->
+  <update id="updateByPrimaryKey" parameterType="com.zyzf.polymer.pay.terminal.entity.PmsTerminal" >
+     update PMS_TERMINAL
+     set MCODE = #{mcode,jdbcType=VARCHAR},
+      MAIN_KEY = #{mainKey,jdbcType=VARCHAR},
+      PIN_KEY = #{pinKey,jdbcType=VARCHAR},
+      TRACK_KEY = #{trackKey,jdbcType=VARCHAR},
+      CALLBACK_KEY = #{callbackKey,jdbcType=VARCHAR},
+      SENSITIVE_KEY = #{sensitiveKey,jdbcType=VARCHAR},
+      ACTIVE = #{active,jdbcType=DECIMAL},
+      DELETED = #{deleted,jdbcType=DECIMAL},
+      ROLE_ID = #{roleId,jdbcType=DECIMAL},
+      CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      EDITOR_USER = #{editorUser,jdbcType=VARCHAR},
+      EDIT_TIME = #{editTime,jdbcType=TIMESTAMP},
+      CHANNEL_ID = #{channelId,jdbcType=DECIMAL},
+      STATUS = #{status,jdbcType=DECIMAL},
+      DESCRIPTION = #{description,jdbcType=VARCHAR},
+      CLIENT_TYPE = #{clientType,jdbcType=DECIMAL}
+    where TCODE = #{tcode,jdbcType=VARCHAR}
+  </update>
+  
+  <!-- 封装 终端查询数据-->
+  <resultMap type="java.util.HashMap" id="terminalId">
+    <id column="id" property="id" jdbcType="INTEGER" />
+	<result column="tcode" property="tcode" jdbcType="VARCHAR" />
+	<result column="mcode" property="mcode" jdbcType="VARCHAR" />
+	<result column="mer_name" property="merName" jdbcType="VARCHAR" />
+	<!-- <result column="pay_Type" property="payType" jdbcType="DECIMAL" /> -->
+	<result column="createTime" property="createTime" jdbcType="TIMESTAMP" />
+	<result column="name" property="name" jdbcType="VARCHAR" />
+	<result column="channelName" property="channelName" jdbcType="VARCHAR" />
+	<result column="status" property="status" jdbcType="DECIMAL" />
+	<result column="active" property="active" jdbcType="DECIMAL" />
+  </resultMap>
+  
+  <sql id="Where_Clause">
+		<if test="tcode != null and tcode!=''" > AND ter.tcode =#{tcode,jdbcType=VARCHAR}</if>
+		<if test="mcode != null and mcode != ''"> AND ter.mcode =#{mcode,jdbcType=VARCHAR}</if>
+		<if test="status != null "> AND ter.status =#{status,jdbcType=VARCHAR}</if>
+	    <if test="startDateCreate != null "> 
+			AND ter.CREATE_TIME <![CDATA[>=]]> #{startDateCreate,jdbcType=TIMESTAMP}
+		</if>
+		<if test="endDateCreate != null "> 
+			AND ter.CREATE_TIME <![CDATA[ <=]]> #{endDateCreate,jdbcType=TIMESTAMP}
+		</if> 
+	</sql>
+	
+  <!-- 用于计算分页列表条数 -->
+  <select id="listPageCount" parameterType="java.util.Map" resultType="long">
+	   select count(1)
+       from pms_terminal ter
+       left join pms_merchant mer 
+       on ter.mcode = mer.mcode
+       left join pms_organization org
+       on mer.org_id = org.org_id
+       left join pms_channel cha
+       on ter.channel_id = cha.channel_id
+	    <where>
+	    ter.deleted=0 
+			<include refid="Where_Clause" />
+		</where>
+  </select>
+  
+  <!-- 查询结果集用于分页显示 -->
+  <select id="listPage" parameterType="java.util.Map" resultMap="terminalId">
+		select 
+		ter.tcode       as tcode,
+        ter.mcode       as mcode,
+        ter.status      as status,
+        ter.active      as active,
+        ter.create_time as createTime,
+        mer.mer_name    as merName,
+        org.name        as name,
+        cha.channel_name as channelName
+        from pms_terminal ter
+        left join pms_merchant mer
+        on ter.mcode = mer.mcode
+        left join pms_organization org
+        on mer.org_id = org.org_id
+        left join pms_channel cha
+        on  ter.channel_id=cha.channel_id
+	    
+	    <where>
+	   ter.deleted=0 
+			<include refid="Where_Clause" />
+		</where>
+	</select>
+	
+	<!--终端通道 map  -->
+	<resultMap type="java.util.HashMap" id="terminalChannelId">
+	 <id column="id" property="id" jdbcType="INTEGER" />
+	 <result column="tcode" property="tcode" jdbcType="VARCHAR" />
+	 <result column="mcode" property="mcode" jdbcType="VARCHAR" />
+	 <result column="status" property="status" jdbcType="DECIMAL" />
+	 <result column="createTime" property="createTime" jdbcType="TIMESTAMP" />
+	 <result column="merName" property="merName" jdbcType="VARCHAR" />
+	 <result column="channelName" property="channelName" jdbcType="VARCHAR" />
+	 </resultMap>
+	
+	<!-- 终端通道列表  查询总数-->
+  <select id="terminalChannelCount" parameterType="java.util.Map" resultType="long">
+    select count(*)
+    from pms_terminal a
+    left join pms_channel b
+    on a.channel_id = b.channel_id
+    left join pms_merchant c
+    on a.mcode = c.mcode
+  </select>
+    <!-- 查询页面展示列表信息 -->
+   <select id="terminalChannellistPage" parameterType="java.util.Map" resultMap="terminalChannelId">
+   
+       select a.tcode as tcode,
+       a.mcode        as mcode,
+       a.status       as status,
+       a.create_time  as createTime,
+       c.mer_name     as merName,
+       b.channel_name as channelName
+       from pms_terminal  a
+       left join pms_channel  b
+       on a.channel_id = b.channel_id
+       left join pms_merchant c
+       on a.mcode = c.mcode
+   </select>
+   
+   <!-- 终端限额map -->
+   <resultMap type="java.util.HashMap" id="terminalLimitId">
+     <id column="id" property="id" jdbcType="INTEGER" />
+	 <result column="tcode" property="tcode" jdbcType="VARCHAR" />
+	 <result column="mcode" property="mcode" jdbcType="VARCHAR" />
+	 <result column="merNme" property="merNme" jdbcType="VARCHAR" />
+	 <result column="channelName" property="channelName" jdbcType="VARCHAR" />
+	 <result column="dayMinAmt" property="dayMinAmt" jdbcType="DECIMAL" />
+	 <result column="dayMaxAmt" property="dayMaxAmt" jdbcType="DECIMAL" />
+	 <result column="dayCardAllAmt" property="dayCardAllAmt" jdbcType="DECIMAL" />
+	 <result column="dayCardCnt" property="dayCardCnt" jdbcType="DECIMAL" />
+	 <result column="dayAllAmt" property="dayAllAmt" jdbcType="DECIMAL" />
+	 <result column="dayCnt" property="dayCnt" jdbcType="DECIMAL" />
+   </resultMap>
+	
+	<!-- 终端限额列表 查询总数-->
+	<select id="terminalLimitCount" parameterType="java.util.Map" resultType="long">
+	 select count(1)
+     from pms_terminal a
+     left join pms_fc_t_transLimit b
+     on a.tcode = b.tcode
+     left join pms_merchant c
+     on a.mcode = c.mcode
+     left join pms_channel d
+     on a.channel_Id = d.channel_id
+	</select>
+	
+	<!-- 查询页面展示列表信息  -->
+	<select id="terminalLimtlistPage"  parameterType="java.util.Map" resultMap="terminalLimitId">
+	   select a.tcode            as tcode,
+       a.mcode            as mcode,
+       c.mer_name         as merNme,
+       d.channel_name     as channelName,
+       b.DAY_MIN_AMT      as dayMinAmt,
+       b.DAY_MAX_AMT      as dayMaxAmt,
+       b.DAY_CARD_ALL_AMT as dayCardAllAmt,
+       b.DAY_CARD_CNT     as dayCardCnt,
+       b.DAY_ALL_AMT as dayAllAmt,
+       b.DAY_CNT as dayCnt
+       from pms_terminal a
+       left join pms_fc_t_transLimit b
+       on a.tcode = b.tcode
+       left join pms_merchant c
+       on a.mcode = c.mcode
+       left join pms_channel d
+       on a.channel_Id = d.channel_id
+	</select>
+	
+</mapper>

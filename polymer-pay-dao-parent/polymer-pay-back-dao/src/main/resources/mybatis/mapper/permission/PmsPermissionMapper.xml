@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zyzf.polymer.pay.permission.dao.impl.PmsPermissionDaoImpl">
+
+
+	<resultMap id="BaseResultMap"
+		type="com.zyzf.polymer.pay.permission.entity.PmsPermission">
+		<id column="ID" property="id" jdbcType="DECIMAL" />
+		<result column="CREATE_USER" property="createUser" jdbcType="VARCHAR" />
+		<result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="EDITOR_USER" property="editorUser" jdbcType="VARCHAR" />
+		<result column="EDIT_TIME" property="editTime" jdbcType="TIMESTAMP" />
+		<result column="STATUS" property="status" jdbcType="DECIMAL" />
+		<result column="REMARK" property="remark" jdbcType="VARCHAR" />
+		<result column="PERMISSION_NAME" property="permissionName" jdbcType="VARCHAR" />
+		<result column="MENU_ID" property="menuId" jdbcType="DECIMAL" />
+		<result column="PERMISSION" property="permission" jdbcType="VARCHAR" />
+		<result column="PERMISSION_TYPE" property="permissionType" jdbcType="DECIMAL" />
+		<result column="SORT" property="sort" jdbcType="DECIMAL" />
+		<result column="PAUSE_MSG" property="pauseMsg" jdbcType="VARCHAR" />
+		<result column="CLASS_NAME" property="className" jdbcType="VARCHAR" />
+		<result column="NAME" property="menuName" jdbcType="VARCHAR" />
+	</resultMap>
+	
+
+	<sql id="Base_Column_List">
+		ID, CREATE_USER, CREATE_TIME, EDITOR_USER, EDIT_TIME,
+		STATUS, REMARK,
+		PERMISSION_NAME,
+		MENU_ID, PERMISSION, PERMISSION_TYPE,
+		SORT, PAUSE_MSG, CLASS_NAME
+	</sql>
+
+	<insert id="insert"
+		parameterType="com.zyzf.polymer.pay.permission.entity.PmsPermission"
+		keyProperty="id" useGeneratedKeys="true">
+		<selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Long">
+			SELECT SQC_PMS_PERMISSION.NEXTVAL AS ID FROM DUAL
+		</selectKey>
+		insert into PMS_PERMISSION (ID, CREATE_USER, CREATE_TIME,
+		EDITOR_USER,
+		EDIT_TIME, STATUS,
+		REMARK, PERMISSION_NAME, MENU_ID,
+		PERMISSION,
+		PERMISSION_TYPE, SORT,
+		PAUSE_MSG, CLASS_NAME)
+		values
+		(#{id,jdbcType=DECIMAL}, #{createUser,jdbcType=VARCHAR},
+		#{createTime,jdbcType=TIMESTAMP},
+		#{editorUser,jdbcType=VARCHAR},
+		#{editTime,jdbcType=TIMESTAMP}, #{status,jdbcType=DECIMAL},
+		#{remark,jdbcType=VARCHAR}, #{permissionName,jdbcType=VARCHAR},
+		#{menuId,jdbcType=DECIMAL},
+		#{permission,jdbcType=VARCHAR},
+		#{permissionType,jdbcType=DECIMAL}, #{sort,jdbcType=DECIMAL},
+		#{pauseMsg,jdbcType=VARCHAR}, #{className,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.zyzf.polymer.pay.permission.entity.PmsPermission">
+		insert into PMS_PERMISSION
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="createUser != null">
+				CREATE_USER,
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME,
+			</if>
+			<if test="editorUser != null">
+				EDITOR_USER,
+			</if>
+			<if test="editTime != null">
+				EDIT_TIME,
+			</if>
+			<if test="status != null">
+				STATUS,
+			</if>
+			<if test="remark != null">
+				REMARK,
+			</if>
+			<if test="permissionName != null">
+				PERMISSION_NAME,
+			</if>
+			<if test="menuId != null">
+				MENU_ID,
+			</if>
+			<if test="permission != null">
+				PERMISSION,
+			</if>
+			<if test="permissionType != null">
+				PERMISSION_TYPE,
+			</if>
+			<if test="sort != null">
+				SORT,
+			</if>
+			<if test="pauseMsg != null">
+				PAUSE_MSG,
+			</if>
+			<if test="className != null">
+				CLASS_NAME,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=DECIMAL},
+			</if>
+			<if test="createUser != null">
+				#{createUser,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="editorUser != null">
+				#{editorUser,jdbcType=VARCHAR},
+			</if>
+			<if test="editTime != null">
+				#{editTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=DECIMAL},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="permissionName != null">
+				#{permissionName,jdbcType=VARCHAR},
+			</if>
+			<if test="menuId != null">
+				#{menuId,jdbcType=DECIMAL},
+			</if>
+			<if test="permission != null">
+				#{permission,jdbcType=VARCHAR},
+			</if>
+			<if test="permissionType != null">
+				#{permissionType,jdbcType=DECIMAL},
+			</if>
+			<if test="sort != null">
+				#{sort,jdbcType=DECIMAL},
+			</if>
+			<if test="pauseMsg != null">
+				#{pauseMsg,jdbcType=VARCHAR},
+			</if>
+			<if test="className != null">
+				#{className,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.zyzf.polymer.pay.permission.entity.PmsPermission">
+		update PMS_PERMISSION
+		<set>
+			<if test="createUser != null">
+				CREATE_USER = #{createUser,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="editorUser != null">
+				EDITOR_USER = #{editorUser,jdbcType=VARCHAR},
+			</if>
+			<if test="editTime != null">
+				EDIT_TIME = #{editTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="status != null">
+				STATUS = #{status,jdbcType=DECIMAL},
+			</if>
+			<if test="remark != null">
+				REMARK = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="permissionName != null">
+				PERMISSION_NAME = #{permissionName,jdbcType=VARCHAR},
+			</if>
+			<if test="menuId != null">
+				MENU_ID = #{menuId,jdbcType=DECIMAL},
+			</if>
+			<if test="permission != null">
+				PERMISSION = #{permission,jdbcType=VARCHAR},
+			</if>
+			<if test="permissionType != null">
+				PERMISSION_TYPE = #{permissionType,jdbcType=DECIMAL},
+			</if>
+			<if test="sort != null">
+				SORT = #{sort,jdbcType=DECIMAL},
+			</if>
+			<if test="pauseMsg != null">
+				PAUSE_MSG = #{pauseMsg,jdbcType=VARCHAR},
+			</if>
+			<if test="className != null">
+				CLASS_NAME = #{className,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where ID = #{id,jdbcType=DECIMAL}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.zyzf.polymer.pay.permission.entity.PmsPermission">
+		update PMS_PERMISSION
+		set CREATE_USER = #{createUser,jdbcType=VARCHAR},
+		CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+		EDITOR_USER = #{editorUser,jdbcType=VARCHAR},
+		EDIT_TIME = #{editTime,jdbcType=TIMESTAMP},
+		STATUS = #{status,jdbcType=DECIMAL},
+		REMARK = #{remark,jdbcType=VARCHAR},
+		PERMISSION_NAME = #{permissionName,jdbcType=VARCHAR},
+		MENU_ID = #{menuId,jdbcType=DECIMAL},
+		PERMISSION = #{permission,jdbcType=VARCHAR},
+		PERMISSION_TYPE = #{permissionType,jdbcType=DECIMAL},
+		SORT = #{sort,jdbcType=DECIMAL},
+		PAUSE_MSG = #{pauseMsg,jdbcType=VARCHAR},
+		CLASS_NAME = #{className,jdbcType=VARCHAR}
+		where ID = #{id,jdbcType=DECIMAL}
+	</update>
+	<select id="findByIds" resultMap="BaseResultMap">
+		select
+		ID, CREATE_USER, CREATE_TIME, EDITOR_USER, EDIT_TIME,
+		STATUS,
+		REMARK,
+		PERMISSION_NAME,
+		MENU_ID, PERMISSION, PERMISSION_TYPE
+		from
+		PMS_PERMISSION
+		where ID in
+		<foreach item="item" index="index" collection="list" open="("
+			separator="," close=")">#{item}
+		</foreach>
+	</select>
+
+	<select id="getByPermissionName" parameterType="string"
+		resultMap="BaseResultMap">
+		SELECT
+		ID, CREATE_USER, CREATE_TIME, EDITOR_USER, EDIT_TIME,
+		STATUS, REMARK,
+		PERMISSION_NAME,
+		MENU_ID, PERMISSION, PERMISSION_TYPE
+		FROM
+		PMS_PERMISSION
+		where permission_name =
+		#{permissionName}
+	</select>
+
+	<select id="getByPermission" parameterType="string" resultMap="BaseResultMap">
+		SELECT
+		ID, CREATE_USER, CREATE_TIME, EDITOR_USER, EDIT_TIME,
+		STATUS, REMARK,
+		PERMISSION_NAME,
+		MENU_ID, PERMISSION, PERMISSION_TYPE
+		FROM
+		PMS_PERMISSION
+		WHERE PERMISSION =
+		#{permission}
+	</select>
+
+	<select id="getByPermissionNameNotEqId" parameterType="java.util.Map"
+		resultMap="BaseResultMap">
+		SELECT
+		ID, CREATE_USER, CREATE_TIME, EDITOR_USER, EDIT_TIME,
+		STATUS, REMARK,
+		PERMISSION_NAME,
+		MENU_ID, PERMISSION, PERMISSION_TYPE
+		FROM
+		PMS_PERMISSION
+		WHERE PERMISSION_NAME =
+		#{permissionName} and id != #{id}
+	</select>
+
+	<select id="getByPermissionNotEqId" parameterType="java.util.Map"
+		resultMap="BaseResultMap">
+		select
+		ID, CREATE_USER, CREATE_TIME, EDITOR_USER, EDIT_TIME,
+		STATUS, REMARK,
+		PERMISSION_NAME,
+		MENU_ID, PERMISSION, PERMISSION_TYPE
+		FROM
+		PMS_PERMISSION
+		WHERE permission =
+		#{permission} and id != #{id}
+	</select>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from PMS_PERMISSION
+		where ID = #{id,jdbcType=DECIMAL}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from
+		PMS_PERMISSION
+		where ID = #{id,jdbcType=DECIMAL}
+	</delete>
+
+
+	<!-- 动态组装复合查询条件 -->
+	<sql id="condition_sql">
+		<!-- Equal query -->
+		<if test="permission != null and permission != ''">
+			and P.PERMISSION= #{permission}
+		</if>
+		<if test="menuName != null and menuName != ''">
+			and M.NAME= #{menuName}
+		</if>
+		<!-- Like query -->
+		<if test="permissionName != null and permissionName != ''"> 
+			and P.PERMISSION_NAME like CONCAT(CONCAT('%',#{permissionName}), '%')
+		</if>
+	</sql>
+
+	<!-- 分页查询 -->
+	<select id="listPage" parameterType="java.util.Map" resultMap="BaseResultMap">
+		select P.*,M.NAME from
+		PMS_PERMISSION P left join PMS_MENU M on P.MENU_ID=M.ID 
+		<where>
+			<include refid="condition_sql" />
+		</where>
+		order by P.CREATE_TIME desc
+	</select>
+
+	<!-- 分页查询时要用到的总数统计 -->
+	<select id="listPageCount" parameterType="java.util.Map" resultType="long">
+		select count(*) from
+		PMS_PERMISSION P left join PMS_MENU M on P.MENU_ID=M.ID 
+		<where>
+			<include refid="condition_sql" />
+		</where>
+	</select>
+
+	<select id="listBy" parameterType="java.util.Map" resultMap="BaseResultMap">
+		select
+		*
+		from
+		PMS_PERMISSION
+		<where>
+			<include refid="condition_sql" />
+		</where>
+	</select>
+	
+	<sql id="buildPermissionConditionSql">
+		<if test="menuName != null and menuName != ''">
+				and M.NAME= #{menuName,jdbcType=VARCHAR}
+		</if>
+		<if test="operatorId != null"> 
+			and M.ID in (
+			select MR.MENU_ID FROM PMS_MENU_ROLE MR WHERE  MR.ROLE_ID in(
+			select RO.ROLE_ID from PMS_ROLE_OPERATOR RO WHERE RO.OPERATOR_ID=#{operatorId,jdbcType=DECIMAL})
+			)
+		</if>
+	</sql>
+
+	<!-- 分页查询 -->
+	<select id="listBuildPermissionPage" parameterType="java.util.Map"
+		resultMap="BaseResultMapMap">
+		select P.menu_id,M.NAME from PMS_PERMISSION P LEFT JOIN PMS_MENU M ON
+		P.MENU_ID=M.ID 
+		<where>
+			<include refid="buildPermissionConditionSql"/>
+		</where>
+		GROUP BY P.menu_id,M.NAME
+	</select>
+
+	<resultMap id="BaseResultMapMap" type="java.util.HashMap">
+		<id column="menu_id" jdbcType="DECIMAL" property="menuId" />
+		<result column="NAME" jdbcType="VARCHAR" property="menuName" />
+	</resultMap>
+
+	<!-- 分页查询时要用到的总数统计 -->
+	<select id="listBuildPermissionPageCount" parameterType="java.util.Map"
+		resultType="long">
+		SELECT COUNT(*) FROM
+		(select P.menu_id,M.NAME from PMS_PERMISSION P LEFT JOIN PMS_MENU M ON
+		P.MENU_ID=M.ID 
+		<where>
+			<include refid="buildPermissionConditionSql"/>
+		</where>
+		GROUP BY P.menu_id,M.NAME)
+		A
+	</select>
+
+
+	<select id="selectByMenuId" parameterType="Long" resultMap="BaseResultMap">
+		SELECT
+		*
+		FROM
+		PMS_PERMISSION
+		WHERE
+		<if test="permissionType != null and permissionType != ''">
+			PERMISSION_TYPE = #{permissionType,jdbcType=DECIMAL}
+		</if>
+		<if test="menuId != null and menuId != ''">
+			AND MENU_ID = #{menuId,jdbcType=DECIMAL}
+		</if>
+	</select>
+
+
+</mapper>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:batch="http://www.springframework.org/schema/batch"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans	http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+	http://www.springframework.org/schema/batch http://www.springframework.org/schema/batch/spring-batch-3.0.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+
+		
+	<!-- 定时任务 开始 -->  
+	<bean id="ledgerJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">  
+		<property name="targetObject">  
+			<!-- 定时执行的类 -->  
+			<ref bean="quartzJob" />  
+		</property>  
+		<property name="targetMethod">  
+			<!-- 定时执行的类方法 -->  
+			<value>execute</value>  
+		</property>  
+	</bean>  
+  
+	<bean id="ledgerCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean" >  
+		<!-- 这里不可以直接在属性jobDetail中引用taskJob，因为他要求的是一个jobDetail类型的对象，所以我们得通过MethodInvokingJobDetailFactoryBean来转一下 -->  
+		<property name="jobDetail" >  
+			<ref bean="ledgerJobDetail" />  
+		</property>  
+		<!--在每天下午18点到下午18:59期间的每1分钟触发  -->  
+		<!--在每天上午10点40分准时触发  -->  
+		<property name="cronExpression" >  
+			<!-- <value>0 * 15 * * ?</value> -->
+			<value>0 15 12 * * ?</value>
+		</property>  
+	</bean>
+	<!-- 触发器工厂，将所有的定时任务都注入工厂-->  
+	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">  
+		<!-- 添加触发器 -->  
+		<property name="triggers">  
+			<list>  
+				<!-- 将上面定义的测试定时任务注入（可以定义多个定时任务，同时注入）-->  
+				<ref bean="ledgerCronTrigger"/>
+			</list>  
+		</property>  
+	</bean>  
+	<!-- 定时任务 结束 -->  
+</beans>  

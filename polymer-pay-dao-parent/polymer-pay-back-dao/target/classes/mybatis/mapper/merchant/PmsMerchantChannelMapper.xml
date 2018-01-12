@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zyzf.polymer.pay.merchant.dao.impl.PmsMerchantChannelDaoImpl" >
+
+  <resultMap id="BaseResultMap" type="com.zyzf.polymer.pay.merchant.entity.PmsMerchantChannel" >
+    <id column="MCODE" property="mcode" jdbcType="VARCHAR" />
+    <id column="CHANNEL_ID" property="channelId" jdbcType="DECIMAL" />
+    <result column="CREATE_USER" property="createUser" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="EDITOR_USER" property="editorUser" jdbcType="VARCHAR" />
+    <result column="EDIT_TIME" property="editTime" jdbcType="TIMESTAMP" />
+    <result column="STATUS" property="status" jdbcType="DECIMAL" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    MCODE, CHANNEL_ID, CREATE_USER, CREATE_TIME, EDITOR_USER, EDIT_TIME, STATUS, REMARK
+  </sql>
+   
+  <sql id="whereList">
+    <trim prefix="WHERE" prefixOverrides="AND ">  
+   <if test="mcode != null and mcode!=''" >
+       mcode= #{mcode,jdbcType=VARCHAR}
+      </if>
+      <if test="channelId != null  and channelId!=''" >
+       AND CHANNEL_ID =#{channelId,jdbcType=DECIMAL}
+      </if>
+      <if test="createUser != null and channelId!=''" >
+       AND CREATE_USER= #{createUser,jdbcType=VARCHAR}
+      </if>
+      <if test="createTime != null and createTime!=''" >
+        AND CREATE_TIME=#{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="editorUser != null and editorUser!=''" >
+       AND EDITOR_USER= #{editorUser,jdbcType=VARCHAR}
+      </if>
+      <if test="editTime != null and editTime!=''" >
+       AND EDIT_TIME= #{editTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="status != null and status!='' " >
+       AND status=#{status,jdbcType=DECIMAL}
+      </if>
+      <if test="remark != null and remark!=''"  >
+       AND remark=#{remark,jdbcType=VARCHAR}
+      </if>
+    </trim>
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.zyzf.polymer.pay.merchant.entity.PmsMerchantChannel" >
+    select 
+     <include refid="Base_Column_List"></include>
+    from PMS_MERCHANT_CHANNEL
+  
+      <include refid="whereList"></include>
+  </select>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="com.zyzf.polymer.pay.merchant.entity.PmsMerchantChannel" >
+    delete from PMS_MERCHANT_CHANNEL
+    where MCODE = #{mcode,jdbcType=VARCHAR}
+      and CHANNEL_ID = #{channelId,jdbcType=DECIMAL}
+  </delete>
+  
+  
+  <insert id="insert" parameterType="com.zyzf.polymer.pay.merchant.entity.PmsMerchantChannel" >
+    insert into PMS_MERCHANT_CHANNEL (MCODE, CHANNEL_ID, CREATE_USER, 
+      CREATE_TIME, EDITOR_USER, EDIT_TIME, 
+      STATUS, REMARK)
+      values (#{mcode,jdbcType=VARCHAR}, #{channelId,jdbcType=DECIMAL}, #{createUser,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{editorUser,jdbcType=VARCHAR}, #{editTime,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=DECIMAL}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zyzf.polymer.pay.merchant.entity.PmsMerchantChannel" >
+    insert into PMS_MERCHANT_CHANNEL
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="mcode != null" >
+        MCODE,
+      </if>
+      <if test="channelId != null" >
+        CHANNEL_ID,
+      </if>
+      <if test="createUser != null" >
+        CREATE_USER,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="editorUser != null" >
+        EDITOR_USER,
+      </if>
+      <if test="editTime != null" >
+        EDIT_TIME,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="mcode != null" >
+        #{mcode,jdbcType=VARCHAR},
+      </if>
+      <if test="channelId != null" >
+        #{channelId,jdbcType=DECIMAL},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="editorUser != null" >
+        #{editorUser,jdbcType=VARCHAR},
+      </if>
+      <if test="editTime != null" >
+        #{editTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zyzf.polymer.pay.merchant.entity.PmsMerchantChannel" >
+    update PMS_MERCHANT_CHANNEL
+    <set >
+      <if test="createUser != null" >
+        CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="editorUser != null" >
+        EDITOR_USER = #{editorUser,jdbcType=VARCHAR},
+      </if>
+      <if test="editTime != null" >
+        EDIT_TIME = #{editTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where MCODE = #{mcode,jdbcType=VARCHAR}
+      and CHANNEL_ID = #{channelId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zyzf.polymer.pay.merchant.entity.PmsMerchantChannel" >
+    update PMS_MERCHANT_CHANNEL
+    set CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      EDITOR_USER = #{editorUser,jdbcType=VARCHAR},
+      EDIT_TIME = #{editTime,jdbcType=TIMESTAMP},
+      STATUS = #{status,jdbcType=DECIMAL},
+      REMARK = #{remark,jdbcType=VARCHAR}
+    where MCODE = #{mcode,jdbcType=VARCHAR}
+      and CHANNEL_ID = #{channelId,jdbcType=DECIMAL}
+  </update>
+  
+  <!-- 定义resultMap封装商户通道返回参数 -->
+   <resultMap type="java.util.HashMap" id="mchannelId">
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="mcode" property="mcode" jdbcType="VARCHAR" />
+    <result column="merName" property="merName" jdbcType="VARCHAR" />
+    <result column="channelId" property="channelId" jdbcType="DECIMAL" />
+    <result column="channelName" property="channelName" jdbcType="VARCHAR" />
+    <result column="payType" property="payType" jdbcType="VARCHAR" />
+    <result column="payChannelType" property="payChannelType" jdbcType="DECIMAL" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="createTime" property="createTime" jdbcType="TIMESTAMP" />
+   </resultMap>
+
+  <!-- 查询商户通道信息 -->
+    <select id="listPageCount" parameterType="java.util.Map" resultType="long">
+	    select count(*)
+	    from pms_merchant_channel ac
+	    left join pms_merchant b
+	    on ac.mcode = b.mcode
+	    left join pms_channel c
+	    on ac.channel_id = c.channel_id
+	    
+	   <trim prefix="WHERE" prefixOverrides="AND ">  
+        <if test="mcode != null and mcode!=''" >
+         ac. mcode= #{mcode,jdbcType=VARCHAR}
+        </if>
+        
+         <if test="channelId != null  and channelId!=''" >
+           AND ac.CHANNEL_ID =#{channelId,jdbcType=DECIMAL}
+        </if>
+        <if test="status != null and status!='' " >
+          AND ac.status=#{status,jdbcType=DECIMAL}
+       </if>
+      </trim>
+    </select>
+    
+    <!-- 查询通道结果集列表 -->
+    <select id="listPage" parameterType="java.util.Map" resultMap="mchannelId">
+       select pms.mcode       as mcode,
+       b.mer_Name             as merName,
+       c.channel_id           as channelId,
+       c.channel_name         as channelName,
+       c.pay_type             as payType,
+       c.pay_Channel_Type     as payChannelType,
+       e.name                 as name,    <!-- 支付渠道名称 -->
+       pms.create_time        as createTime
+       from pms_merchant_channel pms
+       left join pms_merchant b
+       on pms.mcode = b.mcode
+       left join pms_channel c
+       on pms.channel_id = c.channel_id
+       left join pms_channel_type  e
+       on e.pay_Channel_Type = c.pay_Channel_Type
+       
+       <trim prefix="WHERE" prefixOverrides="AND ">  
+        <if test="mcode != null and mcode!=''" >
+        pms. mcode= #{mcode,jdbcType=VARCHAR}
+        </if>
+        
+         <if test="channelId != null  and channelId!=''" >
+           AND pms.CHANNEL_ID =#{channelId,jdbcType=DECIMAL}
+        </if>
+        <if test="status != null and status!='' " >
+          AND pms.status=#{status,jdbcType=DECIMAL}
+       </if>
+      </trim>
+    </select>
+    
+  
+</mapper>

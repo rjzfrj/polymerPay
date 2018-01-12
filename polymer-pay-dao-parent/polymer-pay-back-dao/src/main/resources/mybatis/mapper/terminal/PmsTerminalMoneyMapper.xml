@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zyzf.polymer.pay.terminal.dao.impl.PmsTerminalMoneyDaoImpl" >
+  <resultMap id="BaseResultMap" type="com.zyzf.polymer.pay.terminal.entity.PmsTerminalMoney" >
+    <result column="TCODE" property="tcode" jdbcType="VARCHAR" />
+    <result column="MCODE" property="mcode" jdbcType="VARCHAR" />
+    <result column="MONEY" property="money" jdbcType="DECIMAL" />
+    <result column="AVAIL_MONEY" property="availMoney" jdbcType="DECIMAL" />
+    <result column="FROZEN_MONEY" property="frozenMoney" jdbcType="DECIMAL" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    TCODE, MCODE,  MONEY, AVAIL_MONEY, FROZEN_MONEY
+  </sql>
+  
+  <sql id="whereList">
+    <trim prefix="WHERE" prefixOverrides="AND ">  
+   <if test="mcode != null and mcode!=''" >
+       mcode= #{mcode,jdbcType=VARCHAR}
+      </if>
+      <if test="tcode != null  and tcode!=''" >
+       AND tcode =#{tcode,jdbcType=VARCHAR}
+      </if>
+    </trim>
+  </sql>
+  
+  <insert id="insert" parameterType="com.zyzf.polymer.pay.terminal.entity.PmsTerminalMoney" >
+    insert into PMS_TERMINAL_MONEY (TCODE, MCODE, MONEY, 
+      AVAIL_MONEY, FROZEN_MONEY)
+    values (#{tcode,jdbcType=VARCHAR}, #{mcode,jdbcType=VARCHAR}, #{money,jdbcType=DECIMAL}, 
+      #{availMoney,jdbcType=DECIMAL}, #{frozenMoney,jdbcType=DECIMAL})
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.zyzf.polymer.pay.terminal.entity.PmsTerminalMoney" >
+    insert into PMS_TERMINAL_MONEY
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tcode != null" >
+        TCODE,
+      </if>
+      <if test="mcode != null" >
+        MCODE,
+      </if>
+      <if test="money != null" >
+        MONEY,
+      </if>
+      <if test="availMoney != null" >
+        AVAIL_MONEY,
+      </if>
+      <if test="frozenMoney != null" >
+        FROZEN_MONEY,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tcode != null" >
+        #{tcode,jdbcType=VARCHAR},
+      </if>
+      <if test="mcode != null" >
+        #{mcode,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null" >
+        #{money,jdbcType=DECIMAL},
+      </if>
+      <if test="availMoney != null" >
+        #{availMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="frozenMoney != null" >
+        #{frozenMoney,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  
+  <select id="listByColumn" parameterType="com.zyzf.polymer.pay.terminal.entity.PmsTerminalMoney" resultMap="BaseResultMap">
+		select * from PMS_TERMINAL_MONEY
+		<where>
+			<if test="tcode != null">
+				and tcode= #{tcode,jdbcType=VARCHAR}
+			</if>
+			<!-- Like query -->
+			<if test="code != null and code != ''">
+				and MCODE = #{mcode,jdbcType=VARCHAR}
+			</if>
+		</where>
+	</select>
+	
+	<select id="listPageCount" parameterType="java.util.Map" resultType="long">
+      select count(1) from PMS_TERMINAL_MONEY
+       <include refid="whereList"></include>
+   </select>
+   
+   <select id="listPage" parameterType="java.util.Map" resultMap="BaseResultMap">
+	  select 
+	   <include refid="Base_Column_List" />
+	   from PMS_TERMINAL_MONEY 
+	    <include refid="whereList"></include>
+   </select>
+	
+</mapper>

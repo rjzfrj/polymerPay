@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.zyzf.polymer.pay.permission.dao.impl.PmsRoleOperatorDaoImpl">
+
+	<!-- Pms权限管理：角色与操作员关联表 -->
+	<sql id="pms_role_operator"> PMS_ROLE_OPERATOR </sql>
+
+	<resultMap id="beanMap"
+		type="com.zyzf.polymer.pay.permission.entity.PmsRoleOperator">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="ver" property="ver" jdbcType="INTEGER" />
+		<result column="status" property="status" jdbcType="VARCHAR" />
+		<result column="creater" property="creater" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="editor" property="editor" jdbcType="VARCHAR" />
+		<result column="edit_time" property="editTime" jdbcType="TIMESTAMP" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+		<result column="role_id" property="roleId" jdbcType="VARCHAR" />
+		<result column="operator_id" property="operatorId" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<resultMap id="beanMapTwo" type="java.util.HashMap">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="status" property="status" jdbcType="VARCHAR" />
+		<result column="creater" property="creater" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="editor" property="editor" jdbcType="VARCHAR" />
+		<result column="edit_time" property="editTime" jdbcType="TIMESTAMP" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+		<result column="role_id" property="roleId" jdbcType="VARCHAR" />
+		<result column="operator_id" property="operatorId" jdbcType="VARCHAR" />
+		<result column="ROLE_NAME" property="roleName" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<resultMap id="BaseResultMap"
+		type="com.zyzf.polymer.pay.permission.entity.PmsRoleOperator">
+		<id column="ID" property="id" jdbcType="DECIMAL" />
+		<result column="CREATE_USER" property="createUser" jdbcType="VARCHAR" />
+		<result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="EDITOR_USER" property="editorUser" jdbcType="VARCHAR" />
+		<result column="EDIT_TIME" property="editTime" jdbcType="TIMESTAMP" />
+		<result column="STATUS" property="status" jdbcType="DECIMAL" />
+		<result column="REMARK" property="remark" jdbcType="VARCHAR" />
+		<result column="ROLE_ID" property="roleId" jdbcType="DECIMAL" />
+		<result column="OPERATOR_ID" property="operatorId" jdbcType="DECIMAL" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID, CREATE_USER, CREATE_TIME, EDITOR_USER, EDIT_TIME,
+		STATUS, REMARK,
+		ROLE_ID, OPERATOR_ID
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from PMS_ROLE_OPERATOR
+		where ID = #{id,jdbcType=DECIMAL}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from
+		PMS_ROLE_OPERATOR
+		where ID = #{id,jdbcType=DECIMAL}
+	</delete>
+	<insert id="insert"
+		parameterType="com.zyzf.polymer.pay.permission.entity.PmsRoleOperator"
+		keyProperty="id" useGeneratedKeys="true">
+		<selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Long">
+			SELECT SQC_PMS_ROLE_OPERATOR.NEXTVAL AS ID FROM DUAL
+		</selectKey>
+		insert into PMS_ROLE_OPERATOR (ID, CREATE_USER, CREATE_TIME,
+		EDITOR_USER, EDIT_TIME, STATUS,
+		REMARK, ROLE_ID, OPERATOR_ID
+		)
+		values (#{id,jdbcType=DECIMAL}, #{createUser,jdbcType=VARCHAR},
+		#{createTime,jdbcType=TIMESTAMP},
+		#{editorUser,jdbcType=VARCHAR}, #{editTime,jdbcType=TIMESTAMP}, #{status,jdbcType=DECIMAL},
+		#{remark,jdbcType=VARCHAR}, #{roleId,jdbcType=DECIMAL},
+		#{operatorId,jdbcType=DECIMAL}
+		)
+	</insert>
+	<select id="listByRoleId" parameterType="Long" resultMap="beanMap">
+		select * from
+		<include refid="pms_role_operator" />
+		where role_id = #{roleId}
+	</select>
+
+	<select id="listByOperatorId" parameterType="Long" resultMap="beanMap">
+		select * from
+		<include refid="pms_role_operator" />
+		where operator_id = #{operatorId}
+	</select>
+	<select id="listOperatorRoleByOperatorId" parameterType="Long"
+		resultMap="beanMapTwo">
+		select T.*,R.ROLE_NAME from PMS_ROLE_OPERATOR T,PMS_ROLE R
+		WHERE T.ROLE_ID=R.ID
+		AND T.operator_id = #{operatorId}
+	</select>
+	<delete id="deleteByRoleId" parameterType="Long">
+		delete from
+		<include refid="pms_role_operator" />
+		where role_id = #{roleId}
+	</delete>
+
+	<delete id="deleteByOperatorId" parameterType="Long">
+		delete from
+		<include refid="pms_role_operator" />
+		where operator_id = #{operatorId}
+	</delete>
+
+	<delete id="deleteByRoleIdAndOperatorId" parameterType="java.util.Map">
+		delete from
+		<include refid="pms_role_operator" />
+		where role_id = #{roleId} and operator_id = #{operatorId}
+	</delete>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.zyzf.polymer.pay.permission.entity.PmsRoleOperator">
+		update PMS_ROLE_OPERATOR
+		<set>
+			<if test="ver != null">
+				VER = #{ver,jdbcType=DECIMAL},
+			</if>
+			<if test="creater != null">
+				CREATER = #{creater,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="editor != null">
+				EDITOR = #{editor,jdbcType=VARCHAR},
+			</if>
+			<if test="editTime != null">
+				EDIT_TIME = #{editTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="status != null">
+				STATUS = #{status,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				REMARK = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="roleId != null">
+				ROLE_ID = #{roleId,jdbcType=DECIMAL},
+			</if>
+			<if test="operatorId != null">
+				OPERATOR_ID = #{operatorId,jdbcType=DECIMAL},
+			</if>
+		</set>
+		where ID = #{id,jdbcType=DECIMAL}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.zyzf.polymer.pay.permission.entity.PmsRoleOperator">
+		update PMS_ROLE_OPERATOR
+		set VER =
+		#{ver,jdbcType=DECIMAL},
+		CREATER = #{creater,jdbcType=VARCHAR},
+		CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+		EDITOR =
+		#{editor,jdbcType=VARCHAR},
+		EDIT_TIME = #{editTime,jdbcType=TIMESTAMP},
+		STATUS = #{status,jdbcType=VARCHAR},
+		REMARK =
+		#{remark,jdbcType=VARCHAR},
+		ROLE_ID = #{roleId,jdbcType=DECIMAL},
+		OPERATOR_ID = #{operatorId,jdbcType=DECIMAL}
+		where ID =
+		#{id,jdbcType=DECIMAL}
+	</update>
+
+</mapper>

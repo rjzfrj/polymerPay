@@ -1,0 +1,862 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zyzf.polymer.pay.organization.dao.impl.OrganizationDaoImpl">
+	<resultMap id="BaseResultMap"
+		type="com.zyzf.polymer.pay.organization.entity.Organization">
+		<id column="ORG_ID" property="orgId" jdbcType="DECIMAL" />
+	    <result column="NAME" property="name" jdbcType="VARCHAR" />
+	    <result column="TYPE" property="type" jdbcType="DECIMAL" />
+	    <result column="PARENT_ID" property="parentId" jdbcType="DECIMAL" />
+	    <result column="LAYER" property="layer" jdbcType="VARCHAR" />
+	    <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+	    <result column="CREATE_USER" property="createUser" jdbcType="VARCHAR" />
+	    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+	    <result column="EDITOR_USER" property="editorUser" jdbcType="VARCHAR" />
+	    <result column="EDIT_TIME" property="editTime" jdbcType="TIMESTAMP" />
+	    <result column="DELETED" property="deleted" jdbcType="DECIMAL" />
+	    <result column="PROVINCE" property="province" jdbcType="DECIMAL" />
+	    <result column="CITY" property="city" jdbcType="DECIMAL" />
+	    <result column="ADDRESS" property="address" jdbcType="VARCHAR" />
+	    <result column="MOBILE" property="mobile" jdbcType="VARCHAR" />
+	    <result column="PHONE" property="phone" jdbcType="VARCHAR" />
+	    <result column="LEGAL_NAME" property="legalName" jdbcType="VARCHAR" />
+	    <result column="ID_CARD" property="idCard" jdbcType="VARCHAR" />
+	    <result column="POST" property="post" jdbcType="VARCHAR" />
+	    <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+	    <result column="SALESMAN" property="salesman" jdbcType="VARCHAR" />
+	    <result column="CHECK_USER" property="checkUser" jdbcType="VARCHAR" />
+	    <result column="STATUS" property="status" jdbcType="DECIMAL" />
+	    <result column="CHECK_DESC" property="checkDesc" jdbcType="VARCHAR" />
+	    <result column="IS_CHECK_ORG" property="isCheckOrg" jdbcType="DECIMAL" />
+	    <result column="IS_DIR" property="isDir" jdbcType="DECIMAL" />
+	    <result column="CLEAR_MAC" property="clearMac" jdbcType="VARCHAR" />
+	    
+	    <result column="PARENTNAME" property="parentName" jdbcType="VARCHAR" />
+	    
+	    <association property="orgCleaning" resultMap="com.zyzf.polymer.pay.organization.dao.impl.OrgCleaningDaoImpl.organizationListMap"/>
+		<association property="orgContract" resultMap="com.zyzf.polymer.pay.organization.dao.impl.OrgContractDaoImpl.organizationListMap"/>
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		O.ORG_ID, O.NAME, O.TYPE, O.PARENT_ID, O.LAYER, O.DESCRIPTION, O.CREATE_USER, O.CREATE_TIME, O.EDITOR_USER, 
+	    O.EDIT_TIME, O.DELETED, O.PROVINCE, O.CITY, O.ADDRESS, O.MOBILE, O.PHONE, O.LEGAL_NAME, O.ID_CARD, 
+	    O.POST, O.EMAIL, O.SALESMAN, O.CHECK_USER, O.STATUS, O.CHECK_DESC, 
+	    O.IS_CHECK_ORG, O.IS_DIR, O.CLEAR_MAC, OCL.CARDHOLDER, OCL.CLEANTYPE, OCL.OPENING_BANK, OCL.BRANCHES_BANK, 
+		OCL.BBANK_PROVINCE, OCL.BBANK_CITY, OCL.BANK_CARD, OCL.FEE_RATE, OCL.CLEAR_FEE, OCL.MIN_FEE, 
+		OCL.MAX_FEE, OCL.BRANCHES_BANKCODE, OCO.CCODE, OCO.CON_STARTDATE, OCO.CON_ENDDATE, OCO.AGENCY_FEE, 
+		OCO.PAY_TYPE, OCO.SECURITY_MONEY, OCO.INITIAL_FEE, OCO.MONTHLY_INVOICES, OCO.FEE_DIRECTIONS, OCO.DESCRIPTION, 
+		OO.NAME AS PARENTNAME 
+	</sql>
+	
+	<sql id="whereList">
+    	<trim prefix="WHERE" prefixOverrides="AND ">
+	    	<if test="orgId != null">
+				AND O.ORG_ID = #{orgId}
+			</if>
+			<if test="name != null and name != ''">
+				AND O.NAME = #{name}
+			</if>
+			<if test="type != null">
+				<if test="type == 1">
+					AND O.TYPE = #{type}
+				</if>
+				<if test="type == 2">
+					AND O.TYPE >= #{type}
+				</if>
+			</if>
+			<if test="parentId != null">
+				AND O.PARENT_ID = #{parentId}
+			</if>
+			<if test="layer != null and layer != ''">
+				AND REVERSE(O.LAYER) LIKE REVERSE('${layer}%')
+			</if>
+			<if test="province != null">
+				AND O.PROVINCE = #{province}
+			</if>
+			<if test="mobile != null">
+			    AND O.MOBILE = #{mobile}
+			</if>
+			<if test="status != null">
+			    AND O.STATUS = #{status}
+			</if>
+			<if test="createTime != null">
+				AND TO_CHAR('O.CREATE_TIME','yyyy-MM-dd') = TO_CHAR(#{createTime},'yyyy-MM-dd')
+			</if>
+			<if test="editTime != null">
+				AND TO_CHAR('O.EDIT_TIME','yyyy-MM-dd') = TO_CHAR(#{editTime},'yyyy-MM-dd')
+			</if>
+			<if test="deleted != null">
+			    AND O.DELETED = #{deleted}
+			</if>
+			<if test="parentName != null and parentName != ''">
+				AND REVERSE(OO.NAME) LIKE REVERSE('%${parentName}%')
+			</if>
+			<if test="like_name != null and like_name != ''">
+				AND REVERSE(O.NAME) LIKE REVERSE('%${like_name}%')
+			</if>
+			<!-- <if test="createStartDate != null">
+				AND TO_CHAR('O.CREATESTARTDATE','yyyy-MM-dd') >= TO_CHAR(#{createStartDate},'yyyy-MM-dd')
+			</if>
+			<if test="createEndDate != null">
+				<![CDATA[
+					AND TO_CHAR('O.CREATEENDDATE','yyyy-MM-dd') <= TO_CHAR(#{createEndDate},'yyyy-MM-dd')
+				]]>
+			</if>
+			<if test="checkStartDate != null">
+				AND TO_CHAR('O.CHECKSTARTDATE','yyyy-MM-dd') >= TO_CHAR(#{checkStartDate},'yyyy-MM-dd')
+			</if>
+			<if test="checkEndDate != null">
+				<![CDATA[
+					AND TO_CHAR('O.CHECKENDDATE','yyyy-MM-dd') <= TO_CHAR(#{checkEndDate},'yyyy-MM-dd')
+				]]>
+			</if> -->
+			<if test="orgContract != null and orgContract.ccode != null and orgContract.ccode != ''">
+			    AND OCO.CCODE = #{orgContract.ccode}
+			</if>
+			<if test="parentIdNull != null and parentIdNull != ''">
+				AND ${parentIdNull}
+			</if>
+			<if test="otherParam != null and otherParam != ''">
+				AND ${otherParam}
+			</if>
+		</trim>
+    </sql>
+	
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+		select 
+	    <include refid="Base_Column_List" />
+	    from PMS_ORGANIZATION O 
+	    LEFT JOIN PMS_ORG_CLEANING OCL ON OCL.ORG_ID = O.ORG_ID
+	    LEFT JOIN PMS_ORG_CONTRACT OCO ON OCO.ORG_ID = O.ORG_ID
+	    LEFT JOIN PMS_ORGANIZATION OO ON OO.ORG_ID = O.PARENT_ID
+	    where O.ORG_ID = #{orgId,jdbcType=DECIMAL}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+	    delete from PMS_ORGANIZATION
+	    where ORG_ID = #{orgId,jdbcType=DECIMAL}
+	</delete>
+	<insert id="insert" parameterType="com.zyzf.polymer.pay.organization.entity.Organization">
+		<selectKey resultType="long" keyProperty="orgId" order="BEFORE">  
+          SELECT SQC_PMS_ORGANIZATION.NEXTVAL AS ORGID FROM DUAL
+     	</selectKey>
+		INSERT INTO PMS_ORGANIZATION
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="orgId != null">
+				ORG_ID,
+			</if>
+			<if test="name != null and name != ''">
+				NAME,
+			</if>
+			<if test="type != null">
+				TYPE,
+			</if>
+			<if test="parentId != null">
+				PARENT_ID,
+			</if>
+			<if test="layer != null and layer != ''">
+				LAYER,
+			</if>
+			<if test="description != null and description != ''">
+				DESCRIPTION,
+			</if>
+			<if test="createUser != null and createUser != ''">
+				CREATE_USER,
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME,
+			</if>
+			<if test="editorUser != null and editorUser != ''">
+				EDITOR_USER,
+			</if>
+			<if test="editTime != null">
+				EDIT_TIME,
+			</if>
+			<if test="deleted != null">
+				DELETED,
+			</if>
+			<if test="province != null">
+				PROVINCE,
+			</if>
+			<if test="city != null">
+				CITY,
+			</if>
+			<if test="address != null and address != ''">
+				ADDRESS,
+			</if>
+			<if test="mobile != null and mobile != ''">
+				MOBILE,
+			</if>
+			<if test="phone != null and phone != ''">
+				PHONE,
+			</if>
+			<if test="legalName != null and legalName != ''">
+				LEGAL_NAME,
+			</if>
+			<if test="idCard != null and idCard != ''">
+				ID_CARD,
+			</if>
+			<if test="post != null and post != ''">
+				POST,
+			</if>
+			<if test="email != null and email != ''">
+				EMAIL,
+			</if>
+			<if test="salesman != null and salesman != ''">
+				SALESMAN,
+			</if>
+			<if test="checkUser != null and checkUser != ''">
+				CHECK_USER,
+			</if>
+			<if test="status != null">
+				STATUS,
+			</if>
+			<if test="checkDesc != null and checkDesc != ''">
+				CHECK_DESC,
+			</if>
+			<if test="isCheckOrg != null">
+				IS_CHECK_ORG,
+			</if>
+			<if test="isDir != null">
+				IS_DIR,
+			</if>
+			<if test="clearMac != null and clearMac != ''">
+				CLEAR_MAC,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="orgId != null">
+				#{orgId,jdbcType=DECIMAL},
+			</if>
+			<if test="name != null and name != ''">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="type != null">
+				#{type,jdbcType=DECIMAL},
+			</if>
+			<if test="parentId != null">
+				#{parentId,jdbcType=DECIMAL},
+			</if>
+			<if test="layer != null and layer != ''">
+				#{layer,jdbcType=VARCHAR},
+			</if>
+			<if test="description != null and description != ''">
+				#{description,jdbcType=VARCHAR},
+			</if>
+			<if test="createUser != null and createUser != ''">
+				#{createUser,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="editorUser != null and editorUser != ''">
+				#{editorUser,jdbcType=VARCHAR},
+			</if>
+			<if test="editTime != null">
+				#{editTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="deleted != null">
+				#{deleted,jdbcType=DECIMAL},
+			</if>
+			<if test="province != null">
+				#{province,jdbcType=DECIMAL},
+			</if>
+			<if test="city != null">
+				#{city,jdbcType=DECIMAL},
+			</if>
+			<if test="address != null and address != ''">
+				#{address,jdbcType=VARCHAR},
+			</if>
+			<if test="mobile != null and mobile != ''">
+				#{mobile,jdbcType=VARCHAR},
+			</if>
+			<if test="phone != null and phone != ''">
+				#{phone,jdbcType=VARCHAR},
+			</if>
+			<if test="legalName != null and legalName != ''">
+				#{legalName,jdbcType=VARCHAR},
+			</if>
+			<if test="idCard != null and idCard != ''">
+				#{idCard,jdbcType=VARCHAR},
+			</if>
+			<if test="post != null and post != ''">
+				#{post,jdbcType=VARCHAR},
+			</if>
+			<if test="email != null and email != ''">
+				#{email,jdbcType=VARCHAR},
+			</if>
+			<if test="salesman != null and salesman != ''">
+				#{salesman,jdbcType=VARCHAR},
+			</if>
+			<if test="checkUser != null and checkUser != ''">
+				#{checkUser,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=DECIMAL},
+			</if>
+			<if test="checkDesc != null and checkDesc != ''">
+				#{checkDesc,jdbcType=VARCHAR},
+			</if>
+			<if test="isCheckOrg != null">
+				#{isCheckOrg,jdbcType=DECIMAL},
+			</if>
+			<if test="isDir != null">
+				#{isDir,jdbcType=DECIMAL},
+			</if>
+			<if test="clearMac != null and clearMac != ''">
+				#{clearMac,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<insert id="insertSelective" parameterType="com.zyzf.polymer.pay.organization.entity.Organization">
+		INSERT INTO pms_organization
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="orgId != null">
+				ORG_ID,
+			</if>
+			<if test="name != null and name != ''">
+				NAME,
+			</if>
+			<if test="type != null">
+				TYPE,
+			</if>
+			<if test="parentId != null">
+				PARENT_ID,
+			</if>
+			<if test="layer != null and layer != ''">
+				LAYER,
+			</if>
+			<if test="description != null and description != ''">
+				DESCRIPTION,
+			</if>
+			<if test="createUser != null and createUser != ''">
+				CREATE_USER,
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME,
+			</if>
+			<if test="editorUser != null and editorUser != ''">
+				EDITOR_USER,
+			</if>
+			<if test="editTime != null">
+				EDIT_TIME,
+			</if>
+			<if test="deleted != null">
+				DELETED,
+			</if>
+			<if test="province != null">
+				PROVINCE,
+			</if>
+			<if test="city != null">
+				CITY,
+			</if>
+			<if test="address != null and address != ''">
+				ADDRESS,
+			</if>
+			<if test="mobile != null and mobile != ''">
+				MOBILE,
+			</if>
+			<if test="phone != null and phone != ''">
+				PHONE,
+			</if>
+			<if test="legalName != null and legalName != ''">
+				LEGAL_NAME,
+			</if>
+			<if test="idCard != null and idCard != ''">
+				ID_CARD,
+			</if>
+			<if test="post != null and post != ''">
+				POST,
+			</if>
+			<if test="email != null and email != ''">
+				EMAIL,
+			</if>
+			<if test="salesman != null and salesman != ''">
+				SALESMAN,
+			</if>
+			<if test="checkUser != null and checkUser != ''">
+				CHECK_USER,
+			</if>
+			<if test="status != null">
+				STATUS,
+			</if>
+			<if test="checkDesc != null and checkDesc != ''">
+				CHECK_DESC,
+			</if>
+			<if test="isCheckOrg != null">
+				IS_CHECK_ORG,
+			</if>
+			<if test="isDir != null">
+				IS_DIR,
+			</if>
+			<if test="clearMac != null and clearMac != ''">
+				CLEAR_MAC,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="orgId != null">
+				#{orgId,jdbcType=DECIMAL},
+			</if>
+			<if test="name != null and name != ''">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="type != null">
+				#{type,jdbcType=DECIMAL},
+			</if>
+			<if test="parentId != null">
+				#{parentId,jdbcType=DECIMAL},
+			</if>
+			<if test="layer != null and layer != ''">
+				#{layer,jdbcType=VARCHAR},
+			</if>
+			<if test="description != null and description != ''">
+				#{description,jdbcType=VARCHAR},
+			</if>
+			<if test="createUser != null and createUser != ''">
+				#{createUser,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="editorUser != null and editorUser != ''">
+				#{editorUser,jdbcType=VARCHAR},
+			</if>
+			<if test="editTime != null">
+				#{editTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="deleted != null">
+				#{deleted,jdbcType=DECIMAL},
+			</if>
+			<if test="province != null">
+				#{province,jdbcType=DECIMAL},
+			</if>
+			<if test="city != null">
+				#{city,jdbcType=DECIMAL},
+			</if>
+			<if test="address != null and address != ''">
+				#{address,jdbcType=VARCHAR},
+			</if>
+			<if test="mobile != null and mobile != ''">
+				#{mobile,jdbcType=VARCHAR},
+			</if>
+			<if test="phone != null and phone != ''">
+				#{phone,jdbcType=VARCHAR},
+			</if>
+			<if test="legalName != null and legalName != ''">
+				#{legalName,jdbcType=VARCHAR},
+			</if>
+			<if test="idCard != null and idCard != ''">
+				#{idCard,jdbcType=VARCHAR},
+			</if>
+			<if test="post != null and post != ''">
+				#{post,jdbcType=VARCHAR},
+			</if>
+			<if test="email != null and email != ''">
+				#{email,jdbcType=VARCHAR},
+			</if>
+			<if test="salesman != null and salesman != ''">
+				#{salesman,jdbcType=VARCHAR},
+			</if>
+			<if test="checkUser != null and checkUser != ''">
+				#{checkUser,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=DECIMAL},
+			</if>
+			<if test="checkDesc != null and checkDesc != ''">
+				#{checkDesc,jdbcType=VARCHAR},
+			</if>
+			<if test="isCheckOrg != null">
+				#{isCheckOrg,jdbcType=DECIMAL},
+			</if>
+			<if test="isDir != null">
+				#{isDir,jdbcType=DECIMAL},
+			</if>
+			<if test="clearMac != null and clearMac != ''">
+				#{clearMac,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.zyzf.polymer.pay.organization.entity.Organization">
+		UPDATE PMS_ORGANIZATION
+		<set>
+			<if test="name != null and name != ''">
+				NAME = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="type != null">
+				TYPE = #{type,jdbcType=DECIMAL},
+			</if>
+			<if test="parentId != null">
+				PARENT_ID = #{parentId,jdbcType=DECIMAL},
+			</if>
+			<if test="layer != null and layer != ''">
+				LAYER = #{layer,jdbcType=VARCHAR},
+			</if>
+			<if test="description != null and description != ''">
+				DESCRIPTION = #{description,jdbcType=VARCHAR},
+			</if>
+			<if test="createUser != null and createUser != ''">
+				CREATE_USER = #{createUser,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="editorUser != null and editorUser != ''">
+				EDITOR_USER = #{editorUser,jdbcType=VARCHAR},
+			</if>
+			<if test="editTime != null">
+				EDIT_TIME = #{editTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="deleted != null">
+				DELETED = #{deleted,jdbcType=DECIMAL},
+			</if>
+			<if test="province != null">
+				PROVINCE = #{province,jdbcType=DECIMAL},
+			</if>
+			<if test="city != null">
+				CITY = #{city,jdbcType=DECIMAL},
+			</if>
+			<if test="address != null and address != ''">
+				ADDRESS = #{address,jdbcType=VARCHAR},
+			</if>
+			<if test="mobile != null and mobile != ''">
+				MOBILE = #{mobile,jdbcType=VARCHAR},
+			</if>
+			<if test="phone != null and phone != ''">
+				PHONE = #{phone,jdbcType=VARCHAR},
+			</if>
+			<if test="legalName != null and legalName != ''">
+				LEGAL_NAME = #{legalName,jdbcType=VARCHAR},
+			</if>
+			<if test="idCard != null and idCard != ''">
+				ID_CARD = #{idCard,jdbcType=VARCHAR},
+			</if>
+			<if test="post != null and post != ''">
+				POST = #{post,jdbcType=VARCHAR},
+			</if>
+			<if test="email != null and email != ''">
+				EMAIL = #{email,jdbcType=VARCHAR},
+			</if>
+			<if test="salesman != null and salesman != ''">
+				SALESMAN = #{salesman,jdbcType=VARCHAR},
+			</if>
+			<if test="checkUser != null and checkUser != ''">
+				CHECK_USER = #{checkUser,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				STATUS = #{status,jdbcType=DECIMAL},
+			</if>
+			<if test="checkDesc != null and checkDesc != ''">
+				CHECK_DESC = #{checkDesc,jdbcType=VARCHAR},
+			</if>
+			<if test="isCheckOrg != null">
+				IS_CHECK_ORG = #{isCheckOrg,jdbcType=DECIMAL},
+			</if>
+			<if test="isDir != null">
+				IS_DIR = #{isDir,jdbcType=DECIMAL},
+			</if>
+			<if test="clearMac != null and clearMac != ''">
+				CLEAR_MAC = #{clearMac,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where ORG_ID = #{orgId,jdbcType=DECIMAL}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.zyzf.polymer.pay.organization.entity.Organization">
+		UPDATE PMS_ORGANIZATION
+		<set>
+			<if test="name != null and name != ''">
+				NAME = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="type != null">
+				TYPE = #{type,jdbcType=DECIMAL},
+			</if>
+			<if test="parentId != null">
+				PARENT_ID = #{parentId,jdbcType=DECIMAL},
+			</if>
+			<if test="layer != null and layer != ''">
+				LAYER = #{layer,jdbcType=VARCHAR},
+			</if>
+			<if test="description != null and description != ''">
+				DESCRIPTION = #{description,jdbcType=VARCHAR},
+			</if>
+			<if test="createUser != null and createUser != ''">
+				CREATE_USER = #{createUser,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="editorUser != null and editorUser != ''">
+				EDITOR_USER = #{editorUser,jdbcType=VARCHAR},
+			</if>
+			<if test="editTime != null">
+				EDIT_TIME = #{editTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="deleted != null">
+				DELETED = #{deleted,jdbcType=DECIMAL},
+			</if>
+			<if test="province != null">
+				PROVINCE = #{province,jdbcType=DECIMAL},
+			</if>
+			<if test="city != null">
+				CITY = #{city,jdbcType=DECIMAL},
+			</if>
+			<if test="address != null and address != ''">
+				ADDRESS = #{address,jdbcType=VARCHAR},
+			</if>
+			<if test="mobile != null and mobile != ''">
+				MOBILE = #{mobile,jdbcType=VARCHAR},
+			</if>
+			<if test="phone != null and phone != ''">
+				PHONE = #{phone,jdbcType=VARCHAR},
+			</if>
+			<if test="legalName != null and legalName != ''">
+				LEGAL_NAME = #{legalName,jdbcType=VARCHAR},
+			</if>
+			<if test="idCard != null and idCard != ''">
+				ID_CARD = #{idCard,jdbcType=VARCHAR},
+			</if>
+			<if test="post != null and post != ''">
+				POST = #{post,jdbcType=VARCHAR},
+			</if>
+			<if test="email != null and email != ''">
+				EMAIL = #{email,jdbcType=VARCHAR},
+			</if>
+			<if test="salesman != null and salesman != ''">
+				SALESMAN = #{salesman,jdbcType=VARCHAR},
+			</if>
+			<if test="checkUser != null and checkUser != ''">
+				CHECK_USER = #{checkUser,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				STATUS = #{status,jdbcType=DECIMAL},
+			</if>
+			<if test="checkDesc != null and checkDesc != ''">
+				CHECK_DESC = #{checkDesc,jdbcType=VARCHAR},
+			</if>
+			<if test="isCheckOrg != null">
+				IS_CHECK_ORG = #{isCheckOrg,jdbcType=DECIMAL},
+			</if>
+			<if test="isDir != null">
+				IS_DIR = #{isDir,jdbcType=DECIMAL},
+			</if>
+			<if test="clearMac != null and clearMac != ''">
+				CLEAR_MAC = #{clearMac,jdbcType=VARCHAR},
+			</if>
+		</set>
+	    where ORG_ID = #{orgId,jdbcType=DECIMAL}
+	</update>
+
+	<!-- 查询根节点 -->
+	<select id="selectRootList" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		from PMS_ORGANIZATION O 
+	    LEFT JOIN PMS_ORG_CLEANING OCL ON OCL.ORG_ID = O.ORG_ID
+	    LEFT JOIN PMS_ORG_CONTRACT OCO ON OCO.ORG_ID = O.ORG_ID
+	    LEFT JOIN PMS_ORGANIZATION OO ON OO.ORG_ID = O.PARENT_ID
+		WHERE O.TYPE=0 AND O.STATUS=1 AND O.DELETED=0
+		ORDER BY O.LAYER ASC
+	</select>
+
+	<select id="selectListByParentId" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		from PMS_ORGANIZATION O 
+	    LEFT JOIN PMS_ORG_CLEANING OCL ON OCL.ORG_ID = O.ORG_ID
+	    LEFT JOIN PMS_ORG_CONTRACT OCO ON OCO.ORG_ID = O.ORG_ID
+	    LEFT JOIN PMS_ORGANIZATION OO ON OO.ORG_ID = O.PARENT_ID
+		<include refid="whereList"></include>
+	</select>
+	
+	<!-- 查询根节点 -->
+	<select id="searchRootList" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		from PMS_ORGANIZATION O 
+	    LEFT JOIN PMS_ORG_CLEANING OCL ON OCL.ORG_ID = O.ORG_ID
+	    LEFT JOIN PMS_ORG_CONTRACT OCO ON OCO.ORG_ID = O.ORG_ID
+	    LEFT JOIN PMS_ORGANIZATION OO ON OO.ORG_ID = O.PARENT_ID
+		WHERE O.TYPE=0 AND O.STATUS=1 AND O.DELETED=0 ORDER BY O.LAYER ASC
+	</select>
+	
+	<!-- 查询根节点 -->
+	<select id="searchSonList" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		SELECT
+		<include refid="Base_Column_List" />
+		from PMS_ORGANIZATION O 
+	    LEFT JOIN PMS_ORG_CLEANING OCL ON OCL.ORG_ID = O.ORG_ID
+	    LEFT JOIN PMS_ORG_CONTRACT OCO ON OCO.ORG_ID = O.ORG_ID
+	    LEFT JOIN PMS_ORGANIZATION OO ON OO.ORG_ID = O.PARENT_ID
+		WHERE O.PARENT_ID = #{value} AND O.STATUS=1 AND O.DELETED=0 ORDER BY O.LAYER ASC
+	</select>
+	
+	<!-- 查询单个 Entity -->
+	<select id="searchEntity" resultMap="BaseResultMap" parameterType="com.zyzf.polymer.pay.organization.entity.Organization">
+		SELECT
+		<include refid="Base_Column_List" />
+		from PMS_ORGANIZATION O 
+	    LEFT JOIN PMS_ORG_CLEANING OCL ON OCL.ORG_ID = O.ORG_ID
+	    LEFT JOIN PMS_ORG_CONTRACT OCO ON OCO.ORG_ID = O.ORG_ID
+	    LEFT JOIN PMS_ORGANIZATION OO ON OO.ORG_ID = O.PARENT_ID
+		<include refid="whereList"/>
+		ORDER BY O.ORG_ID ASC
+	</select>
+	
+	<!-- 查询列表 -->
+	<select id="searchEntityList" resultMap="BaseResultMap" parameterType="com.zyzf.polymer.pay.organization.entity.Organization">
+		SELECT
+		<include refid="Base_Column_List" />
+		from PMS_ORGANIZATION O 
+	    LEFT JOIN PMS_ORG_CLEANING OCL ON OCL.ORG_ID = O.ORG_ID
+	    LEFT JOIN PMS_ORG_CONTRACT OCO ON OCO.ORG_ID = O.ORG_ID
+	    LEFT JOIN PMS_ORGANIZATION OO ON OO.ORG_ID = O.PARENT_ID
+		<include refid="whereList"/>
+		ORDER BY O.ORG_ID ASC
+	</select>
+
+    <select id="listPageCount" parameterType="java.util.Map" resultType="long">
+		select count(1)
+		from PMS_ORGANIZATION O 
+	    LEFT JOIN PMS_ORG_CLEANING OCL ON OCL.ORG_ID = O.ORG_ID
+	    LEFT JOIN PMS_ORG_CONTRACT OCO ON OCO.ORG_ID = O.ORG_ID
+	    LEFT JOIN PMS_ORGANIZATION OO ON OO.ORG_ID = O.PARENT_ID
+		<include refid="whereList"></include>
+	</select>
+	
+	<select id="listPage" parameterType="java.util.Map"	resultMap="BaseResultMap">
+		select 
+		<include refid="Base_Column_List"></include>
+		from PMS_ORGANIZATION O 
+	    LEFT JOIN PMS_ORG_CLEANING OCL ON OCL.ORG_ID = O.ORG_ID
+	    LEFT JOIN PMS_ORG_CONTRACT OCO ON OCO.ORG_ID = O.ORG_ID
+	    LEFT JOIN PMS_ORGANIZATION OO ON OO.ORG_ID = O.PARENT_ID
+		<include refid="whereList"></include>
+		ORDER BY O.ORG_ID ASC
+	</select>
+	
+	<!-- 查询是否有相同的机构名称 -->
+	<select id="searchOrgNameUnique" resultType="Integer" parameterType="com.zyzf.polymer.pay.organization.entity.Organization">
+		SELECT COUNT(*) FROM PMS_ORGANIZATION O
+		<trim prefix="WHERE" prefixOverrides="AND ">
+	    	<if test="parentId != null">
+				AND O.PARENT_ID = #{parentId}
+			</if>
+	    	<if test="noId != null">
+	    		<![CDATA[
+	    			AND O.ORG_ID <> #{noId}
+	    		]]>
+			</if>
+	    	<if test="name != null and name != ''">
+				AND O.NAME = #{name}
+			</if>
+		</trim>
+	</select>
+	
+	<select id="listByColumn" resultMap="BaseResultMap" parameterType="com.zyzf.polymer.pay.organization.entity.Organization">
+		select 
+		<include refid="Base_Column_List"></include>
+		from PMS_ORGANIZATION O 
+	    LEFT JOIN PMS_ORG_CLEANING OCL ON OCL.ORG_ID = O.ORG_ID
+	    LEFT JOIN PMS_ORG_CONTRACT OCO ON OCO.ORG_ID = O.ORG_ID
+	    LEFT JOIN PMS_ORGANIZATION OO ON OO.ORG_ID = O.PARENT_ID
+		<include refid="whereList"></include>
+	</select>
+	
+	<select id="getLatestOrgId" resultType="Long">
+		SELECT SQC_PMS_ORGANIZATION.NEXTVAL FROM DUAL
+	</select>
+	
+	<select id="searchOrganizationAllById" resultMap="BaseResultMap" parameterType="Long">
+		SELECT  O.ORG_ID, O.NAME, O.TYPE, O.PARENT_ID, O.LAYER, O.DESCRIPTION, O.CREATE_USER, O.CREATE_TIME, O.EDITOR_USER, 
+	    O.EDIT_TIME, O.DELETED, O.PROVINCE, O.CITY, O.ADDRESS, O.MOBILE, O.PHONE, O.LEGAL_NAME, O.ID_CARD, 
+	    O.POST, O.EMAIL, O.SALESMAN, O.CHECK_USER, O.STATUS, O.CHECK_DESC, 
+	    O.IS_CHECK_ORG, O.IS_DIR, O.CLEAR_MAC, OCL.CARDHOLDER, OCL.CLEANTYPE, OCL.OPENING_BANK, OCL.BRANCHES_BANK, 
+		OCL.BBANK_PROVINCE, OCL.BBANK_CITY, OCL.BANK_CARD, OCL.FEE_RATE, OCL.CLEAR_FEE, OCL.MIN_FEE, 
+		OCL.MAX_FEE, OCL.BRANCHES_BANKCODE, OCO.CCODE, OCO.CON_STARTDATE, OCO.CON_ENDDATE, OCO.AGENCY_FEE, 
+		OCO.PAY_TYPE, OCO.SECURITY_MONEY, OCO.INITIAL_FEE, OCO.MONTHLY_INVOICES, OCO.FEE_DIRECTIONS, OCO.DESCRIPTION
+		FROM PMS_ORGANIZATION O 
+	    LEFT JOIN PMS_ORG_CLEANING OCL ON OCL.ORG_ID = O.ORG_ID
+	    LEFT JOIN PMS_ORG_CONTRACT OCO ON OCO.ORG_ID = O.ORG_ID
+	    LEFT JOIN PMS_ORGANIZATION OO ON OO.ORG_ID = O.PARENT_ID
+		WHERE O.ORG_ID = #{id} AND O.STATUS = 1 AND O.DELETED = 0
+		ORDER BY O.ORG_ID ASC
+	</select>
+	
+	<!-- 批量审核机构 -->
+	<update id="updateUnchecked" parameterType="java.util.Map">
+		UPDATE PMS_ORGANIZATION SET
+			STATUS = ${status}, CHECK_USER = #{checkUser}
+			<trim prefix=",">
+				<if test="checkDesc != null and checkDesc != ''">
+				    CHECK_DESC = #{checkDesc}
+				</if>
+			</trim>
+		WHERE ORG_ID IN (${ids})
+	</update>
+	
+	<!-- 根据两个层级获取单树 -->
+	<select id="getOrganizationListByLayer" resultMap="BaseResultMap" parameterType="java.util.Map">
+		SELECT 
+		<include refid="Base_Column_List"></include>
+		FROM PMS_ORGANIZATION O 
+		LEFT JOIN PMS_ORG_CLEANING OCL ON OCL.ORG_ID = O.ORG_ID
+	    LEFT JOIN PMS_ORG_CONTRACT OCO ON OCO.ORG_ID = O.ORG_ID
+	    LEFT JOIN PMS_ORGANIZATION OO ON OO.ORG_ID = O.PARENT_ID
+		<trim prefix="WHERE" prefixOverrides="AND ">
+			<if test="startLayer != null and startLayer != ''">
+			    AND REVERSE(O.LAYER) LIKE REVERSE('${startLayer}%')
+			</if>
+			<if test="endLayer != null and endLayer != ''">
+				AND ${endLayer}
+			</if>
+		</trim>
+	</select>
+	
+	<select id="uncheckedListPageCount" parameterType="java.util.Map" resultType="long">
+		select count(1)
+		from PMS_ORGANIZATION O 
+		WHERE O.DELETED = 0 AND <![CDATA[(O.STATUS <> 1)]]>
+		<if test="parentId != null">
+			AND O.PARENT_ID = #{parentId}
+		</if>
+		<if test="layer != null and layer != ''">
+			AND REVERSE(O.LAYER) LIKE REVERSE('${layer}%')
+		</if>
+	</select>
+	
+	<select id="uncheckedListPage" parameterType="java.util.Map" resultMap="BaseResultMap">
+		select 
+		<include refid="Base_Column_List"></include>
+		from PMS_ORGANIZATION O 
+	    LEFT JOIN PMS_ORG_CLEANING OCL ON OCL.ORG_ID = O.ORG_ID
+	    LEFT JOIN PMS_ORG_CONTRACT OCO ON OCO.ORG_ID = O.ORG_ID
+	    LEFT JOIN PMS_ORGANIZATION OO ON OO.ORG_ID = O.PARENT_ID
+		WHERE O.DELETED = 0 AND <![CDATA[(O.STATUS <> 1)]]>
+		<if test="parentId != null">
+			AND O.PARENT_ID = #{parentId}
+		</if>
+		<if test="layer != null and layer != ''">
+			AND REVERSE(O.LAYER) LIKE REVERSE('${layer}%')
+		</if>
+		ORDER BY O.ORG_ID ASC
+	</select>
+	
+	<!--  add 查询机构信息 列表wuhp -->
+	<resultMap id="ResultMapName" type="com.zyzf.polymer.pay.organization.entity.Organization">
+	<result column="ORG_ID"  property="orgId" jdbcType="DECIMAL"/>
+	<result column="Name"  property="name" jdbcType="VARCHAR"/>
+	</resultMap>
+	<select id="selectAllOrgName" resultMap="ResultMapName" >
+	    select
+		ORG_ID ,Name
+		from pms_organization 
+	</select> 
+	
+	<!-- 修改子级机构类型 -->
+	<update id="modifySonOrgTypeByLayer" parameterType="java.util.Map">
+		UPDATE PMS_ORGANIZATION SET
+			type = #{type}
+		WHERE LAYER LIKE '${layer}'||'A%'
+	</update>
+</mapper>

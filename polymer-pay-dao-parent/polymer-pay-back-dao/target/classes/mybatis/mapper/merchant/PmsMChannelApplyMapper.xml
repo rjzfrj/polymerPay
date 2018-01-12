@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zyzf.polymer.pay.merchant.dao.impl.PmsMChannelApplyDaoImpl" >
+  <resultMap id="BaseResultMap" type="com.zyzf.polymer.pay.merchant.entity.PmsMChannelApply" >
+    <id column="APPLY_ID" property="applyId" jdbcType="DECIMAL" />
+    <result column="MCODE" property="mcode" jdbcType="VARCHAR" />
+    <result column="PAY_CHANNEL_TYPE" property="payChannelType" jdbcType="DECIMAL" />
+    <result column="CHANNEL_ID" property="channelId" jdbcType="DECIMAL" />
+    <result column="CREATE_TYPE" property="createType" jdbcType="DECIMAL" />
+    <result column="CREATE_USER" property="createUser" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="EDITOR_TYPE" property="editorType" jdbcType="DECIMAL" />
+    <result column="EDITOR_USER" property="editorUser" jdbcType="VARCHAR" />
+    <result column="EDIT_TIME" property="editTime" jdbcType="TIMESTAMP" />
+    <result column="STATUS" property="status" jdbcType="DECIMAL" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    APPLY_ID, MCODE, PAY_CHANNEL_TYPE, CHANNEL_ID, CREATE_TYPE, CREATE_USER, CREATE_TIME, 
+    EDITOR_TYPE, EDITOR_USER, EDIT_TIME, STATUS, REMARK
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from PMS_M_CHANNEL_APPLY
+    where APPLY_ID = #{applyId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from PMS_M_CHANNEL_APPLY
+    where APPLY_ID = #{applyId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.zyzf.polymer.pay.merchant.entity.PmsMChannelApply" >
+    insert into PMS_M_CHANNEL_APPLY (APPLY_ID, MCODE, PAY_CHANNEL_TYPE, 
+      CHANNEL_ID, CREATE_TYPE, CREATE_USER, 
+      CREATE_TIME, EDITOR_TYPE, EDITOR_USER, 
+      EDIT_TIME, STATUS, REMARK
+      )
+    values (#{applyId,jdbcType=DECIMAL}, #{mcode,jdbcType=VARCHAR}, #{payChannelType,jdbcType=DECIMAL}, 
+      #{channelId,jdbcType=DECIMAL}, #{createType,jdbcType=DECIMAL}, #{createUser,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{editorType,jdbcType=DECIMAL}, #{editorUser,jdbcType=VARCHAR}, 
+      #{editTime,jdbcType=TIMESTAMP}, #{status,jdbcType=DECIMAL}, #{remark,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zyzf.polymer.pay.merchant.entity.PmsMChannelApply" >
+    insert into PMS_M_CHANNEL_APPLY
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="applyId != null" >
+        APPLY_ID,
+      </if>
+      <if test="mcode != null" >
+        MCODE,
+      </if>
+      <if test="payChannelType != null" >
+        PAY_CHANNEL_TYPE,
+      </if>
+      <if test="channelId != null" >
+        CHANNEL_ID,
+      </if>
+      <if test="createType != null" >
+        CREATE_TYPE,
+      </if>
+      <if test="createUser != null" >
+        CREATE_USER,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="editorType != null" >
+        EDITOR_TYPE,
+      </if>
+      <if test="editorUser != null" >
+        EDITOR_USER,
+      </if>
+      <if test="editTime != null" >
+        EDIT_TIME,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="applyId != null" >
+        #{applyId,jdbcType=DECIMAL},
+      </if>
+      <if test="mcode != null" >
+        #{mcode,jdbcType=VARCHAR},
+      </if>
+      <if test="payChannelType != null" >
+        #{payChannelType,jdbcType=DECIMAL},
+      </if>
+      <if test="channelId != null" >
+        #{channelId,jdbcType=DECIMAL},
+      </if>
+      <if test="createType != null" >
+        #{createType,jdbcType=DECIMAL},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="editorType != null" >
+        #{editorType,jdbcType=DECIMAL},
+      </if>
+      <if test="editorUser != null" >
+        #{editorUser,jdbcType=VARCHAR},
+      </if>
+      <if test="editTime != null" >
+        #{editTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zyzf.polymer.pay.merchant.entity.PmsMChannelApply" >
+    update PMS_M_CHANNEL_APPLY
+    <set >
+      <if test="mcode != null" >
+        MCODE = #{mcode,jdbcType=VARCHAR},
+      </if>
+      <if test="payChannelType != null" >
+        PAY_CHANNEL_TYPE = #{payChannelType,jdbcType=DECIMAL},
+      </if>
+      <if test="channelId != null" >
+        CHANNEL_ID = #{channelId,jdbcType=DECIMAL},
+      </if>
+      <if test="createType != null" >
+        CREATE_TYPE = #{createType,jdbcType=DECIMAL},
+      </if>
+      <if test="createUser != null" >
+        CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="editorType != null" >
+        EDITOR_TYPE = #{editorType,jdbcType=DECIMAL},
+      </if>
+      <if test="editorUser != null" >
+        EDITOR_USER = #{editorUser,jdbcType=VARCHAR},
+      </if>
+      <if test="editTime != null" >
+        EDIT_TIME = #{editTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where APPLY_ID = #{applyId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zyzf.polymer.pay.merchant.entity.PmsMChannelApply" >
+    update PMS_M_CHANNEL_APPLY
+    set MCODE = #{mcode,jdbcType=VARCHAR},
+      PAY_CHANNEL_TYPE = #{payChannelType,jdbcType=DECIMAL},
+      CHANNEL_ID = #{channelId,jdbcType=DECIMAL},
+      CREATE_TYPE = #{createType,jdbcType=DECIMAL},
+      CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      EDITOR_TYPE = #{editorType,jdbcType=DECIMAL},
+      EDITOR_USER = #{editorUser,jdbcType=VARCHAR},
+      EDIT_TIME = #{editTime,jdbcType=TIMESTAMP},
+      STATUS = #{status,jdbcType=DECIMAL},
+      REMARK = #{remark,jdbcType=VARCHAR}
+    where APPLY_ID = #{applyId,jdbcType=DECIMAL}
+  </update>
+   
+    <select id="listPageCount" parameterType="java.util.Map" resultType="long">
+      select count(1) from PMS_M_CHANNEL_APPLY
+   </select>
+   
+   <select id="listPage" parameterType="java.util.Map" resultMap="BaseResultMap">
+	  select 
+	   <include refid="Base_Column_List" />
+	   from PMS_M_CHANNEL_APPLY where 1=1
+   </select>
+  
+</mapper>

@@ -1,0 +1,537 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper
+	namespace="com.zyzf.polymer.pay.accountcheck.dao.impl.CardAccountCheckMistakePDaoImpl">
+	<resultMap id="BaseResultMap"
+		type="com.zyzf.polymer.pay.accountcheck.entity.CardAccountCheckMistakeP">
+		<id column="ID" property="id" jdbcType="DECIMAL" />
+		<result column="BATCH_NO" property="batchNo" jdbcType="VARCHAR" />
+		<result column="BILL_DATE" property="billDate" jdbcType="TIMESTAMP" />
+		<result column="MCODE" property="mcode" jdbcType="VARCHAR" />
+		<result column="MERCHANT_ORDER_ID" property="merchantOrderId" jdbcType="VARCHAR" />
+		<result column="TRANS_NO" property="transNo" jdbcType="VARCHAR" />
+		<result column="TRADE_STATUS" property="tradeStatus" jdbcType="DECIMAL" />
+		<result column="TRADE_TIME" property="tradeTime" jdbcType="TIMESTAMP" />
+		<result column="MERCHANT_ORDER_TIME" property="merchantOrderTime" jdbcType="TIMESTAMP" />
+		<result column="ORDER_TYPE" property="orderType" jdbcType="DECIMAL" />
+		<result column="PAY_CHANNEL_TYPE" property="payChannelType" jdbcType="DECIMAL" />
+		<result column="CHANNEL_ID" property="channelId" jdbcType="DECIMAL" />
+		<result column="BANK_ORDER_NUM" property="bankOrderNum" jdbcType="VARCHAR" />
+		<result column="THIRD_ORDER_NUM" property="thirdOrderNum" jdbcType="VARCHAR" />
+		<result column="BANK_TRADE_STATUS" property="bankTradeStatus" jdbcType="DECIMAL" />
+		<result column="PAY_DATE" property="payDate" jdbcType="TIMESTAMP" />
+		<result column="ACCOUNT_NUMBER" property="accountNumber" jdbcType="VARCHAR" />
+		<result column="ERROR_TYPE" property="errorType" jdbcType="DECIMAL" />
+		<result column="DISPOSE_STATUS" property="disposeStatus" jdbcType="DECIMAL" />
+		<result column="DISPOSE_RESULT" property="disposeResult" jdbcType="VARCHAR" />
+		<result column="REMARK" property="remark" jdbcType="VARCHAR" />
+		<result column="TRANS_MONEY" property="transMoney" jdbcType="DECIMAL" />
+		<result column="REFUND_MONEY" property="refundMoney" jdbcType="DECIMAL" />
+		<result column="TRANS_FEE_MONEY" property="transFeeMoney" jdbcType="DECIMAL" />
+		<result column="BANK_MONEY" property="bankMoney" jdbcType="DECIMAL" />
+		<result column="BANK_REFUND_MONEY" property="bankRefundMoney" jdbcType="DECIMAL" />
+		<result column="BANK_FEE" property="bankFee" jdbcType="DECIMAL" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID, BATCH_NO, BILL_DATE, MCODE, MERCHANT_ORDER_ID, TRANS_NO,
+		TRADE_STATUS, TRADE_TIME,
+		MERCHANT_ORDER_TIME, ORDER_TYPE, PAY_CHANNEL_TYPE, CHANNEL_ID, BANK_ORDER_NUM,
+		THIRD_ORDER_NUM,
+		BANK_TRADE_STATUS, PAY_DATE, ACCOUNT_NUMBER, ERROR_TYPE, DISPOSE_STATUS, DISPOSE_RESULT,
+		REMARK, TRANS_MONEY, REFUND_MONEY, TRANS_FEE_MONEY, BANK_MONEY,
+		BANK_REFUND_MONEY,
+		BANK_FEE
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from CARD_ACCOUNT_CHECK_MISTAKE_P
+		where ID = #{id,jdbcType=DECIMAL}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from CARD_ACCOUNT_CHECK_MISTAKE_P
+		where ID = #{id,jdbcType=DECIMAL}
+	</delete>
+	<insert id="insert"
+		parameterType="com.zyzf.polymer.pay.accountcheck.entity.CardAccountCheckMistakeP">
+		insert into CARD_ACCOUNT_CHECK_MISTAKE_P (ID, BATCH_NO, BILL_DATE,
+		MCODE, MERCHANT_ORDER_ID, TRANS_NO,
+		TRADE_STATUS, TRADE_TIME, MERCHANT_ORDER_TIME,
+		ORDER_TYPE, PAY_CHANNEL_TYPE, CHANNEL_ID,
+		BANK_ORDER_NUM, THIRD_ORDER_NUM, BANK_TRADE_STATUS,
+		PAY_DATE, ACCOUNT_NUMBER, ERROR_TYPE,
+		DISPOSE_STATUS, DISPOSE_RESULT, REMARK,
+		TRANS_MONEY, REFUND_MONEY, TRANS_FEE_MONEY,
+		BANK_MONEY, BANK_REFUND_MONEY, BANK_FEE
+		)
+		values (#{id,jdbcType=DECIMAL}, #{batchNo,jdbcType=VARCHAR},
+		#{billDate,jdbcType=TIMESTAMP},
+		#{mcode,jdbcType=VARCHAR}, #{merchantOrderId,jdbcType=VARCHAR}, #{transNo,jdbcType=VARCHAR},
+		#{tradeStatus,jdbcType=DECIMAL}, #{tradeTime,jdbcType=TIMESTAMP},
+		#{merchantOrderTime,jdbcType=TIMESTAMP},
+		#{orderType,jdbcType=DECIMAL}, #{payChannelType,jdbcType=DECIMAL},
+		#{channelId,jdbcType=DECIMAL},
+		#{bankOrderNum,jdbcType=VARCHAR}, #{thirdOrderNum,jdbcType=VARCHAR},
+		#{bankTradeStatus,jdbcType=DECIMAL},
+		#{payDate,jdbcType=TIMESTAMP}, #{accountNumber,jdbcType=VARCHAR}, #{errorType,jdbcType=DECIMAL},
+		#{disposeStatus,jdbcType=DECIMAL}, #{disposeResult,jdbcType=VARCHAR},
+		#{remark,jdbcType=VARCHAR},
+		#{transMoney,jdbcType=DECIMAL}, #{refundMoney,jdbcType=DECIMAL}, #{transFeeMoney,jdbcType=DECIMAL},
+		#{bankMoney,jdbcType=DECIMAL}, #{bankRefundMoney,jdbcType=DECIMAL},
+		#{bankFee,jdbcType=DECIMAL}
+		)
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.zyzf.polymer.pay.accountcheck.entity.CardAccountCheckMistakeP">
+		insert into CARD_ACCOUNT_CHECK_MISTAKE_P
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="batchNo != null">
+				BATCH_NO,
+			</if>
+			<if test="billDate != null">
+				BILL_DATE,
+			</if>
+			<if test="mcode != null">
+				MCODE,
+			</if>
+			<if test="merchantOrderId != null">
+				MERCHANT_ORDER_ID,
+			</if>
+			<if test="transNo != null">
+				TRANS_NO,
+			</if>
+			<if test="tradeStatus != null">
+				TRADE_STATUS,
+			</if>
+			<if test="tradeTime != null">
+				TRADE_TIME,
+			</if>
+			<if test="merchantOrderTime != null">
+				MERCHANT_ORDER_TIME,
+			</if>
+			<if test="orderType != null">
+				ORDER_TYPE,
+			</if>
+			<if test="payChannelType != null">
+				PAY_CHANNEL_TYPE,
+			</if>
+			<if test="channelId != null">
+				CHANNEL_ID,
+			</if>
+			<if test="bankOrderNum != null">
+				BANK_ORDER_NUM,
+			</if>
+			<if test="thirdOrderNum != null">
+				THIRD_ORDER_NUM,
+			</if>
+			<if test="bankTradeStatus != null">
+				BANK_TRADE_STATUS,
+			</if>
+			<if test="payDate != null">
+				PAY_DATE,
+			</if>
+			<if test="accountNumber != null">
+				ACCOUNT_NUMBER,
+			</if>
+			<if test="errorType != null">
+				ERROR_TYPE,
+			</if>
+			<if test="disposeStatus != null">
+				DISPOSE_STATUS,
+			</if>
+			<if test="disposeResult != null">
+				DISPOSE_RESULT,
+			</if>
+			<if test="remark != null">
+				REMARK,
+			</if>
+			<if test="transMoney != null">
+				TRANS_MONEY,
+			</if>
+			<if test="refundMoney != null">
+				REFUND_MONEY,
+			</if>
+			<if test="transFeeMoney != null">
+				TRANS_FEE_MONEY,
+			</if>
+			<if test="bankMoney != null">
+				BANK_MONEY,
+			</if>
+			<if test="bankRefundMoney != null">
+				BANK_REFUND_MONEY,
+			</if>
+			<if test="bankFee != null">
+				BANK_FEE,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=DECIMAL},
+			</if>
+			<if test="batchNo != null">
+				#{batchNo,jdbcType=VARCHAR},
+			</if>
+			<if test="billDate != null">
+				#{billDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="mcode != null">
+				#{mcode,jdbcType=VARCHAR},
+			</if>
+			<if test="merchantOrderId != null">
+				#{merchantOrderId,jdbcType=VARCHAR},
+			</if>
+			<if test="transNo != null">
+				#{transNo,jdbcType=VARCHAR},
+			</if>
+			<if test="tradeStatus != null">
+				#{tradeStatus,jdbcType=DECIMAL},
+			</if>
+			<if test="tradeTime != null">
+				#{tradeTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="merchantOrderTime != null">
+				#{merchantOrderTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="orderType != null">
+				#{orderType,jdbcType=DECIMAL},
+			</if>
+			<if test="payChannelType != null">
+				#{payChannelType,jdbcType=DECIMAL},
+			</if>
+			<if test="channelId != null">
+				#{channelId,jdbcType=DECIMAL},
+			</if>
+			<if test="bankOrderNum != null">
+				#{bankOrderNum,jdbcType=VARCHAR},
+			</if>
+			<if test="thirdOrderNum != null">
+				#{thirdOrderNum,jdbcType=VARCHAR},
+			</if>
+			<if test="bankTradeStatus != null">
+				#{bankTradeStatus,jdbcType=DECIMAL},
+			</if>
+			<if test="payDate != null">
+				#{payDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="accountNumber != null">
+				#{accountNumber,jdbcType=VARCHAR},
+			</if>
+			<if test="errorType != null">
+				#{errorType,jdbcType=DECIMAL},
+			</if>
+			<if test="disposeStatus != null">
+				#{disposeStatus,jdbcType=DECIMAL},
+			</if>
+			<if test="disposeResult != null">
+				#{disposeResult,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="transMoney != null">
+				#{transMoney,jdbcType=DECIMAL},
+			</if>
+			<if test="refundMoney != null">
+				#{refundMoney,jdbcType=DECIMAL},
+			</if>
+			<if test="transFeeMoney != null">
+				#{transFeeMoney,jdbcType=DECIMAL},
+			</if>
+			<if test="bankMoney != null">
+				#{bankMoney,jdbcType=DECIMAL},
+			</if>
+			<if test="bankRefundMoney != null">
+				#{bankRefundMoney,jdbcType=DECIMAL},
+			</if>
+			<if test="bankFee != null">
+				#{bankFee,jdbcType=DECIMAL},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.zyzf.polymer.pay.accountcheck.entity.CardAccountCheckMistakeP">
+		update CARD_ACCOUNT_CHECK_MISTAKE_P
+		<set>
+			<if test="batchNo != null">
+				BATCH_NO = #{batchNo,jdbcType=VARCHAR},
+			</if>
+			<if test="billDate != null">
+				BILL_DATE = #{billDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="mcode != null">
+				MCODE = #{mcode,jdbcType=VARCHAR},
+			</if>
+			<if test="merchantOrderId != null">
+				MERCHANT_ORDER_ID = #{merchantOrderId,jdbcType=VARCHAR},
+			</if>
+			<if test="transNo != null">
+				TRANS_NO = #{transNo,jdbcType=VARCHAR},
+			</if>
+			<if test="tradeStatus != null">
+				TRADE_STATUS = #{tradeStatus,jdbcType=DECIMAL},
+			</if>
+			<if test="tradeTime != null">
+				TRADE_TIME = #{tradeTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="merchantOrderTime != null">
+				MERCHANT_ORDER_TIME = #{merchantOrderTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="orderType != null">
+				ORDER_TYPE = #{orderType,jdbcType=DECIMAL},
+			</if>
+			<if test="payChannelType != null">
+				PAY_CHANNEL_TYPE = #{payChannelType,jdbcType=DECIMAL},
+			</if>
+			<if test="channelId != null">
+				CHANNEL_ID = #{channelId,jdbcType=DECIMAL},
+			</if>
+			<if test="bankOrderNum != null">
+				BANK_ORDER_NUM = #{bankOrderNum,jdbcType=VARCHAR},
+			</if>
+			<if test="thirdOrderNum != null">
+				THIRD_ORDER_NUM = #{thirdOrderNum,jdbcType=VARCHAR},
+			</if>
+			<if test="bankTradeStatus != null">
+				BANK_TRADE_STATUS = #{bankTradeStatus,jdbcType=DECIMAL},
+			</if>
+			<if test="payDate != null">
+				PAY_DATE = #{payDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="accountNumber != null">
+				ACCOUNT_NUMBER = #{accountNumber,jdbcType=VARCHAR},
+			</if>
+			<if test="errorType != null">
+				ERROR_TYPE = #{errorType,jdbcType=DECIMAL},
+			</if>
+			<if test="disposeStatus != null">
+				DISPOSE_STATUS = #{disposeStatus,jdbcType=DECIMAL},
+			</if>
+			<if test="disposeResult != null">
+				DISPOSE_RESULT = #{disposeResult,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				REMARK = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="transMoney != null">
+				TRANS_MONEY = #{transMoney,jdbcType=DECIMAL},
+			</if>
+			<if test="refundMoney != null">
+				REFUND_MONEY = #{refundMoney,jdbcType=DECIMAL},
+			</if>
+			<if test="transFeeMoney != null">
+				TRANS_FEE_MONEY = #{transFeeMoney,jdbcType=DECIMAL},
+			</if>
+			<if test="bankMoney != null">
+				BANK_MONEY = #{bankMoney,jdbcType=DECIMAL},
+			</if>
+			<if test="bankRefundMoney != null">
+				BANK_REFUND_MONEY = #{bankRefundMoney,jdbcType=DECIMAL},
+			</if>
+			<if test="bankFee != null">
+				BANK_FEE = #{bankFee,jdbcType=DECIMAL},
+			</if>
+		</set>
+		where ID = #{id,jdbcType=DECIMAL}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.zyzf.polymer.pay.accountcheck.entity.CardAccountCheckMistakeP">
+		update CARD_ACCOUNT_CHECK_MISTAKE_P
+		set BATCH_NO = #{batchNo,jdbcType=VARCHAR},
+		BILL_DATE = #{billDate,jdbcType=TIMESTAMP},
+		MCODE = #{mcode,jdbcType=VARCHAR},
+		MERCHANT_ORDER_ID = #{merchantOrderId,jdbcType=VARCHAR},
+		TRANS_NO = #{transNo,jdbcType=VARCHAR},
+		TRADE_STATUS = #{tradeStatus,jdbcType=DECIMAL},
+		TRADE_TIME = #{tradeTime,jdbcType=TIMESTAMP},
+		MERCHANT_ORDER_TIME = #{merchantOrderTime,jdbcType=TIMESTAMP},
+		ORDER_TYPE = #{orderType,jdbcType=DECIMAL},
+		PAY_CHANNEL_TYPE = #{payChannelType,jdbcType=DECIMAL},
+		CHANNEL_ID = #{channelId,jdbcType=DECIMAL},
+		BANK_ORDER_NUM = #{bankOrderNum,jdbcType=VARCHAR},
+		THIRD_ORDER_NUM = #{thirdOrderNum,jdbcType=VARCHAR},
+		BANK_TRADE_STATUS = #{bankTradeStatus,jdbcType=DECIMAL},
+		PAY_DATE = #{payDate,jdbcType=TIMESTAMP},
+		ACCOUNT_NUMBER = #{accountNumber,jdbcType=VARCHAR},
+		ERROR_TYPE = #{errorType,jdbcType=DECIMAL},
+		DISPOSE_STATUS = #{disposeStatus,jdbcType=DECIMAL},
+		DISPOSE_RESULT = #{disposeResult,jdbcType=VARCHAR},
+		REMARK = #{remark,jdbcType=VARCHAR},
+		TRANS_MONEY = #{transMoney,jdbcType=DECIMAL},
+		REFUND_MONEY = #{refundMoney,jdbcType=DECIMAL},
+		TRANS_FEE_MONEY = #{transFeeMoney,jdbcType=DECIMAL},
+		BANK_MONEY = #{bankMoney,jdbcType=DECIMAL},
+		BANK_REFUND_MONEY = #{bankRefundMoney,jdbcType=DECIMAL},
+		BANK_FEE = #{bankFee,jdbcType=DECIMAL}
+		where ID = #{id,jdbcType=DECIMAL}
+	</update>
+	
+	<insert id="batchInsert" parameterType="java.util.List">
+		insert into CARD_ACCOUNT_CHECK_MISTAKE_P (
+		ID, BATCH_NO, BILL_DATE,
+		MCODE, MERCHANT_ORDER_ID, TRANS_NO,
+		TRADE_STATUS, TRADE_TIME, MERCHANT_ORDER_TIME,
+		ORDER_TYPE, PAY_CHANNEL_TYPE, CHANNEL_ID,
+		BANK_ORDER_NUM, THIRD_ORDER_NUM, BANK_TRADE_STATUS,
+		PAY_DATE, ACCOUNT_NUMBER, ERROR_TYPE,
+		DISPOSE_STATUS, DISPOSE_RESULT, REMARK,
+		TRANS_MONEY, REFUND_MONEY, TRANS_FEE_MONEY,
+		BANK_MONEY, BANK_REFUND_MONEY, BANK_FEE
+		)
+		select SQC_CARD_ACCOCHECK_MISTAKE_P.NEXTVAL,cd.* 
+		from(  
+		<foreach collection="list" item="item" index="index" separator="union all">  
+			select  
+			#{item.batchNo,jdbcType=VARCHAR},
+			#{item.billDate,jdbcType=TIMESTAMP},
+			#{item.mcode,jdbcType=VARCHAR}, #{item.merchantOrderId,jdbcType=VARCHAR},
+			#{item.transNo,jdbcType=VARCHAR},
+			#{item.tradeStatus,jdbcType=DECIMAL}, #{item.tradeTime,jdbcType=TIMESTAMP},
+			#{item.merchantOrderTime,jdbcType=TIMESTAMP},
+			#{item.orderType,jdbcType=DECIMAL}, #{item.payChannelType,jdbcType=DECIMAL},
+			#{item.channelId,jdbcType=DECIMAL},
+			#{item.bankOrderNum,jdbcType=VARCHAR}, #{item.thirdOrderNum,jdbcType=VARCHAR},
+			#{item.bankTradeStatus,jdbcType=DECIMAL},
+			#{item.payDate,jdbcType=TIMESTAMP}, #{item.accountNumber,jdbcType=VARCHAR}, #{item.errorType,jdbcType=DECIMAL},
+			#{item.disposeStatus,jdbcType=DECIMAL}, #{item.disposeResult,jdbcType=VARCHAR},
+			#{item.remark,jdbcType=VARCHAR},
+			#{item.transMoney,jdbcType=DECIMAL}, #{item.refundMoney,jdbcType=DECIMAL}, #{item.transFeeMoney,jdbcType=DECIMAL},
+			#{item.bankMoney,jdbcType=DECIMAL}, #{item.bankRefundMoney,jdbcType=DECIMAL},
+			#{item.bankFee,jdbcType=DECIMAL}
+			from dual  
+		</foreach>  
+		) cd  
+	</insert>
+	
+	<!-- 以平台为准查询对账单少了的平台多出的记录 -->
+<!-- 	<select id="selectBaseOnPlatformMiss" resultMap="BaseResultMap">
+		select TT1.MCODE,TT1.MERCHANT_ORDER_ID,TT1.TRANS_ID
+		AS TRANS_NO,TT1.TRANS_MONEY ,TT1.FEE_MONEY AS
+		TRANS_FEE_MONEY,TT1.STATUS AS TRADE_STATUS,
+		TT1.CREATE_TIME AS
+		TRADE_TIME,TT1.MERCHANT_ORDER_TIME,TT1.ORDER_TYPE_ID,TT1.PAY_CHANNEL_TYPE,TT1.CHANNEL_ID,
+		TT1.BANK_ORDER_NUM from
+		PMS_CARD_ORDER_TEMP TT1 ,
+		(
+		select T1.BANK_ORDER_NUM,T1.TRANS_MONEY,T1.STATUS,T1.CHANNEL_ID from
+		PMS_CARD_ORDER_TEMP T1
+		minus
+		select T1.BANK_ORDER_NUM,T1.TRANS_MONEY,T1.STATUS,T1.CHANNEL_ID from
+		PMS_CARD_ORDER_TEMP T1, CARD_ACCOUNT_CHECK_BILL T2
+		where T1.BANK_ORDER_NUM=T2.BANK_ORDER_NUM and T1.CHANNEL_ID=T2.CHANNEL_ID
+		)TT2
+		where TT1.BANK_ORDER_NUM=TT2.BANK_ORDER_NUM and
+		TT1.CHANNEL_ID=TT2.CHANNEL_ID
+
+	</select> -->
+	<!-- exe -->
+	
+	<resultMap id="MResultMap"
+		type="com.zyzf.polymer.pay.accountcheck.entity.CardAccountCheckMistakeP">
+		<id column="ID" property="id" jdbcType="DECIMAL" />
+		<result column="BATCH_NO" property="batchNo" jdbcType="VARCHAR" />
+		<result column="BILL_DATE" property="billDate" jdbcType="TIMESTAMP" />
+		<result column="MCODE" property="mcode" jdbcType="VARCHAR" />
+		<result column="MERCHANT_ORDER_ID" property="merchantOrderId" jdbcType="VARCHAR" />
+		<result column="TRANS_NO" property="transNo" jdbcType="VARCHAR" />
+		<result column="TRADE_STATUS" property="tradeStatus" jdbcType="DECIMAL" />
+		<result column="TRADE_TIME" property="tradeTime" jdbcType="TIMESTAMP" />
+		<result column="MERCHANT_ORDER_TIME" property="merchantOrderTime" jdbcType="TIMESTAMP" />
+		<result column="ORDER_TYPE" property="orderType" jdbcType="DECIMAL" />
+		<result column="PAY_CHANNEL_TYPE" property="payChannelType" jdbcType="DECIMAL" />
+		<result column="CHANNEL_ID" property="channelId" jdbcType="DECIMAL" />
+		<result column="BANK_ORDER_NUM" property="bankOrderNum" jdbcType="VARCHAR" />
+		<result column="THIRD_ORDER_NUM" property="thirdOrderNum" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<select id="selectBaseOnPlatformMiss" parameterType="java.util.Map" statementType="CALLABLE">
+		<![CDATA[
+		call PRO_BASE_ONPLATFORM_MISS(#{RESULT_SYS,mode=OUT,jdbcType=CURSOR,javaType=java.sql.ResultSet,resultMap=MResultMap},#{BATCHNO,mode=IN,jdbcType=VARCHAR},#{BILLDATE,mode=IN,jdbcType=DATE}) ]]>
+	</select>
+	<sql id="Base_Column_Mismatch">
+		T1.MCODE,T1.MERCHANT_ORDER_ID,T1.TRANS_ID AS TRANS_NO,T1.TRANS_MONEY ,T1.FEE_MONEY AS TRANS_FEE_MONEY,T1.STATUS
+		AS TRADE_STATUS ,
+		T1.CREATE_TIME AS TRADE_TIME,T1.MERCHANT_ORDER_TIME,T1.ORDER_TYPE_ID AS
+		ORDER_TYPE,T1.PAY_CHANNEL_TYPE,T1.CHANNEL_ID,
+		T1.BANK_ORDER_NUM,
+		T2.BATCH_NO,T2.BILL_DATE,T2.TRANS_MONEY AS BANK_MONEY,T2.FEE_MONEY AS BANK_FEE,T2.STATUS AS BANK_TRADE_STATUS
+		,T2.PAY_DATE
+	</sql>
+	<!-- 以平台为准 平台长款金额不符差错 -->
+	<select id="selectPlatformOverCashMismatch" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_Mismatch" />
+		,'1' AS ERROR_TYPE
+		from PMS_CARD_ORDER_TEMP T1, CARD_ACCOUNT_CHECK_BILL
+		T2
+		where T1.BANK_ORDER_NUM=T2.BANK_ORDER_NUM and T1.CHANNEL_ID=T2.CHANNEL_ID
+		and T1.STATUS=T2.STATUS and T1.TRANS_MONEY <![CDATA[>]]>T2.TRANS_MONEY
+	</select>
+	<!-- 以平台为准 平台长款状态不符差错 -->
+	<select id="selectPlatformOverStatusMismatch" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_Mismatch" />
+		,'2' AS ERROR_TYPE
+		from PMS_CARD_ORDER_TEMP T1, CARD_ACCOUNT_CHECK_BILL
+		T2
+		where T1.BANK_ORDER_NUM=T2.BANK_ORDER_NUM and T1.CHANNEL_ID=T2.CHANNEL_ID
+		and T1.STATUS!=T2.STATUS and T1.TRANS_MONEY<![CDATA[>]]>T2.TRANS_MONEY
+	</select>
+	<!-- 以平台为准 平台短款金额不符差错 -->
+	<select id="selectPlatformShortCashMismatch" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_Mismatch" />
+		,'3' AS ERROR_TYPE
+		from PMS_CARD_ORDER_TEMP T1, CARD_ACCOUNT_CHECK_BILL
+		T2
+		where T1.BANK_ORDER_NUM=T2.BANK_ORDER_NUM and T1.CHANNEL_ID=T2.CHANNEL_ID
+		and T1.STATUS=T2.STATUS and T1.TRANS_MONEY<![CDATA[<]]>
+		T2.TRANS_MONEY
+	</select>
+
+	<!-- 以平台为准 平台短款状态不符差错 -->
+	<select id="selectPlatformShortStatusMismatch" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_Mismatch" />
+		,'3' AS ERROR_TYPE
+		from PMS_CARD_ORDER_TEMP T1, CARD_ACCOUNT_CHECK_BILL
+		T2
+		where T1.BANK_ORDER_NUM=T2.BANK_ORDER_NUM and T1.CHANNEL_ID=T2.CHANNEL_ID
+		and T1.STATUS!=T2.STATUS and T1.TRANS_MONEY<![CDATA[<]]>
+		T2.TRANS_MONEY
+	</select>
+
+	<!-- 以上游为准 -->
+
+	<!-- 以上游为准对账得到多出的数据然后和缓存池对比结果集  如果有记录进行相应的缓存池删除和账单表删除-->
+	<select id="selectPlatformMiss" resultMap="BaseResultMap">
+		select *from CARD_ACCOUNT_CHECK_MISTAKE_P TT1 ,
+			(select T2.BANK_ORDER_NUM,T2.TRANS_MONEY,T2.STATUS,T2.CHANNEL_ID FROM CARD_ACCOUNT_CHECK_BILL T2
+			minus 
+			select T1.BANK_ORDER_NUM,T1.TRANS_MONEY,T1.STATUS,T1.CHANNEL_ID FROM PMS_CARD_ORDER_TEMP T1, CARD_ACCOUNT_CHECK_BILL T2
+			where T1.BANK_ORDER_NUM=T2.BANK_ORDER_NUM AND T1.CHANNEL_ID=T2.CHANNEL_ID
+			) TT2 
+		where TT1.BANK_ORDER_NUM=TT2.BANK_ORDER_NUM and TT1.TRADE_STATUS=TT2.STATUS and  TT1.TRANS_MONEY=TT2.TRANS_MONEY
+	</select>
+	
+	<!-- 删除缓存次匹配上的数据 -->
+	<delete id="deleteBaseOnBankMissMatchingPool">
+	delete CARD_ACCOUNT_CHECK_MISTAKE_P where id in(
+		select tt1.id from CARD_ACCOUNT_CHECK_MISTAKE_P tt1 ,
+		(select t2.bank_order_num,t2.trans_money,t2.status,t2.channel_id from card_account_check_bill t2
+			minus 
+		select t1.bank_order_num,t1.trans_money,t1.status,t1.channel_id from pms_card_order_temp t1, card_account_check_bill t2 where t1.bank_order_num=t2.bank_order_num and t1.channel_id=t2.channel_id
+		) tt2 where tt1.bank_order_num=tt2.bank_order_num and tt1.TRADE_STATUS=tt2.status and  tt1.trans_money=tt2.trans_money
+	)
+	</delete>
+	
+	
+	<select id="exePro_clean_last_bill_date" parameterType="java.util.Map" statementType="CALLABLE">
+		<![CDATA[
+		call PRO_CLEAN_LAST_Bill_DATE(#{retCode,mode=OUT,jdbcType=NUMBER},#{retMsg,mode=OUT,jdbcType=VARCHAR},#{BILLDATE,mode=IN,jdbcType=DATE}) ]]>
+	</select>
+	
+</mapper>

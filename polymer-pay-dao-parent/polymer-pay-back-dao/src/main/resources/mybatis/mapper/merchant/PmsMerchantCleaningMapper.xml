@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zyzf.polymer.pay.merchant.dao.PmsMerchantCleaningMapper" >
+  <resultMap id="BaseResultMap" type="com.zyzf.polymer.pay.merchant.entity.PmsMerchantCleaning" >
+    <id column="MCODE" property="mcode" jdbcType="VARCHAR" />
+    <result column="OPENING_BANK" property="openingBank" jdbcType="VARCHAR" />
+    <result column="BRANCHES_BANK" property="branchesBank" jdbcType="VARCHAR" />
+    <result column="BBANK_PROVINCE" property="bbankProvince" jdbcType="DECIMAL" />
+    <result column="BBANK_CITY" property="bbankCity" jdbcType="DECIMAL" />
+    <result column="BANK_CARD" property="bankCard" jdbcType="VARCHAR" />
+    <result column="CARDHOLDER" property="cardholder" jdbcType="VARCHAR" />
+    <result column="CLEAN_TYPE" property="cleanType" jdbcType="DECIMAL" />
+    <result column="FEE_RATE" property="feeRate" jdbcType="DECIMAL" />
+    <result column="CLEAR_FEE" property="clearFee" jdbcType="DECIMAL" />
+    <result column="MIN_FEE" property="minFee" jdbcType="DECIMAL" />
+    <result column="MAX_FEE" property="maxFee" jdbcType="DECIMAL" />
+    <result column="BRANCHES_BANK_CODE" property="branchesBankCode" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    MCODE, OPENING_BANK, BRANCHES_BANK, BBANK_PROVINCE, BBANK_CITY, BANK_CARD, CARDHOLDER, 
+    CLEAN_TYPE, FEE_RATE, CLEAR_FEE, MIN_FEE, MAX_FEE, BRANCHES_BANK_CODE
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from PMS_MERCHANT_CLEANING
+    where MCODE = #{mcode,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from PMS_MERCHANT_CLEANING
+    where MCODE = #{mcode,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zyzf.polymer.pay.merchant.entity.PmsMerchantCleaning" >
+    insert into PMS_MERCHANT_CLEANING (MCODE, OPENING_BANK, BRANCHES_BANK, 
+      BBANK_PROVINCE, BBANK_CITY, BANK_CARD, 
+      CARDHOLDER, CLEAN_TYPE, FEE_RATE, 
+      CLEAR_FEE, MIN_FEE, MAX_FEE, 
+      BRANCHES_BANK_CODE)
+    values (#{mcode,jdbcType=VARCHAR}, #{openingBank,jdbcType=VARCHAR}, #{branchesBank,jdbcType=VARCHAR}, 
+      #{bbankProvince,jdbcType=DECIMAL}, #{bbankCity,jdbcType=DECIMAL}, #{bankCard,jdbcType=VARCHAR}, 
+      #{cardholder,jdbcType=VARCHAR}, #{cleanType,jdbcType=DECIMAL}, #{feeRate,jdbcType=DECIMAL}, 
+      #{clearFee,jdbcType=DECIMAL}, #{minFee,jdbcType=DECIMAL}, #{maxFee,jdbcType=DECIMAL}, 
+      #{branchesBankCode,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zyzf.polymer.pay.merchant.entity.PmsMerchantCleaning" >
+    insert into PMS_MERCHANT_CLEANING
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="mcode != null" >
+        MCODE,
+      </if>
+      <if test="openingBank != null" >
+        OPENING_BANK,
+      </if>
+      <if test="branchesBank != null" >
+        BRANCHES_BANK,
+      </if>
+      <if test="bbankProvince != null" >
+        BBANK_PROVINCE,
+      </if>
+      <if test="bbankCity != null" >
+        BBANK_CITY,
+      </if>
+      <if test="bankCard != null" >
+        BANK_CARD,
+      </if>
+      <if test="cardholder != null" >
+        CARDHOLDER,
+      </if>
+      <if test="cleanType != null" >
+        CLEAN_TYPE,
+      </if>
+      <if test="feeRate != null" >
+        FEE_RATE,
+      </if>
+      <if test="clearFee != null" >
+        CLEAR_FEE,
+      </if>
+      <if test="minFee != null" >
+        MIN_FEE,
+      </if>
+      <if test="maxFee != null" >
+        MAX_FEE,
+      </if>
+      <if test="branchesBankCode != null" >
+        BRANCHES_BANK_CODE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="mcode != null" >
+        #{mcode,jdbcType=VARCHAR},
+      </if>
+      <if test="openingBank != null" >
+        #{openingBank,jdbcType=VARCHAR},
+      </if>
+      <if test="branchesBank != null" >
+        #{branchesBank,jdbcType=VARCHAR},
+      </if>
+      <if test="bbankProvince != null" >
+        #{bbankProvince,jdbcType=DECIMAL},
+      </if>
+      <if test="bbankCity != null" >
+        #{bbankCity,jdbcType=DECIMAL},
+      </if>
+      <if test="bankCard != null" >
+        #{bankCard,jdbcType=VARCHAR},
+      </if>
+      <if test="cardholder != null" >
+        #{cardholder,jdbcType=VARCHAR},
+      </if>
+      <if test="cleanType != null" >
+        #{cleanType,jdbcType=DECIMAL},
+      </if>
+      <if test="feeRate != null" >
+        #{feeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="clearFee != null" >
+        #{clearFee,jdbcType=DECIMAL},
+      </if>
+      <if test="minFee != null" >
+        #{minFee,jdbcType=DECIMAL},
+      </if>
+      <if test="maxFee != null" >
+        #{maxFee,jdbcType=DECIMAL},
+      </if>
+      <if test="branchesBankCode != null" >
+        #{branchesBankCode,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zyzf.polymer.pay.merchant.entity.PmsMerchantCleaning" >
+    update PMS_MERCHANT_CLEANING
+    <set >
+      <if test="openingBank != null" >
+        OPENING_BANK = #{openingBank,jdbcType=VARCHAR},
+      </if>
+      <if test="branchesBank != null" >
+        BRANCHES_BANK = #{branchesBank,jdbcType=VARCHAR},
+      </if>
+      <if test="bbankProvince != null" >
+        BBANK_PROVINCE = #{bbankProvince,jdbcType=DECIMAL},
+      </if>
+      <if test="bbankCity != null" >
+        BBANK_CITY = #{bbankCity,jdbcType=DECIMAL},
+      </if>
+      <if test="bankCard != null" >
+        BANK_CARD = #{bankCard,jdbcType=VARCHAR},
+      </if>
+      <if test="cardholder != null" >
+        CARDHOLDER = #{cardholder,jdbcType=VARCHAR},
+      </if>
+      <if test="cleanType != null" >
+        CLEAN_TYPE = #{cleanType,jdbcType=DECIMAL},
+      </if>
+      <if test="feeRate != null" >
+        FEE_RATE = #{feeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="clearFee != null" >
+        CLEAR_FEE = #{clearFee,jdbcType=DECIMAL},
+      </if>
+      <if test="minFee != null" >
+        MIN_FEE = #{minFee,jdbcType=DECIMAL},
+      </if>
+      <if test="maxFee != null" >
+        MAX_FEE = #{maxFee,jdbcType=DECIMAL},
+      </if>
+      <if test="branchesBankCode != null" >
+        BRANCHES_BANK_CODE = #{branchesBankCode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where MCODE = #{mcode,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zyzf.polymer.pay.merchant.entity.PmsMerchantCleaning" >
+    update PMS_MERCHANT_CLEANING
+    set OPENING_BANK = #{openingBank,jdbcType=VARCHAR},
+      BRANCHES_BANK = #{branchesBank,jdbcType=VARCHAR},
+      BBANK_PROVINCE = #{bbankProvince,jdbcType=DECIMAL},
+      BBANK_CITY = #{bbankCity,jdbcType=DECIMAL},
+      BANK_CARD = #{bankCard,jdbcType=VARCHAR},
+      CARDHOLDER = #{cardholder,jdbcType=VARCHAR},
+      CLEAN_TYPE = #{cleanType,jdbcType=DECIMAL},
+      FEE_RATE = #{feeRate,jdbcType=DECIMAL},
+      CLEAR_FEE = #{clearFee,jdbcType=DECIMAL},
+      MIN_FEE = #{minFee,jdbcType=DECIMAL},
+      MAX_FEE = #{maxFee,jdbcType=DECIMAL},
+      BRANCHES_BANK_CODE = #{branchesBankCode,jdbcType=VARCHAR}
+    where MCODE = #{mcode,jdbcType=VARCHAR}
+  </update>
+</mapper>

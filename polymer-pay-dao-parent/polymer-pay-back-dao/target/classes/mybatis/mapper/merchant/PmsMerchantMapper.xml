@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zyzf.polymer.pay.merchant.dao.impl.PmsMerchantDaoImpl" >
+
+ 
+  <resultMap id="BaseResultMap" type="com.zyzf.polymer.pay.merchant.entity.PmsMerchant" >
+    <id column="MCODE" property="mcode" jdbcType="VARCHAR" />
+    <result column="ORG_ID" property="orgId" jdbcType="DECIMAL" />
+    <result column="PUBLIC_KEY" property="publicKey" jdbcType="VARCHAR" />
+    <result column="PRIVATE_KEY" property="privateKey" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="DECIMAL" />
+    <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+    <result column="CREATE_USER" property="createUser" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="EDITOR_USER" property="editorUser" jdbcType="VARCHAR" />
+    <result column="EDIT_TIME" property="editTime" jdbcType="TIMESTAMP" />
+    <result column="DELETED" property="deleted" jdbcType="DECIMAL" />
+    <result column="CLEAR_MCODE_TYPE" property="clearMcodeType" jdbcType="DECIMAL" />
+    <result column="ROLE_TYPE" property="roleType" jdbcType="DECIMAL" />
+    <result column="MER_NAME" property="merName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <!-- 商户分页返回结果集 merchantId -->
+  <resultMap type="java.util.HashMap" id="merchantId">
+   <id column="id" property="id" jdbcType="INTEGER" />
+   <result column="mcode" property="mcode" jdbcType="VARCHAR" />
+   <result column="mer_name" property="merName" jdbcType="VARCHAR" />
+   <result column="status" property="status" jdbcType="DECIMAL" />
+   <result column="clear_Mcode_Type" property="clearMcodeType" jdbcType="DECIMAL" />
+   <result column="role_Type" property="roleType" jdbcType="DECIMAL" />
+   <result column="create_Time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    MCODE, ORG_ID, PUBLIC_KEY, PRIVATE_KEY, STATUS, DESCRIPTION, CREATE_USER, CREATE_TIME, 
+    EDITOR_USER, EDIT_TIME, DELETED, CLEAR_MCODE_TYPE, ROLE_TYPE
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from PMS_MERCHANT
+    where MCODE = #{mcode,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from PMS_MERCHANT
+    where MCODE = #{mcode,jdbcType=VARCHAR}
+  </delete>
+  
+  <!-- 查询序列插入设置商户号 -->
+   <select id="selectMcodId" resultType="long">
+     SELECT SQC_PMS_MERCHANT.NEXTVAL AS mcod FROM DUAL
+   </select>
+  
+  <insert id="insert" parameterType="com.zyzf.polymer.pay.merchant.entity.PmsMerchant">
+      insert into PMS_MERCHANT (MCODE, ORG_ID, PUBLIC_KEY, 
+      PRIVATE_KEY, STATUS, DESCRIPTION, 
+      CREATE_USER, CREATE_TIME, EDITOR_USER, 
+      EDIT_TIME, DELETED, CLEAR_MCODE_TYPE, 
+      ROLE_TYPE,MER_NAME)
+      values (#{mcode,jdbcType=VARCHAR}, #{orgId,jdbcType=DECIMAL}, #{publicKey,jdbcType=VARCHAR}, 
+      #{privateKey,jdbcType=VARCHAR}, #{status,jdbcType=DECIMAL}, #{description,jdbcType=VARCHAR}, 
+      #{createUser,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{editorUser,jdbcType=VARCHAR}, 
+      #{editTime,jdbcType=TIMESTAMP}, 0, #{clearMcodeType,jdbcType=DECIMAL}, 
+      #{roleType,jdbcType=DECIMAL},#{merName,jdbcType=VARCHAR})
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.zyzf.polymer.pay.merchant.entity.PmsMerchant" >
+    insert into PMS_MERCHANT
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="mcode != null" >
+        MCODE,
+      </if>
+      <if test="orgId != null" >
+        ORG_ID,
+      </if>
+      <if test="publicKey != null" >
+        PUBLIC_KEY,
+      </if>
+      <if test="privateKey != null" >
+        PRIVATE_KEY,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="description != null" >
+        DESCRIPTION,
+      </if>
+      <if test="createUser != null" >
+        CREATE_USER,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="editorUser != null" >
+        EDITOR_USER,
+      </if>
+      <if test="editTime != null" >
+        EDIT_TIME,
+      </if>
+      <if test="deleted != null" >
+        DELETED,
+      </if>
+      <if test="clearMcodeType != null" >
+        CLEAR_MCODE_TYPE,
+      </if>
+      <if test="roleType != null" >
+        ROLE_TYPE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="mcode != null" >
+        #{mcode,jdbcType=VARCHAR},
+      </if>
+      <if test="orgId != null" >
+        #{orgId,jdbcType=DECIMAL},
+      </if>
+      <if test="publicKey != null" >
+        #{publicKey,jdbcType=VARCHAR},
+      </if>
+      <if test="privateKey != null" >
+        #{privateKey,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="editorUser != null" >
+        #{editorUser,jdbcType=VARCHAR},
+      </if>
+      <if test="editTime != null" >
+        #{editTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=DECIMAL},
+      </if>
+      <if test="clearMcodeType != null" >
+        #{clearMcodeType,jdbcType=DECIMAL},
+      </if>
+      <if test="roleType != null" >
+        #{roleType,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  
+  <!-- updateByPrimaryKeySelective -->
+  <update id="updateByPrimaryKeySelective" parameterType="com.zyzf.polymer.pay.merchant.entity.PmsMerchant" >
+    update PMS_MERCHANT
+    <set >
+      <if test="orgId != null" >
+        ORG_ID = #{orgId,jdbcType=DECIMAL},
+      </if>
+      <if test="publicKey != null" >
+        PUBLIC_KEY = #{publicKey,jdbcType=VARCHAR},
+      </if>
+      <if test="privateKey != null" >
+        PRIVATE_KEY = #{privateKey,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="description != null" >
+        DESCRIPTION = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="editorUser != null" >
+        EDITOR_USER = #{editorUser,jdbcType=VARCHAR},
+      </if>
+      <if test="editTime != null" >
+        EDIT_TIME = #{editTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null" >
+        DELETED = #{deleted,jdbcType=DECIMAL},
+      </if>
+      <if test="clearMcodeType != null" >
+        CLEAR_MCODE_TYPE = #{clearMcodeType,jdbcType=DECIMAL},
+      </if>
+      <if test="roleType != null" >
+        ROLE_TYPE = #{roleType,jdbcType=DECIMAL},
+      </if>
+      
+      <if test="merName != null" >
+        MER_NAME = #{merName,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where MCODE = #{mcode,jdbcType=VARCHAR}
+  </update>
+  
+  <update id="updateByPrimaryKey" parameterType="com.zyzf.polymer.pay.merchant.entity.PmsMerchant" >
+    update PMS_MERCHANT
+    set ORG_ID = #{orgId,jdbcType=DECIMAL},
+      PUBLIC_KEY = #{publicKey,jdbcType=VARCHAR},
+      PRIVATE_KEY = #{privateKey,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=DECIMAL},
+      DESCRIPTION = #{description,jdbcType=VARCHAR},
+      CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      EDITOR_USER = #{editorUser,jdbcType=VARCHAR},
+      EDIT_TIME = #{editTime,jdbcType=TIMESTAMP},
+      DELETED = #{deleted,jdbcType=DECIMAL},
+      CLEAR_MCODE_TYPE = #{clearMcodeType,jdbcType=DECIMAL},
+      ROLE_TYPE = #{roleType,jdbcType=DECIMAL}
+    where MCODE = #{mcode,jdbcType=VARCHAR}
+  </update>
+  
+  
+  
+   <sql id="Where_Clause">
+		<if test="mcode != null and mcode!=''" > AND a.mcode =#{mcode,jdbcType=VARCHAR}</if>
+		<if test="merName != null and merName != ''"> AND a.MER_Name =#{merName,jdbcType=VARCHAR}</if>
+		<if test="orgId != null "> AND a.ORG_ID =#{orgId,jdbcType=DECIMAL}</if>
+		<if test="status != null "> AND a.status =#{status,jdbcType=DECIMAL}</if>
+		<if test="roleType != null "> AND a.ROLE_Type =#{roleType,jdbcType=DECIMAL}</if>
+		<if test="startDateCreate != null "> 
+			AND a.CREATE_TIME <![CDATA[>=]]> #{startDateCreate,jdbcType=TIMESTAMP}
+		</if>
+		<if test="endDateCreate != null "> 
+			AND a.CREATE_TIME <![CDATA[ <=]]> #{endDateCreate,jdbcType=TIMESTAMP}
+		</if>
+		<if test="startDateEdit != null "> 
+			AND a.EDIT_TIME <![CDATA[>=]]> #{startDateEdit,jdbcType=TIMESTAMP}
+		</if>
+		<if test="endDateEdit != null "> 
+			AND a.EDIT_TIME <![CDATA[ <=]]> #{endDateEdit,jdbcType=TIMESTAMP}
+		</if>
+	</sql>
+  
+  <!-- 商户管理列表总(进件)条数 -->
+ 
+  <select id="listPageCount" parameterType="java.util.Map" resultType="long">
+       select count(1) from pms_merchant a
+       left join  pms_merchant_register b
+       on a.mcode=b.mcode 
+       left join pms_merchant_cleaning c
+       on b.mcode=c.mcode
+       <where>
+            a.deleted=0
+			<include refid="Where_Clause" />
+		</where>
+  </select>
+  
+   <!-- 商户管理列表展示信息查询用于分页显示 -->
+   
+  <select id="listPage" parameterType="java.util.Map" resultMap="merchantId">
+    select
+    a.mcode as mcode,
+    a.mer_name as mer_name,
+    a.status as status,
+    a.clear_Mcode_Type as clear_Mcode_Type,
+    a.role_Type as role_Type,
+    a.create_Time as  create_Time 
+    from pms_merchant a
+    left join  pms_merchant_register b
+    on a.mcode=b.mcode 
+    left join pms_merchant_cleaning c
+    on b.mcode=c.mcode
+    <where>
+            a.deleted=0
+			<include refid="Where_Clause" />
+		</where>
+  </select>
+   
+  
+  <!-- 查询单个entity -->
+  <select id="listByColumn" parameterType="com.zyzf.polymer.pay.merchant.entity.PmsMerchant" resultMap="BaseResultMap">
+  select * from PMS_MERCHANT
+  where MCODE = #{mcode,jdbcType=VARCHAR}
+  </select>
+  
+  <!-- 查询未审核通用条件 -->
+  
+  <sql id="Where_Unchecked">
+		<if test="mcode != null and mcode!=''" > AND a.mcode =#{mcode,jdbcType=VARCHAR}</if>
+		<if test="merName != null and merName != ''"> AND a.MER_Name =#{merName,jdbcType=VARCHAR}</if>
+		<if test="orgId != null "> AND a.ORG_ID =#{orgId,jdbcType=DECIMAL}</if>
+		<if test="status != null "> AND a.status =#{status,jdbcType=DECIMAL}</if>
+		<if test="roleType != null "> AND a.ROLE_Type =#{roleType,jdbcType=DECIMAL}</if>
+		
+		<if test="startDateCreate != null "> 
+			AND a.CREATE_TIME <![CDATA[>=]]> #{startDateCreate,jdbcType=TIMESTAMP}
+		</if>
+		<if test="endDateCreate != null "> 
+			AND a.CREATE_TIME <![CDATA[ <=]]> #{endDateCreate,jdbcType=TIMESTAMP}
+		</if>
+		
+	</sql>
+	
+  <!-- 未审核列表返回数据 -->
+  <resultMap type="java.util.HashMap" id="UncheckedMap">
+   <id column="id" property="id" jdbcType="INTEGER" />
+   <result column="mcode" property="mcode" jdbcType="VARCHAR" />
+   <result column="merName" property="merName" jdbcType="VARCHAR" />
+   <result column="roleType" property="roleType" jdbcType="DECIMAL" />
+   <result column="name" property="name" jdbcType="VARCHAR" />
+   <result column="status" property="status" jdbcType="DECIMAL" />
+   <result column="createTime" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <!-- 查询待审核商户总数用于分页展示 -->
+    <select id="uncheckedCount" parameterType="java.util.Map" resultType="long">
+     select count(1) from pms_merchant a
+     left join pms_organization b
+     on a.org_id=b.org_id
+     <where>
+       <include refid="Where_Unchecked" />
+     </where>
+    
+    </select>
+  
+  <!-- 查询待审核商户所需列表字段 用于分页显示-->
+  <select id="listPageUnchecked" parameterType="java.util.Map" resultMap="UncheckedMap">
+    select
+    a.mcode       as mcode,
+    a.mer_name    as merName,
+    a.role_type   as roleType,
+    b.name        as name,
+    a.status      as status,
+    a.create_time as createTime
+    from pms_merchant a
+    left join pms_organization b
+    on a.org_id = b.org_id
+     <where>
+       <include refid="Where_Unchecked" />
+     </where>
+  </select>
+  
+  
+   <!-- 定义resultMap封装商户通道返回参数 -->
+   <resultMap type="java.util.HashMap" id="ChnnelListId">
+     <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="merName" property="merName" jdbcType="VARCHAR" />
+    <result column="mcode" property="mcode" jdbcType="VARCHAR" />
+    <result column="payType" property="payType" jdbcType="DECIMAL" />
+    <result column="payChannelType" property="payChannelType" jdbcType="DECIMAL" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="channelName" property="channelName" jdbcType="VARCHAR" />
+    <result column="channelTypeName" property="channelTypeName" jdbcType="VARCHAR" />
+    <result column="createTime" property="createTime" jdbcType="TIMESTAMP" />
+   </resultMap>
+  
+  <!-- 查询商户通道信息列表 -->
+  <select id="merchantChnnelCount" parameterType="java.util.Map" resultType="long">
+   select count(1)
+   from pms_merchant a
+   left join pms_terminal b
+   on a.mcode = b.mcode
+   left join pms_channel c
+   on b.channel_Id = c.channel_Id
+   left join pms_channel_org d
+   on c.corg_Id = d.corg_Id
+   left join pms_channel_type e
+   on e.pay_channel_type = c.pay_channel_type
+   
+   <where>
+       <include refid="Where_Unchecked" />
+     </where>
+  </select>
+  
+  <select id="listPageChnnelList" parameterType="java.util.Map" resultMap="ChnnelListId">
+   select 
+       a.mcode            as mcode,
+       a.mer_Name         as merName,
+       c.pay_Type         as payType,
+       c.pay_Channel_Type as payChannelType,
+       d.name             as name,
+       c.channel_Name     as channelName,
+       a.create_time      as createTime,
+       e.name             as channelTypeName  <!-- 支付渠道类型名 -->
+   from pms_merchant a
+   left join pms_terminal b
+   on a.mcode = b.mcode
+   left join pms_channel c
+   on b.channel_Id = c.channel_Id
+   left join pms_channel_org d
+   on c.corg_Id = d.corg_Id
+   left join pms_channel_type e
+   on e.pay_channel_type = c.pay_channel_type
+   <where>
+       <include refid="Where_Unchecked" />
+     </where>
+  </select>
+  
+  <!-- 批量更新 -->
+  <update id="batchUpdateByIds"  parameterType="java.util.List" >  
+      update pms_merchant set status =1,
+      EDIT_TIME=sysdate 
+      where mcode in
+      <foreach    separator="," index="index" item="item" collection="list"  open="(" close=")">   
+      #{item}  
+      </foreach>
+</update>
+  
+  
+</mapper>

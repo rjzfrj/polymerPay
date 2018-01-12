@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:batch="http://www.springframework.org/schema/batch"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans	http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+	http://www.springframework.org/schema/batch http://www.springframework.org/schema/batch/spring-batch-3.0.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+
+	
+	<!--   JOB REPOSITORY - WE USE IN-MEMORY REPOSITORY FOR OUR EXAMPLE -->
+	<bean id="jobRepository"
+		class="org.springframework.batch.core.repository.support.MapJobRepositoryFactoryBean">
+		<property name="transactionManager" ref="transactionManager" />
+	</bean>
+	
+	<!-- batch config -->
+	<bean id="jobLauncher"
+		class="org.springframework.batch.core.launch.support.SimpleJobLauncher">
+		<property name="jobRepository" ref="jobRepository" />
+	</bean>
+
+	<!--  FINALLY OUR JOB DEFINITION. THIS IS A 1 STEP JOB -->
+	<batch:job id="reconciliationJob" restartable="true">
+		<batch:listeners>
+			<batch:listener ref="appJobExecutionListener" />
+			<batch:listener ref="stepListenerLogger"/>
+		</batch:listeners>
+		<batch:step id="stepAnalysisWft">
+			<!-- <batch:listeners>
+				<batch:listener ref="stepListenerLogger"/>
+			</batch:listeners> -->
+			<batch:tasklet>
+				<batch:listeners>
+					<batch:listener ref="analysisItemFailureLoggerListener" />
+				</batch:listeners>
+				<batch:chunk reader="txtFileItemReader" writer="cardCheckOrderWriter"
+					commit-interval="10000"/> <!-- 1万条进行一次commit -->
+			</batch:tasklet>
+		</batch:step>
+		<!-- <batch:step id="step1" next="steptwo">
+			<batch:tasklet>
+				<batch:listeners>
+					<batch:listener ref="itemFailureLoggerListener" />
+				</batch:listeners>
+				<batch:chunk reader="txtFileItemReader" writer="ledgerWriter"
+					commit-interval="10000"/> 1万条进行一次commit
+			</batch:tasklet>
+		</batch:step> -->
+		<!-- <batch:step id="steptwo">
+			<batch:tasklet>
+				<batch:listeners>
+					<batch:listener ref="itemFailureLoggerListener" />
+				</batch:listeners>
+				<batch:chunk reader="txtFileItemReadertwo" writer="ledgerTwoWriter"
+					commit-interval="10000"/> 1万条进行一次commit
+			</batch:tasklet>
+		</batch:step> -->
+		
+	</batch:job>
+	 
+	<!--  读数据库的写法-->
+	<!-- <bean id="ledgerReader"
+		class="org.springframework.batch.item.database.JdbcCursorItemReader">
+		<property name="dataSource" ref="dataSource" />
+		<property name="sql" value="select * from ledger" /> 
+		<property name="rowMapper" ref="ledgerRowMapper" />
+	</bean> -->
+	<!-- 读txt文件中的输入然后写入数据库 -->
+	<bean id="txtFileItemReader" class="org.springframework.batch.item.file.FlatFileItemReader" scope="step">
+		<property name="resource" value="#{jobParameters['inputFile']}" />
+		<property name="linesToSkip" value="1" />
+		<property name="lineMapper">
+			<bean class="org.springframework.batch.item.file.mapping.DefaultLineMapper">
+				<property name="lineTokenizer">
+					<bean
+						class="org.springframework.batch.item.file.transform.DelimitedLineTokenizer">
+						<property name="names" value="bankOrderNum,orderTypeId,thridOrderNum,transMoney,feeMoney,accountNum,status,bankBillNo,payDate,remark" />
+					</bean>
+				</property>
+				<property name="fieldSetMapper">
+					<bean class="com.zyzf.polymer.pay.accountcheck.batch.fieldmapper.wft.ReoportFieldSetMapper" />
+
+					<!-- if no data type conversion, use BeanWrapperFieldSetMapper to map 
+						by name <bean class="org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper"> 
+						<property name="prototypeBeanName" value="report" /> </bean> -->
+				</property>
+			</bean>
+		</property>
+	</bean>
+	
+	<!-- 读txt文件中的输入然后写入数据库 -->
+	<bean id="txtFileItemReadertwo" class="org.springframework.batch.item.file.FlatFileItemReader">
+		<property name="resource" value="classpath:input/txt/ledger500100-500900.txt" />
+		<property name="linesToSkip" value="1" />
+		<property name="lineMapper">
+			<bean class="org.springframework.batch.item.file.mapping.DefaultLineMapper">
+				<property name="lineTokenizer">
+					<bean
+						class="org.springframework.batch.item.file.transform.DelimitedLineTokenizer">
+						<property name="names" value="id,receiptDate,memberName,checkNumber,checkDate,paymentType,depositAmount,paymentAmount,comments" />
+					</bean>
+				</property>
+				<property name="fieldSetMapper">
+					<bean class="com.zyzf.polymer.pay.accountcheck.batch.fieldmapper.wft.ReoportFieldSetMapper" />
+
+					<!-- if no data type conversion, use BeanWrapperFieldSetMapper to map 
+						by name <bean class="org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper"> 
+						<property name="prototypeBeanName" value="report" /> </bean> -->
+				</property>
+			</bean>
+		</property>
+	</bean>
+	 
+	<!-- Spring Batch Job同一个job instance，成功执行后是不允许重新执行的【失败后是否允许重跑，可通过配置Job的restartable参数来控制，默认是true】，如果需要重新执行，可以变通处理，
+		添加一个JobParameters构建类,以当前时间作为参数，保证其他参数相同的情况下却是不同的job instance -->
+	<bean id="jobParameterBulider" class="org.springframework.batch.core.JobParametersBuilder" />
+	
+</beans>  

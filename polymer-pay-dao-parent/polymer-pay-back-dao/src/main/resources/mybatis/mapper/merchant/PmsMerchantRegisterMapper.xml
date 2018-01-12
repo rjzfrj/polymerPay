@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zyzf.polymer.pay.merchant.dao.impl.PmsMerchantRegisterDaoImpl" >
+
+  <resultMap id="BaseResultMap" type="com.zyzf.polymer.pay.merchant.entity.PmsMerchantRegister" >
+    <result column="MCODE" property="mcode" jdbcType="VARCHAR" />
+    <result column="COR_NAME" property="corName" jdbcType="VARCHAR" />
+    <result column="COR_CARD_TYPE" property="corCardType" jdbcType="DECIMAL" />
+    <result column="COR_ID_CARD" property="corIdCard" jdbcType="VARCHAR" />
+    <result column="COR_ID_CARD_VALID" property="corIdCardValid" jdbcType="TIMESTAMP" />
+    <result column="LICENSE_CODE" property="licenseCode" jdbcType="VARCHAR" />
+    <result column="LICENSE_CODE_VALID" property="licenseCodeValid" jdbcType="TIMESTAMP" />
+    <result column="MER_REGISTER_ADDR" property="merRegisterAddr" jdbcType="VARCHAR" />
+    <result column="MAIN_BUSINESS" property="mainBusiness" jdbcType="VARCHAR" />
+    <result column="SIGN_AMOUNT" property="signAmount" jdbcType="DECIMAL" />
+    <result column="REAL_AMOUNT" property="realAmount" jdbcType="DECIMAL" />
+    <result column="LICENSE_IMG" property="licenseImg" jdbcType="VARCHAR" />
+    <result column="ID_FRONT_IMG" property="idFrontImg" jdbcType="VARCHAR" />
+    <result column="ID_BACK_IMG" property="idBackImg" jdbcType="VARCHAR" />
+    <result column="BANKCARD_FRONT_IMG" property="bankcardFrontImg" jdbcType="VARCHAR" />
+    <result column="BANKCARD_BACK_IMG" property="bankcardBackImg" jdbcType="VARCHAR" />
+    <result column="OPEN_BANK_PC_IMG" property="openBankPcImg" jdbcType="VARCHAR" />
+    <result column="MERCHANT_OFD_IMG" property="merchantOfdImg" jdbcType="VARCHAR" />
+    <result column="MERCHANT_STORES_IMG" property="merchantStoresImg" jdbcType="VARCHAR" />
+    <result column="HEAD_IMG" property="headImg" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Where_Clause">
+		<if test="mcode != null and mcode!=''" > AND a.mcode =#{mcode,jdbcType=VARCHAR}</if>
+		<if test="merName != null and merName != ''"> AND a.MER_Name =#{merName,jdbcType=VARCHAR}</if>
+		<if test="status != null and status!= ''"> AND a.status =#{status,jdbcType=DECIMAL}</if>
+		<if test="roleType != null and roleType != ''"> AND a.ROLE_Type =#{roleType,jdbcType=DECIMAL}</if>
+	</sql>
+	
+  <insert id="insert" parameterType="com.zyzf.polymer.pay.merchant.entity.PmsMerchantRegister" >
+    insert into PMS_MERCHANT_REGISTER (MCODE, COR_NAME, COR_CARD_TYPE, 
+      COR_ID_CARD, COR_ID_CARD_VALID, LICENSE_CODE, 
+      LICENSE_CODE_VALID, MER_REGISTER_ADDR, MAIN_BUSINESS, 
+      SIGN_AMOUNT, REAL_AMOUNT, LICENSE_IMG, 
+      ID_FRONT_IMG, ID_BACK_IMG, BANKCARD_FRONT_IMG, 
+      BANKCARD_BACK_IMG, OPEN_BANK_PC_IMG, MERCHANT_OFD_IMG, 
+      MERCHANT_STORES_IMG, HEAD_IMG)
+    values (#{mcode,jdbcType=VARCHAR}, #{corName,jdbcType=VARCHAR}, #{corCardType,jdbcType=DECIMAL}, 
+      #{corIdCard,jdbcType=VARCHAR}, #{corIdCardValid,jdbcType=TIMESTAMP}, #{licenseCode,jdbcType=VARCHAR}, 
+      #{licenseCodeValid,jdbcType=TIMESTAMP}, #{merRegisterAddr,jdbcType=VARCHAR}, #{mainBusiness,jdbcType=VARCHAR}, 
+      #{signAmount,jdbcType=DECIMAL}, #{realAmount,jdbcType=DECIMAL}, #{licenseImg,jdbcType=VARCHAR}, 
+      #{idFrontImg,jdbcType=VARCHAR}, #{idBackImg,jdbcType=VARCHAR}, #{bankcardFrontImg,jdbcType=VARCHAR}, 
+      #{bankcardBackImg,jdbcType=VARCHAR}, #{openBankPcImg,jdbcType=VARCHAR}, #{merchantOfdImg,jdbcType=VARCHAR}, 
+      #{merchantStoresImg,jdbcType=VARCHAR}, #{headImg,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zyzf.polymer.pay.merchant.entity.PmsMerchantRegister" >
+    insert into PMS_MERCHANT_REGISTER
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="mcode != null" >
+        MCODE,
+      </if>
+      <if test="corName != null" >
+        COR_NAME,
+      </if>
+      <if test="corCardType != null" >
+        COR_CARD_TYPE,
+      </if>
+      <if test="corIdCard != null" >
+        COR_ID_CARD,
+      </if>
+      <if test="corIdCardValid != null" >
+        COR_ID_CARD_VALID,
+      </if>
+      <if test="licenseCode != null" >
+        LICENSE_CODE,
+      </if>
+      <if test="licenseCodeValid != null" >
+        LICENSE_CODE_VALID,
+      </if>
+      <if test="merRegisterAddr != null" >
+        MER_REGISTER_ADDR,
+      </if>
+      <if test="mainBusiness != null" >
+        MAIN_BUSINESS,
+      </if>
+      <if test="signAmount != null" >
+        SIGN_AMOUNT,
+      </if>
+      <if test="realAmount != null" >
+        REAL_AMOUNT,
+      </if>
+      <if test="licenseImg != null" >
+        LICENSE_IMG,
+      </if>
+      <if test="idFrontImg != null" >
+        ID_FRONT_IMG,
+      </if>
+      <if test="idBackImg != null" >
+        ID_BACK_IMG,
+      </if>
+      <if test="bankcardFrontImg != null" >
+        BANKCARD_FRONT_IMG,
+      </if>
+      <if test="bankcardBackImg != null" >
+        BANKCARD_BACK_IMG,
+      </if>
+      <if test="openBankPcImg != null" >
+        OPEN_BANK_PC_IMG,
+      </if>
+      <if test="merchantOfdImg != null" >
+        MERCHANT_OFD_IMG,
+      </if>
+      <if test="merchantStoresImg != null" >
+        MERCHANT_STORES_IMG,
+      </if>
+      <if test="headImg != null" >
+        HEAD_IMG,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="mcode != null" >
+        #{mcode,jdbcType=VARCHAR},
+      </if>
+      <if test="corName != null" >
+        #{corName,jdbcType=VARCHAR},
+      </if>
+      <if test="corCardType != null" >
+        #{corCardType,jdbcType=DECIMAL},
+      </if>
+      <if test="corIdCard != null" >
+        #{corIdCard,jdbcType=VARCHAR},
+      </if>
+      <if test="corIdCardValid != null" >
+        #{corIdCardValid,jdbcType=TIMESTAMP},
+      </if>
+      <if test="licenseCode != null" >
+        #{licenseCode,jdbcType=VARCHAR},
+      </if>
+      <if test="licenseCodeValid != null" >
+        #{licenseCodeValid,jdbcType=TIMESTAMP},
+      </if>
+      <if test="merRegisterAddr != null" >
+        #{merRegisterAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="mainBusiness != null" >
+        #{mainBusiness,jdbcType=VARCHAR},
+      </if>
+      <if test="signAmount != null" >
+        #{signAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="realAmount != null" >
+        #{realAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="licenseImg != null" >
+        #{licenseImg,jdbcType=VARCHAR},
+      </if>
+      <if test="idFrontImg != null" >
+        #{idFrontImg,jdbcType=VARCHAR},
+      </if>
+      <if test="idBackImg != null" >
+        #{idBackImg,jdbcType=VARCHAR},
+      </if>
+      <if test="bankcardFrontImg != null" >
+        #{bankcardFrontImg,jdbcType=VARCHAR},
+      </if>
+      <if test="bankcardBackImg != null" >
+        #{bankcardBackImg,jdbcType=VARCHAR},
+      </if>
+      <if test="openBankPcImg != null" >
+        #{openBankPcImg,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantOfdImg != null" >
+        #{merchantOfdImg,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantStoresImg != null" >
+        #{merchantStoresImg,jdbcType=VARCHAR},
+      </if>
+      <if test="headImg != null" >
+        #{headImg,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+   <resultMap type="java.util.HashMap" id="registerId">
+  <id column="id" property="id" jdbcType="INTEGER" /> 
+   <result column="mcode" property="mcode" jdbcType="VARCHAR" />
+   <result column="corName" property="corName" jdbcType="VARCHAR" />
+   <result column="merRegisterAddr" property="merRegisterAddr" jdbcType="VARCHAR" />
+   <result column="corIdCard" property="corIdCard" jdbcType="VARCHAR" />
+   <result column="headImg" property="headImg" jdbcType="VARCHAR" />
+   <result column="status" property="status" jdbcType="DECIMAL" />
+  </resultMap>
+
+  <!-- 商户注册列表总(进件)条数 -->
+  <select id="listPageCount" parameterType="java.util.Map" resultType="long">
+       select count(1)
+       from pms_merchant_register b
+       left join pms_merchant a
+       on a.mcode = b.mcode
+      <where>
+       <include refid="Where_Clause" />
+     </where>
+  </select>
+  
+   <select id="listPage" parameterType="java.util.Map" resultMap="registerId">
+       select a.mcode       as mcode,
+       a.cor_Name          as corName,
+       a.cor_Id_Card       as corIdCard,
+       a.mer_Register_Addr as merRegisterAddr,
+       a.head_Img          as headImg,
+       b.status            as status
+       from pms_merchant_register a
+       left join pms_merchant b
+       on a.mcode = b.mcode
+       <where>
+       <include refid="Where_Clause" />
+     </where>
+   </select>
+  
+</mapper>

@@ -1,0 +1,37 @@
+.fleft{ float:left}
+
+a:focus{text-decoration:none;color:#000;outline:none;blr:expression(this.onFocus=this.blur());}
+a:hover{color:#000;text-decoration:none;}
+cite{font-style:normal;}
+
+.menu{ width:168px; height:495px; background:#e6f4fa; color:#075587; margin-left:5px; font-weight: bold;}
+.menu ul{ width:168px;}
+.menu ul li{ width:168px; text-indent: 35px;}
+.menu ul li a{ height:32px; line-height:32px; color:#075587; text-indent: -5px;}
+.menu .subMenuTitle{ background:url(../images/index-menu-title001.png); text-align:left; height:32px; line-height:32px; color:#effaff}
+.menuson{display:block;}
+.menuson {line-height:30px; font-weight:normal; }
+.menuson li{cursor:pointer;}
+.menuson li a:hover{ height:32px; line-height:32px; color:#000; text-decoration:none;}
+.menuson li.menu_li_active{position:relative; background-color: #066cae; repeat-x; line-height:30px; color:#fff;}
+.menuson li cite{display:block; float:left; margin-left:32px; background:url(../images/list.png) no-repeat; width:16px; height:16px; margin-top:10px;}
+.menuson li.menu_li_active cite{background:url(../images/list1.png) no-repeat;}
+.menuson li.menu_li_active i{display:block; background:url(../images/sj.png) no-repeat; width:6px; height:11px; position:absolute; right:0;z-index:10000; top:9px; right:-1px;}
+.menuson li a{ display:block; *display:inline; *padding-top:5px;}
+.menuson li.menu_li_active a{color:#fff;}
+
+.sidebar{ width:5px; height:500px;}
+.sidebar .btn{ width:5px; height:39px; background:url(../images/sidebar-on.gif); margin-top:200px;}
+.sidebar .btn:hover{ background-position:0 39px;}
+
+/* 二级菜单 */
+#subMenu5{ background:url(../images/organization_icon.png) no-repeat 15px 2px;}
+#subMenu6{ background:url(../images/system_icon.png) no-repeat 13px 2px;}
+#subMenu13{ background:url(../images/terminal_icon.png) no-repeat 13px 2px;}
+#subMenu35{ background:url(../images/bank_icon.png) no-repeat 11px 3px;}
+#subMenu165{ background:url(../images/finance_icon.png) no-repeat 10px 2px;}
+#subMenu295{ background:url(../images/pos_icon.png) no-repeat 11px 2px;}
+#subMenu395{ background:url(../images/risk_icon.png) no-repeat 13px 2px;}
+#subMenu54{ background:url(../images/other_icon.png) no-repeat 13px 2px;}
+#subMenu429{ background:url(../images/jinsai_icon.png) no-repeat 13px 2px;}
+#subMenu465{ background:url(../images/saomazhifu_icon.png) no-repeat 12px 5px;}

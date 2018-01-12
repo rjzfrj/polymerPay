@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zyzf.polymer.pay.riskManage.dao.impl.PmsfctTransLimitDaoImpl">
+                                                          
+  <resultMap id="BaseResultMap" type="com.zyzf.polymer.pay.riskManage.entity.PmsfctTransLimit" >
+    <id column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="MCODE" property="mcode" jdbcType="VARCHAR" />
+    <result column="TCODE" property="tcode" jdbcType="VARCHAR" />
+    <result column="FUNCTION_KEY" property="functionKey" jdbcType="VARCHAR" />
+    <result column="LIMIT_TYPE" property="limitType" jdbcType="DECIMAL" />
+    <result column="DAY_ALL_AMT" property="dayAllAmt" jdbcType="DECIMAL" />
+    <result column="DAY_CNT" property="dayCnt" jdbcType="DECIMAL" />
+    <result column="DAY_MIN_AMT" property="dayMinAmt" jdbcType="DECIMAL" />
+    <result column="DAY_MAX_AMT" property="dayMaxAmt" jdbcType="DECIMAL" />
+    <result column="DAY_CARD_ALL_AMT" property="dayCardAllAmt" jdbcType="DECIMAL" />
+    <result column="DAY_CARD_CNT" property="dayCardCnt" jdbcType="DECIMAL" />
+    <result column="STATUS" property="status" jdbcType="DECIMAL" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    ID, MCODE, TCODE, FUNCTION_KEY, LIMIT_TYPE, DAY_ALL_AMT, DAY_CNT, DAY_MIN_AMT, DAY_MAX_AMT, 
+    DAY_CARD_ALL_AMT, DAY_CARD_CNT, STATUS
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from PMS_FC_T_TRANSLIMIT
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from PMS_FC_T_TRANSLIMIT
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.zyzf.polymer.pay.riskManage.entity.PmsfctTransLimit" >
+    insert into PMS_FC_T_TRANSLIMIT (ID, MCODE, TCODE, 
+      FUNCTION_KEY, LIMIT_TYPE, DAY_ALL_AMT, 
+      DAY_CNT, DAY_MIN_AMT, DAY_MAX_AMT, 
+      DAY_CARD_ALL_AMT, DAY_CARD_CNT, STATUS
+      )
+    values (#{id,jdbcType=DECIMAL}, #{mcode,jdbcType=VARCHAR}, #{tcode,jdbcType=VARCHAR}, 
+      #{functionKey,jdbcType=VARCHAR}, #{limitType,jdbcType=DECIMAL}, #{dayAllAmt,jdbcType=DECIMAL}, 
+      #{dayCnt,jdbcType=DECIMAL}, #{dayMinAmt,jdbcType=DECIMAL}, #{dayMaxAmt,jdbcType=DECIMAL}, 
+      #{dayCardAllAmt,jdbcType=DECIMAL}, #{dayCardCnt,jdbcType=DECIMAL}, #{status,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zyzf.polymer.pay.riskManage.entity.PmsfctTransLimit" >
+    insert into PMS_FC_T_TRANSLIMIT
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="mcode != null" >
+        MCODE,
+      </if>
+      <if test="tcode != null" >
+        TCODE,
+      </if>
+      <if test="functionKey != null" >
+        FUNCTION_KEY,
+      </if>
+      <if test="limitType != null" >
+        LIMIT_TYPE,
+      </if>
+      <if test="dayAllAmt != null" >
+        DAY_ALL_AMT,
+      </if>
+      <if test="dayCnt != null" >
+        DAY_CNT,
+      </if>
+      <if test="dayMinAmt != null" >
+        DAY_MIN_AMT,
+      </if>
+      <if test="dayMaxAmt != null" >
+        DAY_MAX_AMT,
+      </if>
+      <if test="dayCardAllAmt != null" >
+        DAY_CARD_ALL_AMT,
+      </if>
+      <if test="dayCardCnt != null" >
+        DAY_CARD_CNT,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="mcode != null" >
+        #{mcode,jdbcType=VARCHAR},
+      </if>
+      <if test="tcode != null" >
+        #{tcode,jdbcType=VARCHAR},
+      </if>
+      <if test="functionKey != null" >
+        #{functionKey,jdbcType=VARCHAR},
+      </if>
+      <if test="limitType != null" >
+        #{limitType,jdbcType=DECIMAL},
+      </if>
+      <if test="dayAllAmt != null" >
+        #{dayAllAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="dayCnt != null" >
+        #{dayCnt,jdbcType=DECIMAL},
+      </if>
+      <if test="dayMinAmt != null" >
+        #{dayMinAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="dayMaxAmt != null" >
+        #{dayMaxAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="dayCardAllAmt != null" >
+        #{dayCardAllAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="dayCardCnt != null" >
+        #{dayCardCnt,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zyzf.polymer.pay.riskManage.entity.PmsfctTransLimit" >
+    update PMS_FC_T_TRANSLIMIT
+    <set >
+      <if test="mcode != null" >
+        MCODE = #{mcode,jdbcType=VARCHAR},
+      </if>
+      <if test="tcode != null" >
+        TCODE = #{tcode,jdbcType=VARCHAR},
+      </if>
+      <if test="functionKey != null" >
+        FUNCTION_KEY = #{functionKey,jdbcType=VARCHAR},
+      </if>
+      <if test="limitType != null" >
+        LIMIT_TYPE = #{limitType,jdbcType=DECIMAL},
+      </if>
+      <if test="dayAllAmt != null" >
+        DAY_ALL_AMT = #{dayAllAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="dayCnt != null" >
+        DAY_CNT = #{dayCnt,jdbcType=DECIMAL},
+      </if>
+      <if test="dayMinAmt != null" >
+        DAY_MIN_AMT = #{dayMinAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="dayMaxAmt != null" >
+        DAY_MAX_AMT = #{dayMaxAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="dayCardAllAmt != null" >
+        DAY_CARD_ALL_AMT = #{dayCardAllAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="dayCardCnt != null" >
+        DAY_CARD_CNT = #{dayCardCnt,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zyzf.polymer.pay.riskManage.entity.PmsfctTransLimit" >
+    update PMS_FC_T_TRANSLIMIT
+    set MCODE = #{mcode,jdbcType=VARCHAR},
+      TCODE = #{tcode,jdbcType=VARCHAR},
+      FUNCTION_KEY = #{functionKey,jdbcType=VARCHAR},
+      LIMIT_TYPE = #{limitType,jdbcType=DECIMAL},
+      DAY_ALL_AMT = #{dayAllAmt,jdbcType=DECIMAL},
+      DAY_CNT = #{dayCnt,jdbcType=DECIMAL},
+      DAY_MIN_AMT = #{dayMinAmt,jdbcType=DECIMAL},
+      DAY_MAX_AMT = #{dayMaxAmt,jdbcType=DECIMAL},
+      DAY_CARD_ALL_AMT = #{dayCardAllAmt,jdbcType=DECIMAL},
+      DAY_CARD_CNT = #{dayCardCnt,jdbcType=DECIMAL},
+      STATUS = #{status,jdbcType=DECIMAL}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+   <!-- 终端限额map -->
+   <resultMap type="java.util.HashMap" id="terminalLimitId">
+     <id column="id" property="id" jdbcType="INTEGER" />
+	 <result column="name" property="name" jdbcType="VARCHAR" />
+	 <result column="merName" property="merName" jdbcType="VARCHAR" />
+	 <result column="tcode" property="tcode" jdbcType="VARCHAR" />
+	 <result column="functionKey" property="functionKey" jdbcType="VARCHAR" />
+	 <result column="limitType" property="limitType" jdbcType="DECIMAL" />
+	 <result column="dayAllAmt" property="dayAllAmt" jdbcType="DECIMAL" />
+	 <result column="dayCnt" property="dayCnt" jdbcType="DECIMAL" />
+	 <result column="dayMinAmt" property="dayMinAmt" jdbcType="DECIMAL" />
+	 <result column="dayMaxAmt" property="dayMaxAmt" jdbcType="DECIMAL" />
+	 <result column="dayCardAllAmt" property="dayCardAllAmt" jdbcType="DECIMAL" />
+	 <result column="dayCardCnt" property="dayCardCnt" jdbcType="DECIMAL" />
+	 <result column="status" property="status" jdbcType="DECIMAL" />
+   </resultMap>
+   
+   <sql id="Where_Clause">
+		<if test="mcode != null and mcode!=''" > 
+		   a.mcode=#{mcode,jdbcType=VARCHAR}
+		</if>
+		
+		<if test="tcode != null and tcode != ''"> 
+		  AND a.tcode =#{tcode,jdbcType=VARCHAR}
+		</if>
+		
+		<if test="status != null">
+		  AND a.status =#{status,jdbcType=DECIMAL}
+		</if>
+		
+		<if test="functionKey != null and functionKey != ''">
+		  AND a.function_key =#{functionKey,jdbcType=VARCHAR}
+		 </if>
+		<if test="limitType != null "> 
+		  AND a.LIMIT_TYPE =#{limitType,jdbcType=DECIMAL}
+		</if>
+		
+		<!--  <if test="startDateCreate != null "> 
+			AND CREATE_TIME <![CDATA[>=]]> #{startDateCreate,jdbcType=TIMESTAMP}
+		</if>
+		
+		<if test="endDateCreate != null "> 
+			AND CREATE_TIME <![CDATA[ <=]]> #{endDateCreate,jdbcType=TIMESTAMP}
+		</if> -->
+	</sql>
+   
+	
+    <!-- 终端限额列表 查询总数-->
+ 
+	 <select id="listPageCount" parameterType="java.util.Map" resultType="long">
+	   select 
+       count(*)
+       from pms_fc_t_transLimit a
+       left join pms_merchant b
+       on a.mcode=b.mcode
+       left join pms_organization c
+       on  b.org_id=c.org_id
+         <where>
+	   
+			<include refid="Where_Clause" />
+		</where>
+	  </select>
+	
+	
+	<select id="listPage"  parameterType="java.util.Map" resultMap="terminalLimitId">
+	     select 
+	           a.id                as id,
+		       c.name              as name,
+		       b.mer_name          as merName,
+		       a.tcode             as tcode,
+		       a.function_key      as functionKey,
+		       a.limit_type        as limitType ,
+		       a.day_all_amt       as dayAllAmt,
+		       a.day_cnt           as dayCnt,
+		       a.day_min_amt       as dayMinAmt,
+		       a.day_max_amt       as dayMaxAmt ,
+		       a.day_card_all_amt  as dayCardAllAmt,
+		       a.day_card_cnt      as dayCardCnt,
+		       a.status            as status
+	    from pms_fc_t_transLimit a
+	    left join pms_merchant b
+	    on a.mcode = b.mcode
+	    left join pms_organization c
+	    on b.org_id = c.org_id
+	     <where>
+	   
+			<include refid="Where_Clause" />
+		</where>
+	</select>  
+	
+	<!-- 批量更新限额 -->
+	<update id="updateBatch"  parameterType="com.zyzf.polymer.pay.riskManage.entity.PmsfctTransLimit">
+	 update  PMS_FC_T_TRANSLIMIT 
+	 <set>
+	  <if test="dayCnt != null and dayCnt!=''" >
+        DAY_CNT = #{dayCnt,jdbcType=DECIMAL},
+      </if>
+      
+      <if test="dayAllAmt != null and dayAllAmt!=''" >
+        DAY_ALL_AMT = #{dayAllAmt,jdbcType=DECIMAL},
+      </if>
+      
+      <if test="dayMinAmt != null and dayMinAmt!=''" >
+        DAY_MIN_AMT = #{dayMinAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="dayMaxAmt != null and dayMaxAmt!=''" >
+        DAY_MAX_AMT = #{dayMaxAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="dayCardAllAmt != null and dayCardAllAmt!=''" >
+        DAY_CARD_ALL_AMT = #{dayCardAllAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="dayCardCnt != null and dayCardCnt!=''" >
+        DAY_CARD_CNT = #{dayCardCnt,jdbcType=DECIMAL},
+      </if>
+	 </set>
+	 where id in
+	  <foreach  separator="," index="index" item="item" collection="list"  open="(" close=")">   
+      #{item}  
+      </foreach>
+	</update>
+</mapper>

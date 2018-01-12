@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zyzf.polymer.pay.permission.dao.impl.PmsOperatorDaoImpl">
+
+	<!-- Pms权限管理：操作员表 -->
+	<sql id="pms_operator"> PMS_OPERATOR OP LEFT JOIN PMS_ORGANIZATION O ON O.ORG_ID = OP.ORG_ID </sql>
+	<sql id="pms_role_operator"> PMS_ROLE_OPERATOR </sql>
+
+	<resultMap id="BaseResultMap"
+		type="com.zyzf.polymer.pay.permission.entity.PmsOperator">
+		<id column="ID" property="id" jdbcType="DECIMAL" />
+		<result column="ORG_ID" property="orgId" jdbcType="DECIMAL" />
+		<result column="CREATE_USER" property="createUser" jdbcType="VARCHAR" />
+		<result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="EDITOR_USER" property="editorUser" jdbcType="VARCHAR" />
+		<result column="EDIT_TIME" property="editTime" jdbcType="TIMESTAMP" />
+		<result column="STATUS" property="status" jdbcType="DECIMAL" />
+		<result column="REMARK" property="remark" jdbcType="VARCHAR" />
+		<result column="REAL_NAME" property="realName" jdbcType="VARCHAR" />
+		<result column="MOBILE" property="mobile" jdbcType="VARCHAR" />
+		<result column="LOGIN_NAME" property="loginName" jdbcType="VARCHAR" />
+		<result column="LOGIN_PWD" property="loginPwd" jdbcType="VARCHAR" />
+		<result column="TYPE" property="type" jdbcType="DECIMAL" />
+		<result column="SALT" property="salt" jdbcType="VARCHAR" />
+		<result column="LOGIN_CNT" property="loginCnt" jdbcType="DECIMAL" />
+		<result column="EMAIL" property="email" jdbcType="VARCHAR" />
+		<result column="AUTHORIZE_PWD" property="authorizePwd" jdbcType="VARCHAR" />
+		<result column="NAME" property="orgName" jdbcType="VARCHAR" />
+		
+		<result column="ORGTYPE" property="orgType" jdbcType="DECIMAL"/>
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		OP.ID, OP.ORG_ID, OP.CREATE_USER, OP.CREATE_TIME, OP.EDITOR_USER,
+		OP.EDIT_TIME, OP.STATUS,
+		OP.REMARK, OP.REAL_NAME,
+		OP.MOBILE, OP.LOGIN_NAME, OP.LOGIN_PWD,
+		OP.TYPE, OP.SALT, OP.LOGIN_CNT, OP.EMAIL, OP.AUTHORIZE_PWD,
+		O.LAYER,
+		O.TYPE AS ORGTYPE
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		SELECT OP.*,O.NAME,O.LAYER,O.TYPE AS ORGTYPE FROM PMS_OPERATOR OP LEFT JOIN PMS_ORGANIZATION O ON OP.ORG_ID=O.ORG_ID
+		where OP.ID = #{id,jdbcType=DECIMAL}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from
+		PMS_OPERATOR
+		where ID = #{id,jdbcType=DECIMAL}
+	</delete>
+	<insert id="insert" parameterType="com.zyzf.polymer.pay.permission.entity.PmsOperator"
+		keyProperty="id" useGeneratedKeys="true">
+		<selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Long">
+			SELECT SQC_PMS_OPERATOR.NEXTVAL AS ID FROM DUAL
+		</selectKey>
+		insert into PMS_OPERATOR (ID, ORG_ID, CREATE_USER,
+		CREATE_TIME,
+		EDITOR_USER, EDIT_TIME,
+		STATUS, REMARK, REAL_NAME,
+		MOBILE, LOGIN_NAME,
+		LOGIN_PWD,
+		TYPE, SALT, LOGIN_CNT,
+		EMAIL, AUTHORIZE_PWD)
+		values
+		(#{id,jdbcType=DECIMAL}, #{orgId,jdbcType=DECIMAL},
+		#{createUser,jdbcType=VARCHAR},
+		#{createTime,jdbcType=TIMESTAMP},
+		#{editorUser,jdbcType=VARCHAR}, #{editTime,jdbcType=TIMESTAMP},
+		#{status,jdbcType=DECIMAL}, #{remark,jdbcType=VARCHAR},
+		#{realName,jdbcType=VARCHAR},
+		#{mobile,jdbcType=VARCHAR},
+		#{loginName,jdbcType=VARCHAR}, #{loginPwd,jdbcType=VARCHAR},
+		#{type,jdbcType=DECIMAL}, #{salt,jdbcType=VARCHAR},
+		#{loginCnt,jdbcType=DECIMAL},
+		#{email,jdbcType=VARCHAR},
+		#{authorizePwd,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.zyzf.polymer.pay.permission.entity.PmsOperator">
+		insert into PMS_OPERATOR
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="orgId != null">
+				ORG_ID,
+			</if>
+			<if test="createUser != null">
+				CREATE_USER,
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME,
+			</if>
+			<if test="editorUser != null">
+				EDITOR_USER,
+			</if>
+			<if test="editTime != null">
+				EDIT_TIME,
+			</if>
+			<if test="status != null">
+				STATUS,
+			</if>
+			<if test="remark != null">
+				REMARK,
+			</if>
+			<if test="realName != null">
+				REAL_NAME,
+			</if>
+			<if test="mobile != null">
+				MOBILE,
+			</if>
+			<if test="loginName != null">
+				LOGIN_NAME,
+			</if>
+			<if test="loginPwd != null">
+				LOGIN_PWD,
+			</if>
+			<if test="type != null">
+				TYPE,
+			</if>
+			<if test="salt != null">
+				SALT,
+			</if>
+			<if test="loginCnt != null">
+				LOGIN_CNT,
+			</if>
+			<if test="email != null">
+				EMAIL,
+			</if>
+			<if test="authorizePwd != null">
+				AUTHORIZE_PWD,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=DECIMAL},
+			</if>
+			<if test="orgId != null">
+				#{orgId,jdbcType=DECIMAL},
+			</if>
+			<if test="createUser != null">
+				#{createUser,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="editorUser != null">
+				#{editorUser,jdbcType=VARCHAR},
+			</if>
+			<if test="editTime != null">
+				#{editTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=DECIMAL},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="realName != null">
+				#{realName,jdbcType=VARCHAR},
+			</if>
+			<if test="mobile != null">
+				#{mobile,jdbcType=VARCHAR},
+			</if>
+			<if test="loginName != null">
+				#{loginName,jdbcType=VARCHAR},
+			</if>
+			<if test="loginPwd != null">
+				#{loginPwd,jdbcType=VARCHAR},
+			</if>
+			<if test="type != null">
+				#{type,jdbcType=DECIMAL},
+			</if>
+			<if test="salt != null">
+				#{salt,jdbcType=VARCHAR},
+			</if>
+			<if test="loginCnt != null">
+				#{loginCnt,jdbcType=DECIMAL},
+			</if>
+			<if test="email != null">
+				#{email,jdbcType=VARCHAR},
+			</if>
+			<if test="authorizePwd != null">
+				#{authorizePwd,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.zyzf.polymer.pay.permission.entity.PmsOperator">
+		update PMS_OPERATOR
+		<set>
+			<if test="orgId != null">
+				ORG_ID = #{orgId,jdbcType=DECIMAL},
+			</if>
+			<if test="createUser != null">
+				CREATE_USER = #{createUser,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="editorUser != null">
+				EDITOR_USER = #{editorUser,jdbcType=VARCHAR},
+			</if>
+			<if test="editTime != null">
+				EDIT_TIME = #{editTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="status != null">
+				STATUS = #{status,jdbcType=DECIMAL},
+			</if>
+			<if test="remark != null">
+				REMARK = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="realName != null">
+				REAL_NAME = #{realName,jdbcType=VARCHAR},
+			</if>
+			<if test="mobile != null">
+				MOBILE = #{mobile,jdbcType=VARCHAR},
+			</if>
+			<if test="loginName != null">
+				LOGIN_NAME = #{loginName,jdbcType=VARCHAR},
+			</if>
+			<if test="loginPwd != null">
+				LOGIN_PWD = #{loginPwd,jdbcType=VARCHAR},
+			</if>
+			<if test="type != null">
+				TYPE = #{type,jdbcType=DECIMAL},
+			</if>
+			<if test="salt != null">
+				SALT = #{salt,jdbcType=VARCHAR},
+			</if>
+			<if test="loginCnt != null">
+				LOGIN_CNT = #{loginCnt,jdbcType=DECIMAL},
+			</if>
+			<if test="email != null">
+				EMAIL = #{email,jdbcType=VARCHAR},
+			</if>
+			<if test="authorizePwd != null">
+				AUTHORIZE_PWD = #{authorizePwd,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where ID = #{id,jdbcType=DECIMAL}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.zyzf.polymer.pay.permission.entity.PmsOperator">
+		update PMS_OPERATOR
+		set ORG_ID = #{orgId,jdbcType=DECIMAL},
+		CREATE_USER = #{createUser,jdbcType=VARCHAR},
+		CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+		EDITOR_USER = #{editorUser,jdbcType=VARCHAR},
+		EDIT_TIME = #{editTime,jdbcType=TIMESTAMP},
+		STATUS = #{status,jdbcType=DECIMAL},
+		REMARK = #{remark,jdbcType=VARCHAR},
+		REAL_NAME = #{realName,jdbcType=VARCHAR},
+		MOBILE = #{mobile,jdbcType=VARCHAR},
+		LOGIN_NAME = #{loginName,jdbcType=VARCHAR},
+		LOGIN_PWD = #{loginPwd,jdbcType=VARCHAR},
+		TYPE = #{type,jdbcType=DECIMAL},
+		SALT = #{salt,jdbcType=VARCHAR},
+		LOGIN_CNT = #{loginCnt,jdbcType=DECIMAL},
+		EMAIL = #{email,jdbcType=VARCHAR},
+		AUTHORIZE_PWD = #{authorizePwd,jdbcType=VARCHAR}
+		where ID = #{id,jdbcType=DECIMAL}
+	</update>
+
+	<select id="findByLoginName" parameterType="string" resultMap="BaseResultMap">
+		select OP.*,O.LAYER,O.TYPE AS ORGTYPE from
+		<include refid="pms_operator" />
+		where OP.login_name = #{loginName}
+	</select>
+
+	<select id="listAll" resultMap="BaseResultMap">
+		select * from
+		<include refid="pms_operator" />
+		order by OP.ID
+	</select>
+
+	<sql id="condition_sql">
+		<!-- Equal query -->
+		<if test="loginName != null and loginName != ''">
+			and OP.LOGIN_NAME = #{loginName,jdbcType=VARCHAR}
+		</if>
+		<if test="name != null and name != ''">
+			and O.NAME like CONCAT(CONCAT('%', #{name,jdbcType=VARCHAR}), '%') 
+		</if>
+		<if test="status != null"> 
+			and OP.STATUS = #{status,jdbcType=DECIMAL}
+		</if>
+		<if test="type != null"> 
+			and OP.TYPE = #{type,jdbcType=DECIMAL}
+		</if>
+		<if test="orgId != null"> 
+			and OP.ORG_ID = #{orgId,jdbcType=DECIMAL}
+		</if>
+		<if test="realName != null and realName != ''"> 
+			and OP.REAL_NAME like CONCAT(CONCAT('%', #{realName}), '%')
+		</if>
+		<if test="orgType != null"> 
+			and O.TYPE = #{orgType}
+		</if>
+		<if test="layer != null and layer != ''">
+			and REVERSE(O.LAYER) LIKE REVERSE('${layer}%')
+		</if>
+		<if test="authorizePwd != null and authorizePwd != ''">
+			and authorize_Pwd = #{authorizePwd}
+		</if>
+	</sql>
+
+	<resultMap id="SelectiveResultMap" type="com.zyzf.polymer.pay.permission.entity.PmsOperator">
+		<id column="ID" property="id" jdbcType="DECIMAL" />
+		<result column="ORG_ID" property="orgId" jdbcType="DECIMAL" />
+		<result column="CREATE_USER" property="createUser" jdbcType="VARCHAR" />
+		<result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="EDITOR_USER" property="editorUser" jdbcType="VARCHAR" />
+		<result column="EDIT_TIME" property="editTime" jdbcType="TIMESTAMP" />
+		<result column="STATUS" property="status" jdbcType="DECIMAL" />
+		<result column="REMARK" property="remark" jdbcType="VARCHAR" />
+		<result column="REAL_NAME" property="realName" jdbcType="VARCHAR" />
+		<result column="MOBILE" property="mobile" jdbcType="VARCHAR" />
+		<result column="LOGIN_NAME" property="loginName" jdbcType="VARCHAR" />
+		<result column="TYPE" property="type" jdbcType="DECIMAL" />
+		<result column="LOGIN_CNT" property="loginCnt" jdbcType="DECIMAL" />
+		<result column="EMAIL" property="email" jdbcType="VARCHAR" />
+		<result column="NAME" property="orgName" jdbcType="VARCHAR" />
+	</resultMap>
+	<select id="listPage" parameterType="java.util.Map" resultMap="SelectiveResultMap">
+		select OP.ID, OP.ORG_ID, OP.CREATE_USER, OP.CREATE_TIME, OP.EDITOR_USER,
+				OP.EDIT_TIME, OP.STATUS,OP.REMARK, OP.REAL_NAME,OP.MOBILE, OP.LOGIN_NAME, 
+				OP.TYPE, OP.LOGIN_CNT, OP.EMAIL,O.NAME 
+		from PMS_OPERATOR OP LEFT JOIN PMS_ORGANIZATION O ON OP.ORG_ID=O.ORG_ID
+		<where>
+			<include refid="condition_sql" />
+		</where>
+		order by OP.id desc
+
+	</select>
+
+	<select id="listPageCount" parameterType="java.util.Map"
+		resultType="long">
+		select count(1) from
+		  PMS_OPERATOR OP LEFT JOIN PMS_ORGANIZATION O ON OP.ORG_ID=O.ORG_ID
+		<where>
+			<include refid="condition_sql" />
+		</where>
+	</select>
+
+	<select id="listByRoleId" parameterType="Long" resultMap="BaseResultMap">
+		select OP.* from
+		<include refid="pms_operator" />
+		LEFT JOIN
+		<include refid="pms_role_operator" />
+		RO ON
+		OP.ID = RO.operator_id WHERE RO.role_id = #{roleId}
+	</select>
+	
+	<select id="listByColumn" parameterType="com.zyzf.polymer.pay.permission.entity.PmsOperator" resultMap="BaseResultMap">
+		select OP.*,O.LAYER,O.TYPE AS ORGTYPE from
+		<include refid="pms_operator" />
+		<where>
+			<include refid="condition_sql" />
+		</where>
+	</select>
+</mapper>

@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zyzf.polymer.pay.terminal.dao.impl.PmsTerminalPrivilegesDaoImpl" >
+  <resultMap id="BaseResultMap" type="com.zyzf.polymer.pay.terminal.entity.PmsTerminalPrivileges" >
+    <id column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="PAY_CHANNEL_TYPE" property="payChannelType" jdbcType="DECIMAL" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="FUNCTION_KEY" property="functionKey" jdbcType="VARCHAR" />
+    <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+    <result column="CREATE_USER" property="createUser" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="EDITOR_USER" property="editorUser" jdbcType="VARCHAR" />
+    <result column="EDIT_TIME" property="editTime" jdbcType="TIMESTAMP" />
+    <result column="STATUS" property="status" jdbcType="DECIMAL" />
+    <result column="DELETED" property="deleted" jdbcType="DECIMAL" />
+    <result column="TCHANNEL_ID" property="tchannelId" jdbcType="DECIMAL" />
+    <result column="PAY_TCHANNEL_ID" property="payTchannelId" jdbcType="DECIMAL" />
+    <result column="PASS_MSG" property="passMsg" jdbcType="VARCHAR" />
+    <result column="PAUSE_MSG" property="pauseMsg" jdbcType="VARCHAR" />
+    <result column="MIN_TRANS_AMT" property="minTransAmt" jdbcType="DECIMAL" />
+    <result column="MAX_TRANS_AMT" property="maxTransAmt" jdbcType="DECIMAL" />
+    <result column="DAY_ALL_AMT" property="dayAllAmt" jdbcType="DECIMAL" />
+    <result column="DAY_CNT" property="dayCnt" jdbcType="DECIMAL" />
+    <result column="LIMIT_TRANS_MSG" property="limitTransMsg" jdbcType="VARCHAR" />
+    <result column="CLEAR_MCODE_TYPE" property="clearMcodeType" jdbcType="DECIMAL" />
+    <result column="OPERATE_START_TIME" property="operateStartTime" jdbcType="VARCHAR" />
+    <result column="OPERATE_END_TIME" property="operateEndTime" jdbcType="VARCHAR" />
+    <result column="NO_OPERATE_MSG" property="noOperateMsg" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, PAY_CHANNEL_TYPE, NAME, FUNCTION_KEY, DESCRIPTION, CREATE_USER, CREATE_TIME, 
+    EDITOR_USER, EDIT_TIME, STATUS, DELETED, TCHANNEL_ID, PAY_TCHANNEL_ID, PASS_MSG, 
+    PAUSE_MSG, MIN_TRANS_AMT, MAX_TRANS_AMT, DAY_ALL_AMT, DAY_CNT, LIMIT_TRANS_MSG, CLEAR_MCODE_TYPE, 
+    OPERATE_START_TIME, OPERATE_END_TIME, NO_OPERATE_MSG
+  </sql>
+  
+   <sql id="whereList">
+    <trim prefix="WHERE" prefixOverrides="AND ">  
+   <if test="payChannelType != null " >
+       PAY_CHANNEL_TYPE= #{payChannelType,jdbcType=DECIMAL}
+      </if>
+      <if test="status != null  " >
+        AND status =#{status,jdbcType=DECIMAL}
+      </if>
+      <if test="createUser != null  and createUser!=''" >
+        AND CREATE_USER =#{createUser,jdbcType=VARCHAR}
+      </if>
+      <if test="clearMcodeType != null " >
+        AND CLEAR_MCODE_TYPE =#{clearMcodeType,jdbcType=DECIMAL}
+      </if>
+       <if test="startDateCreate != null "> 
+		AND CREATE_TIME <![CDATA[>=]]> #{startDateCreate,jdbcType=TIMESTAMP}
+	  </if>
+	  <if test="endDateCreate != null "> 
+		AND CREATE_TIME <![CDATA[ <=]]> #{endDateCreate,jdbcType=TIMESTAMP}
+	  </if> 
+    </trim>
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from PMS_TERMINAL_PRIVILEGES
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from PMS_TERMINAL_PRIVILEGES
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.zyzf.polymer.pay.terminal.entity.PmsTerminalPrivileges" >
+    insert into PMS_TERMINAL_PRIVILEGES (ID, PAY_CHANNEL_TYPE, NAME, 
+      FUNCTION_KEY, DESCRIPTION, CREATE_USER, 
+      CREATE_TIME, EDITOR_USER, EDIT_TIME, 
+      STATUS, DELETED, TCHANNEL_ID, 
+      PAY_TCHANNEL_ID, PASS_MSG, PAUSE_MSG, 
+      MIN_TRANS_AMT, MAX_TRANS_AMT, DAY_ALL_AMT, 
+      DAY_CNT, LIMIT_TRANS_MSG, CLEAR_MCODE_TYPE, 
+      OPERATE_START_TIME, OPERATE_END_TIME, NO_OPERATE_MSG
+      )
+    values (#{id,jdbcType=DECIMAL}, #{payChannelType,jdbcType=DECIMAL}, #{name,jdbcType=VARCHAR}, 
+      #{functionKey,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{createUser,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{editorUser,jdbcType=VARCHAR}, #{editTime,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=DECIMAL}, #{deleted,jdbcType=DECIMAL}, #{tchannelId,jdbcType=DECIMAL}, 
+      #{payTchannelId,jdbcType=DECIMAL}, #{passMsg,jdbcType=VARCHAR}, #{pauseMsg,jdbcType=VARCHAR}, 
+      #{minTransAmt,jdbcType=DECIMAL}, #{maxTransAmt,jdbcType=DECIMAL}, #{dayAllAmt,jdbcType=DECIMAL}, 
+      #{dayCnt,jdbcType=DECIMAL}, #{limitTransMsg,jdbcType=VARCHAR}, #{clearMcodeType,jdbcType=DECIMAL}, 
+      #{operateStartTime,jdbcType=VARCHAR}, #{operateEndTime,jdbcType=VARCHAR}, #{noOperateMsg,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zyzf.polymer.pay.terminal.entity.PmsTerminalPrivileges" >
+    insert into PMS_TERMINAL_PRIVILEGES
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="payChannelType != null" >
+        PAY_CHANNEL_TYPE,
+      </if>
+      <if test="name != null" >
+        NAME,
+      </if>
+      <if test="functionKey != null" >
+        FUNCTION_KEY,
+      </if>
+      <if test="description != null" >
+        DESCRIPTION,
+      </if>
+      <if test="createUser != null" >
+        CREATE_USER,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="editorUser != null" >
+        EDITOR_USER,
+      </if>
+      <if test="editTime != null" >
+        EDIT_TIME,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="deleted != null" >
+        DELETED,
+      </if>
+      <if test="tchannelId != null" >
+        TCHANNEL_ID,
+      </if>
+      <if test="payTchannelId != null" >
+        PAY_TCHANNEL_ID,
+      </if>
+      <if test="passMsg != null" >
+        PASS_MSG,
+      </if>
+      <if test="pauseMsg != null" >
+        PAUSE_MSG,
+      </if>
+      <if test="minTransAmt != null" >
+        MIN_TRANS_AMT,
+      </if>
+      <if test="maxTransAmt != null" >
+        MAX_TRANS_AMT,
+      </if>
+      <if test="dayAllAmt != null" >
+        DAY_ALL_AMT,
+      </if>
+      <if test="dayCnt != null" >
+        DAY_CNT,
+      </if>
+      <if test="limitTransMsg != null" >
+        LIMIT_TRANS_MSG,
+      </if>
+      <if test="clearMcodeType != null" >
+        CLEAR_MCODE_TYPE,
+      </if>
+      <if test="operateStartTime != null" >
+        OPERATE_START_TIME,
+      </if>
+      <if test="operateEndTime != null" >
+        OPERATE_END_TIME,
+      </if>
+      <if test="noOperateMsg != null" >
+        NO_OPERATE_MSG,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="payChannelType != null" >
+        #{payChannelType,jdbcType=DECIMAL},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="functionKey != null" >
+        #{functionKey,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="editorUser != null" >
+        #{editorUser,jdbcType=VARCHAR},
+      </if>
+      <if test="editTime != null" >
+        #{editTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=DECIMAL},
+      </if>
+      <if test="tchannelId != null" >
+        #{tchannelId,jdbcType=DECIMAL},
+      </if>
+      <if test="payTchannelId != null" >
+        #{payTchannelId,jdbcType=DECIMAL},
+      </if>
+      <if test="passMsg != null" >
+        #{passMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="pauseMsg != null" >
+        #{pauseMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="minTransAmt != null" >
+        #{minTransAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="maxTransAmt != null" >
+        #{maxTransAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="dayAllAmt != null" >
+        #{dayAllAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="dayCnt != null" >
+        #{dayCnt,jdbcType=DECIMAL},
+      </if>
+      <if test="limitTransMsg != null" >
+        #{limitTransMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="clearMcodeType != null" >
+        #{clearMcodeType,jdbcType=DECIMAL},
+      </if>
+      <if test="operateStartTime != null" >
+        #{operateStartTime,jdbcType=VARCHAR},
+      </if>
+      <if test="operateEndTime != null" >
+        #{operateEndTime,jdbcType=VARCHAR},
+      </if>
+      <if test="noOperateMsg != null" >
+        #{noOperateMsg,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zyzf.polymer.pay.terminal.entity.PmsTerminalPrivileges" >
+    update PMS_TERMINAL_PRIVILEGES
+    <set >
+      <if test="payChannelType != null" >
+        PAY_CHANNEL_TYPE = #{payChannelType,jdbcType=DECIMAL},
+      </if>
+      <if test="name != null" >
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="functionKey != null" >
+        FUNCTION_KEY = #{functionKey,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        DESCRIPTION = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="editorUser != null" >
+        EDITOR_USER = #{editorUser,jdbcType=VARCHAR},
+      </if>
+      <if test="editTime != null" >
+        EDIT_TIME = #{editTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="deleted != null" >
+        DELETED = #{deleted,jdbcType=DECIMAL},
+      </if>
+      <if test="tchannelId != null" >
+        TCHANNEL_ID = #{tchannelId,jdbcType=DECIMAL},
+      </if>
+      <if test="payTchannelId != null" >
+        PAY_TCHANNEL_ID = #{payTchannelId,jdbcType=DECIMAL},
+      </if>
+      <if test="passMsg != null" >
+        PASS_MSG = #{passMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="pauseMsg != null" >
+        PAUSE_MSG = #{pauseMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="minTransAmt != null" >
+        MIN_TRANS_AMT = #{minTransAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="maxTransAmt != null" >
+        MAX_TRANS_AMT = #{maxTransAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="dayAllAmt != null" >
+        DAY_ALL_AMT = #{dayAllAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="dayCnt != null" >
+        DAY_CNT = #{dayCnt,jdbcType=DECIMAL},
+      </if>
+      <if test="limitTransMsg != null" >
+        LIMIT_TRANS_MSG = #{limitTransMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="clearMcodeType != null" >
+        CLEAR_MCODE_TYPE = #{clearMcodeType,jdbcType=DECIMAL},
+      </if>
+      <if test="operateStartTime != null" >
+        OPERATE_START_TIME = #{operateStartTime,jdbcType=VARCHAR},
+      </if>
+      <if test="operateEndTime != null" >
+        OPERATE_END_TIME = #{operateEndTime,jdbcType=VARCHAR},
+      </if>
+      <if test="noOperateMsg != null" >
+        NO_OPERATE_MSG = #{noOperateMsg,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zyzf.polymer.pay.terminal.entity.PmsTerminalPrivileges" >
+    update PMS_TERMINAL_PRIVILEGES
+    set PAY_CHANNEL_TYPE = #{payChannelType,jdbcType=DECIMAL},
+      NAME = #{name,jdbcType=VARCHAR},
+      FUNCTION_KEY = #{functionKey,jdbcType=VARCHAR},
+      DESCRIPTION = #{description,jdbcType=VARCHAR},
+      CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      EDITOR_USER = #{editorUser,jdbcType=VARCHAR},
+      EDIT_TIME = #{editTime,jdbcType=TIMESTAMP},
+      STATUS = #{status,jdbcType=DECIMAL},
+      DELETED = #{deleted,jdbcType=DECIMAL},
+      TCHANNEL_ID = #{tchannelId,jdbcType=DECIMAL},
+      PAY_TCHANNEL_ID = #{payTchannelId,jdbcType=DECIMAL},
+      PASS_MSG = #{passMsg,jdbcType=VARCHAR},
+      PAUSE_MSG = #{pauseMsg,jdbcType=VARCHAR},
+      MIN_TRANS_AMT = #{minTransAmt,jdbcType=DECIMAL},
+      MAX_TRANS_AMT = #{maxTransAmt,jdbcType=DECIMAL},
+      DAY_ALL_AMT = #{dayAllAmt,jdbcType=DECIMAL},
+      DAY_CNT = #{dayCnt,jdbcType=DECIMAL},
+      LIMIT_TRANS_MSG = #{limitTransMsg,jdbcType=VARCHAR},
+      CLEAR_MCODE_TYPE = #{clearMcodeType,jdbcType=DECIMAL},
+      OPERATE_START_TIME = #{operateStartTime,jdbcType=VARCHAR},
+      OPERATE_END_TIME = #{operateEndTime,jdbcType=VARCHAR},
+      NO_OPERATE_MSG = #{noOperateMsg,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  
+  <select id="listPageCount" parameterType="java.util.Map" resultType="long">
+      select count(1) from PMS_TERMINAL_PRIVILEGES
+      <include refid="whereList" />
+   </select>
+   <select id="listPage" parameterType="java.util.Map" resultMap="BaseResultMap">
+	  select 
+	   <include refid="Base_Column_List" />
+	   from PMS_TERMINAL_PRIVILEGES
+	   <include refid="whereList" />
+   </select>
+  
+</mapper>

@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zyzf.polymer.pay.riskManage.dao.impl.PmsTransRefuseCardDaoImpl">
+  <resultMap id="BaseResultMap" type="com.zyzf.polymer.pay.riskManage.entity.PmsTransRefuseCard" >
+    <id column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="BANK_CARD" property="bankCard" jdbcType="VARCHAR" />
+    <result column="TYPE" property="type" jdbcType="DECIMAL" />
+    <result column="OPENING_BANK" property="openingBank" jdbcType="VARCHAR" />
+    <result column="CARD_NAME" property="cardName" jdbcType="VARCHAR" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    ID, BANK_CARD, TYPE, OPENING_BANK, CARD_NAME, CREATE_DATE, DESCRIPTION
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from PMS_TRANS_REFUSECARD
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from PMS_TRANS_REFUSECARD
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  
+  <insert id="insert" parameterType="com.zyzf.polymer.pay.riskManage.entity.PmsTransRefuseCard" 
+    keyProperty="id" useGeneratedKeys="true" >
+      <selectKey order="BEFORE" keyProperty="id" resultType="java.lang.Long">
+			SELECT SQC_PMS_TRANS_REFUSECARD.NEXTVAL AS id FROM DUAL
+		</selectKey>
+      insert into PMS_TRANS_REFUSECARD (ID, BANK_CARD, TYPE, 
+      OPENING_BANK, CARD_NAME, CREATE_DATE, 
+      DESCRIPTION)
+      values (#{id,jdbcType=DECIMAL}, #{bankCard,jdbcType=VARCHAR}, #{type,jdbcType=DECIMAL}, 
+      #{openingBank,jdbcType=VARCHAR}, #{cardName,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{description,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zyzf.polymer.pay.riskManage.entity.PmsTransRefuseCard" >
+    insert into PMS_TRANS_REFUSECARD
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="bankCard != null" >
+        BANK_CARD,
+      </if>
+      <if test="type != null" >
+        TYPE,
+      </if>
+      <if test="openingBank != null" >
+        OPENING_BANK,
+      </if>
+      <if test="cardName != null" >
+        CARD_NAME,
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE,
+      </if>
+      <if test="description != null" >
+        DESCRIPTION,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="bankCard != null" >
+        #{bankCard,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=DECIMAL},
+      </if>
+      <if test="openingBank != null" >
+        #{openingBank,jdbcType=VARCHAR},
+      </if>
+      <if test="cardName != null" >
+        #{cardName,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.zyzf.polymer.pay.riskManage.entity.PmsTransRefuseCard" >
+    update PMS_TRANS_REFUSECARD
+    <set >
+      <if test="bankCard != null" >
+        BANK_CARD = #{bankCard,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        TYPE = #{type,jdbcType=DECIMAL},
+      </if>
+      <if test="openingBank != null" >
+        OPENING_BANK = #{openingBank,jdbcType=VARCHAR},
+      </if>
+      <if test="cardName != null" >
+        CARD_NAME = #{cardName,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="description != null" >
+        DESCRIPTION = #{description,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  
+  <update id="updateByPrimaryKey" parameterType="com.zyzf.polymer.pay.riskManage.entity.PmsTransRefuseCard" >
+    update PMS_TRANS_REFUSECARD
+    set BANK_CARD = #{bankCard,jdbcType=VARCHAR},
+      TYPE = #{type,jdbcType=DECIMAL},
+      OPENING_BANK = #{openingBank,jdbcType=VARCHAR},
+      CARD_NAME = #{cardName,jdbcType=VARCHAR},
+      CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      DESCRIPTION = #{description,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  
+  <sql id="Where_Card">
+		<if test="bankCard!= null and bankCard!=''" > 
+		   AND BANK_CARD =#{bankCard,jdbcType=VARCHAR}
+		 </if>
+		<if test="type != null "> 
+		   AND TYPE =#{type,jdbcType=DECIMAL}
+		 </if>
+		 
+		 <if test="startDateCreate != null "> 
+			AND CREATE_DATE <![CDATA[>=]]> #{startDateCreate,jdbcType=TIMESTAMP}
+		</if>
+		
+		<if test="endDateCreate != null "> 
+			AND CREATE_DATE <![CDATA[ <=]]> #{endDateCreate,jdbcType=TIMESTAMP}
+		</if>
+	</sql>
+  
+   <select id="listPageCount" parameterType="java.util.Map" resultType="long">
+	   select count(1) from  
+	   pms_trans_RefuseCard
+	    <where>
+	    <include refid="Where_Card" />
+	    </where>
+   </select>
+   
+   <select id="listPage"  parameterType="java.util.Map" resultMap="BaseResultMap">
+	   select 
+	   <include refid="Base_Column_List" />
+	   from
+	   pms_trans_RefuseCard 
+	   <where>
+	    <include refid="Where_Card" />
+	   </where>
+   </select>
+ 
+</mapper>

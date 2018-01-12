@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zyzf.polymer.pay.channel.dao.impl.PmsChannelDaoImpl">
+	<resultMap id="BaseResultMap"
+		type="com.zyzf.polymer.pay.channel.entity.PmsChannel">
+		<id column="CHANNEL_ID" property="channelId" jdbcType="DECIMAL" />
+		<result column="CORG_ID" property="corgId" jdbcType="DECIMAL" />
+		<result column="PAY_CHANNEL_TYPE" property="payChannelType" jdbcType="DECIMAL" />
+		<result column="FEE_RATE" property="feeRate" jdbcType="DECIMAL" />
+		<result column="FD_MAX_FEE" property="fdMaxFee" jdbcType="DECIMAL" />
+		<result column="FD_MIN_FEE" property="fdMinFee" jdbcType="DECIMAL" />
+		<result column="CLEAR_FEE" property="clearFee" jdbcType="DECIMAL" />
+		<result column="STATUS" property="status" jdbcType="DECIMAL" />
+		<result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+		<result column="COST_TYPE" property="costType" jdbcType="DECIMAL" />
+		<result column="PARAM_TYPE" property="paramType" jdbcType="DECIMAL" />
+		<result column="MAIN_KEY" property="mainKey" jdbcType="VARCHAR" />
+		<result column="URL" property="url" jdbcType="VARCHAR" />
+		<result column="PORT" property="port" jdbcType="DECIMAL" />
+		<result column="PUBLIC_KEY" property="publicKey" jdbcType="VARCHAR" />
+		<result column="PRIVATE_KEY" property="privateKey" jdbcType="VARCHAR" />
+		<result column="SIGN_TYPE" property="signType" jdbcType="DECIMAL" />
+		<result column="IS_RECORD_TRANS_AMT" property="isRecordTransAmt" jdbcType="DECIMAL" />
+		<result column="OTHER_PARAM" property="otherParam" jdbcType="VARCHAR" />
+		<result column="CHANNEL_NAME" property="channelName" jdbcType="VARCHAR" />
+		<result column="PAY_TYPE" property="payType" jdbcType="DECIMAL" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		CHANNEL_ID, CORG_ID, PAY_CHANNEL_TYPE, FEE_RATE, FD_MAX_FEE, FD_MIN_FEE,
+		CLEAR_FEE,
+		STATUS, DESCRIPTION, COST_TYPE, PARAM_TYPE, MAIN_KEY, URL, PORT, PUBLIC_KEY,
+		PRIVATE_KEY,
+		SIGN_TYPE, IS_RECORD_TRANS_AMT, OTHER_PARAM, CHANNEL_NAME, PAY_TYPE
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from PMS_CHANNEL
+		where CHANNEL_ID = #{channelId,jdbcType=DECIMAL}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from PMS_CHANNEL
+		where CHANNEL_ID = #{channelId,jdbcType=DECIMAL}
+	</delete>
+	<insert id="insert" parameterType="com.zyzf.polymer.pay.channel.entity.PmsChannel"
+		keyProperty="channelId" useGeneratedKeys="true">
+		<selectKey order="BEFORE" keyProperty="channelId"
+			resultType="java.lang.Long">
+			SELECT SQC_PMS_CHANNEL.NEXTVAL AS channelId FROM DUAL
+		</selectKey>
+		insert into PMS_CHANNEL (CHANNEL_ID, CORG_ID, PAY_CHANNEL_TYPE,
+		FEE_RATE, FD_MAX_FEE, FD_MIN_FEE,
+		CLEAR_FEE, STATUS, DESCRIPTION,
+		COST_TYPE, PARAM_TYPE, MAIN_KEY,
+		URL, PORT, PUBLIC_KEY,
+		PRIVATE_KEY, SIGN_TYPE, IS_RECORD_TRANS_AMT,
+		OTHER_PARAM, CHANNEL_NAME, PAY_TYPE
+		)
+		values (#{channelId,jdbcType=DECIMAL}, #{corgId,jdbcType=DECIMAL},
+		#{payChannelType,jdbcType=DECIMAL},
+		#{feeRate,jdbcType=DECIMAL}, #{fdMaxFee,jdbcType=DECIMAL}, #{fdMinFee,jdbcType=DECIMAL},
+		#{clearFee,jdbcType=DECIMAL}, #{status,jdbcType=DECIMAL},
+		#{description,jdbcType=VARCHAR},
+		#{costType,jdbcType=DECIMAL}, #{paramType,jdbcType=DECIMAL}, #{mainKey,jdbcType=VARCHAR},
+		#{url,jdbcType=VARCHAR}, #{port,jdbcType=DECIMAL},
+		#{publicKey,jdbcType=VARCHAR},
+		#{privateKey,jdbcType=VARCHAR}, #{signType,jdbcType=DECIMAL}, #{isRecordTransAmt,jdbcType=DECIMAL},
+		#{otherParam,jdbcType=VARCHAR}, #{channelName,jdbcType=VARCHAR},
+		#{payType,jdbcType=DECIMAL}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.zyzf.polymer.pay.channel.entity.PmsChannel">
+		insert into PMS_CHANNEL
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="channelId != null">
+				CHANNEL_ID,
+			</if>
+			<if test="corgId != null">
+				CORG_ID,
+			</if>
+			<if test="payChannelType != null">
+				PAY_CHANNEL_TYPE,
+			</if>
+			<if test="feeRate != null">
+				FEE_RATE,
+			</if>
+			<if test="fdMaxFee != null">
+				FD_MAX_FEE,
+			</if>
+			<if test="fdMinFee != null">
+				FD_MIN_FEE,
+			</if>
+			<if test="clearFee != null">
+				CLEAR_FEE,
+			</if>
+			<if test="status != null">
+				STATUS,
+			</if>
+			<if test="description != null">
+				DESCRIPTION,
+			</if>
+			<if test="costType != null">
+				COST_TYPE,
+			</if>
+			<if test="paramType != null">
+				PARAM_TYPE,
+			</if>
+			<if test="mainKey != null">
+				MAIN_KEY,
+			</if>
+			<if test="url != null">
+				URL,
+			</if>
+			<if test="port != null">
+				PORT,
+			</if>
+			<if test="publicKey != null">
+				PUBLIC_KEY,
+			</if>
+			<if test="privateKey != null">
+				PRIVATE_KEY,
+			</if>
+			<if test="signType != null">
+				SIGN_TYPE,
+			</if>
+			<if test="isRecordTransAmt != null">
+				IS_RECORD_TRANS_AMT,
+			</if>
+			<if test="otherParam != null">
+				OTHER_PARAM,
+			</if>
+			<if test="channelName != null">
+				CHANNEL_NAME,
+			</if>
+			<if test="payType != null">
+				PAY_TYPE,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="channelId != null">
+				#{channelId,jdbcType=DECIMAL},
+			</if>
+			<if test="corgId != null">
+				#{corgId,jdbcType=DECIMAL},
+			</if>
+			<if test="payChannelType != null">
+				#{payChannelType,jdbcType=DECIMAL},
+			</if>
+			<if test="feeRate != null">
+				#{feeRate,jdbcType=DECIMAL},
+			</if>
+			<if test="fdMaxFee != null">
+				#{fdMaxFee,jdbcType=DECIMAL},
+			</if>
+			<if test="fdMinFee != null">
+				#{fdMinFee,jdbcType=DECIMAL},
+			</if>
+			<if test="clearFee != null">
+				#{clearFee,jdbcType=DECIMAL},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=DECIMAL},
+			</if>
+			<if test="description != null">
+				#{description,jdbcType=VARCHAR},
+			</if>
+			<if test="costType != null">
+				#{costType,jdbcType=DECIMAL},
+			</if>
+			<if test="paramType != null">
+				#{paramType,jdbcType=DECIMAL},
+			</if>
+			<if test="mainKey != null">
+				#{mainKey,jdbcType=VARCHAR},
+			</if>
+			<if test="url != null">
+				#{url,jdbcType=VARCHAR},
+			</if>
+			<if test="port != null">
+				#{port,jdbcType=DECIMAL},
+			</if>
+			<if test="publicKey != null">
+				#{publicKey,jdbcType=VARCHAR},
+			</if>
+			<if test="privateKey != null">
+				#{privateKey,jdbcType=VARCHAR},
+			</if>
+			<if test="signType != null">
+				#{signType,jdbcType=DECIMAL},
+			</if>
+			<if test="isRecordTransAmt != null">
+				#{isRecordTransAmt,jdbcType=DECIMAL},
+			</if>
+			<if test="otherParam != null">
+				#{otherParam,jdbcType=VARCHAR},
+			</if>
+			<if test="channelName != null">
+				#{channelName,jdbcType=VARCHAR},
+			</if>
+			<if test="payType != null">
+				#{payType,jdbcType=DECIMAL},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.zyzf.polymer.pay.channel.entity.PmsChannel">
+		update PMS_CHANNEL
+		<set>
+			<if test="corgId != null">
+				CORG_ID = #{corgId,jdbcType=DECIMAL},
+			</if>
+			<if test="payChannelType != null">
+				PAY_CHANNEL_TYPE = #{payChannelType,jdbcType=DECIMAL},
+			</if>
+			<if test="feeRate != null">
+				FEE_RATE = #{feeRate,jdbcType=DECIMAL},
+			</if>
+			<if test="fdMaxFee != null">
+				FD_MAX_FEE = #{fdMaxFee,jdbcType=DECIMAL},
+			</if>
+			<if test="fdMinFee != null">
+				FD_MIN_FEE = #{fdMinFee,jdbcType=DECIMAL},
+			</if>
+			<if test="clearFee != null">
+				CLEAR_FEE = #{clearFee,jdbcType=DECIMAL},
+			</if>
+			<if test="status != null">
+				STATUS = #{status,jdbcType=DECIMAL},
+			</if>
+			<if test="description != null">
+				DESCRIPTION = #{description,jdbcType=VARCHAR},
+			</if>
+			<if test="costType != null">
+				COST_TYPE = #{costType,jdbcType=DECIMAL},
+			</if>
+			<if test="paramType != null">
+				PARAM_TYPE = #{paramType,jdbcType=DECIMAL},
+			</if>
+			<if test="mainKey != null">
+				MAIN_KEY = #{mainKey,jdbcType=VARCHAR},
+			</if>
+			<if test="url != null">
+				URL = #{url,jdbcType=VARCHAR},
+			</if>
+			<if test="port != null">
+				PORT = #{port,jdbcType=DECIMAL},
+			</if>
+			<if test="publicKey != null">
+				PUBLIC_KEY = #{publicKey,jdbcType=VARCHAR},
+			</if>
+			<if test="privateKey != null">
+				PRIVATE_KEY = #{privateKey,jdbcType=VARCHAR},
+			</if>
+			<if test="signType != null">
+				SIGN_TYPE = #{signType,jdbcType=DECIMAL},
+			</if>
+			<if test="isRecordTransAmt != null">
+				IS_RECORD_TRANS_AMT = #{isRecordTransAmt,jdbcType=DECIMAL},
+			</if>
+			<if test="otherParam != null">
+				OTHER_PARAM = #{otherParam,jdbcType=VARCHAR},
+			</if>
+			<if test="channelName != null">
+				CHANNEL_NAME = #{channelName,jdbcType=VARCHAR},
+			</if>
+			<if test="payType != null">
+				PAY_TYPE = #{payType,jdbcType=DECIMAL},
+			</if>
+		</set>
+		where CHANNEL_ID = #{channelId,jdbcType=DECIMAL}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.zyzf.polymer.pay.channel.entity.PmsChannel">
+		update PMS_CHANNEL
+		set CORG_ID = #{corgId,jdbcType=DECIMAL},
+		PAY_CHANNEL_TYPE = #{payChannelType,jdbcType=DECIMAL},
+		FEE_RATE = #{feeRate,jdbcType=DECIMAL},
+		FD_MAX_FEE = #{fdMaxFee,jdbcType=DECIMAL},
+		FD_MIN_FEE = #{fdMinFee,jdbcType=DECIMAL},
+		CLEAR_FEE = #{clearFee,jdbcType=DECIMAL},
+		STATUS = #{status,jdbcType=DECIMAL},
+		DESCRIPTION = #{description,jdbcType=VARCHAR},
+		COST_TYPE = #{costType,jdbcType=DECIMAL},
+		PARAM_TYPE = #{paramType,jdbcType=DECIMAL},
+		MAIN_KEY = #{mainKey,jdbcType=VARCHAR},
+		URL = #{url,jdbcType=VARCHAR},
+		PORT = #{port,jdbcType=DECIMAL},
+		PUBLIC_KEY = #{publicKey,jdbcType=VARCHAR},
+		PRIVATE_KEY = #{privateKey,jdbcType=VARCHAR},
+		SIGN_TYPE = #{signType,jdbcType=DECIMAL},
+		IS_RECORD_TRANS_AMT = #{isRecordTransAmt,jdbcType=DECIMAL},
+		OTHER_PARAM = #{otherParam,jdbcType=VARCHAR},
+		CHANNEL_NAME = #{channelName,jdbcType=VARCHAR},
+		PAY_TYPE = #{payType,jdbcType=DECIMAL}
+		where CHANNEL_ID = #{channelId,jdbcType=DECIMAL}
+	</update>
+	<sql id="Where_Clause">
+		<if test="corgId != null ">
+			and C.CORG_ID = #{corgId,jdbcType=DECIMAL}
+		</if>
+		<if test="payChannelType != null ">
+			and C.PAY_CHANNEL_TYPE =
+			#{payChannelType,jdbcType=DECIMAL}
+		</if>
+		<if test="channelId != null ">
+			and C.CHANNEL_ID = #{channelId,jdbcType=DECIMAL}
+		</if>
+		<if test="channelName != null and  channelName!='' ">
+			and C.CHANNEL_NAME = #{channelName,jdbcType=VARCHAR}
+		</if>
+		<if test="status != null ">
+			and C.STATUS = #{status,jdbcType=DECIMAL}
+		</if>
+	</sql>
+	<select id="listPage" parameterType="java.util.Map" resultMap="BaseResultMap">
+		select
+		C.CHANNEL_ID, C.CORG_ID,C.PAY_CHANNEL_TYPE, C.FEE_RATE, C.FD_MAX_FEE, C.FD_MIN_FEE,
+		C.CLEAR_FEE,C.STATUS, C.DESCRIPTION, C.COST_TYPE, C.PARAM_TYPE,
+		C.MAIN_KEY, C.URL,
+		C.PORT, C.PUBLIC_KEY,C.PRIVATE_KEY,C.SIGN_TYPE, C.IS_RECORD_TRANS_AMT,
+		C.OTHER_PARAM,
+		C.CHANNEL_NAME,O.NAME AS CORGNAME
+		from PMS_CHANNEL C LEFT JOIN pms_channel_org O ON
+		C.CORG_ID=O.CORG_ID
+		<where>
+			<include refid="Where_Clause" />
+		</where>
+		order by CHANNEL_ID desc
+	</select>
+
+	<select id="listPageCount" parameterType="java.util.Map"
+		resultType="long">
+		SELECT COUNT(*) FROM
+		PMS_CHANNEL C LEFT JOIN pms_channel_org O ON
+		C.CORG_ID=O.CORG_ID
+		<where>
+			<include refid="Where_Clause" />
+		</where>
+	</select>
+	
+	<!-- 下拉菜单查询通道 -->
+	<resultMap id="ResultMapSelective"
+		type="com.zyzf.polymer.pay.channel.entity.PmsChannel">
+		<id column="CHANNEL_ID" property="channelId" jdbcType="DECIMAL" />
+		<result column="CHANNEL_NAME" property="channelName" jdbcType="VARCHAR" />
+	</resultMap>
+	<select id="selectChannelList" resultMap="ResultMapSelective">
+		SELECT CHANNEL_ID,CHANNEL_NAME 
+		FROM PMS_CHANNEL C
+		<where>
+			 C.STATUS=1
+			<include refid="Where_Clause"/>
+		</where>
+	</select>
+	<!-- add wuhp 查询通名字与通道id  -->
+	<resultMap id="ResultMapSelectName"
+		type="com.zyzf.polymer.pay.channel.entity.PmsChannel">
+		<id column="channel_Id" property="channelId" jdbcType="DECIMAL" />
+		<result column="channel_Name" property="channelName" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<select id="selectChanneName" resultMap="ResultMapSelectName">
+		SELECT channel_Id, channel_Name
+		FROM pms_channel
+	</select>
+	
+</mapper>

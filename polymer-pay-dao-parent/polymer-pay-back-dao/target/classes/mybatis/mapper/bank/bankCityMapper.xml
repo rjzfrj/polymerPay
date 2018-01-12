@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zyzf.polymer.pay.bank.dao.BankCityDao">
+	<!-- 自定义返回结果集 -->
+    <resultMap id="bankResult" type="com.zyzf.polymer.pay.bank.entity.BankCity">
+		<id property="id" column="id" javaType="java.lang.Long"></id>
+		<result column="province_Id" property="provinceId" javaType="java.lang.Long"/>
+		<result column="name" property="name" javaType="java.lang.String"/>
+		<result column="code" property="code" javaType="java.lang.Integer"/>
+		<result column="end_Code" property="endCode" javaType="java.lang.Integer"/>
+		<result column="sort" property="sort" javaType="java.lang.Integer"/>
+		<result column="org_Name" property="orgName" javaType="java.lang.String"/>
+	</resultMap>
+    
+    <!-- 查询sql -->
+    <sql id="getAllFieldSql">
+    	SELECT ID,
+    		   PROVINCE_ID,
+    		   NAME,
+    		   SORT,
+    		   CODE,
+    		   END_CODE,
+    		   ORG_NAME
+		FROM PMS_BANK_CITY
+    </sql>
+    
+    <sql id="whereList">
+    	<trim prefix="WHERE" prefixOverrides="AND ">
+    		<if test="id != null">
+    			AND ID = #{id}
+    		</if>
+    		<if test="provinceId != null">
+    			AND PROVINCE_ID = #{provinceId}
+    		</if>
+    		<if test="name != null and name != ''">
+    			AND NAME = #{name}
+    		</if>
+    		<if test="sort != null">
+    			AND SORT = #{sort}
+    		</if>
+    	</trim>
+    </sql>
+    
+    <!-- 查询 Entity 列表-->
+	<select id="searchEntityList" resultMap="bankResult" parameterType="com.zyzf.polymer.pay.bank.entity.BankCity">
+   		SELECT ROW_.*, ROWNUM ROWNUM_ FROM (
+   			<include refid="getAllFieldSql"/>
+   			<include refid="whereList"/>
+		    ORDER BY ID ASC
+   		) ROW_
+	</select>
+	
+	<!-- 查询单个 Entity -->
+	<select id="searchEntity" resultMap="bankResult" parameterType="com.zyzf.polymer.pay.bank.entity.BankCity">
+		<include refid="getAllFieldSql"/>
+		<include refid="whereList"/>
+	</select>
+	
+	<!-- 查询总数 -->
+	<select id="getEntityCount" resultType="int" parameterType="com.zyzf.polymer.pay.bank.entity.BankCity">
+		SELECT COUNT(*) FROM PMS_BANK_CITY
+    	<include refid="whereList"/>
+	</select>
+	
+	<!-- 修改单个 Entity -->
+	<update id="updateEntity" parameterType="com.zyzf.polymer.pay.bank.entity.BankCity">
+		UPDATE PMS_BANK_CITY
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="provinceId != null">
+				PROVINCE_ID = #{provinceId},
+			</if>
+			<if test="name != null and name != ''">
+				NAME = #{name},
+			</if>
+			<if test="sort != null">
+				SORT = #{sort},
+			</if>
+			<if test="code != null">
+				CODE = #{code},
+			</if>
+			<if test="endCode != null">
+				end_Code = #{endCode},
+			</if>
+			<if test="orgName != null and orgName != ''">
+				org_Name = #{orgName},
+			</if>
+		</trim>
+		WHERE ID = #{id}
+	</update>
+
+	<!-- 添加 -->
+    <insert id="insertEntity" parameterType="com.zyzf.polymer.pay.bank.entity.BankCity">
+		INSERT INTO PMS_BANK_CITY(
+			ID,
+			PROVINCE_ID
+			NAME,
+			SORT,
+			CODE,
+			END_CODE,
+			ORG_NAME
+		) values (
+			#{id},
+			#{provinceId},
+			#{name},
+			#{sort},
+			#{code},
+			#{endCode},
+			#{orgName}
+		)
+    </insert>
+    
+    <!-- 删除 -->
+    <delete id="deleteEntity" parameterType="com.zyzf.polymer.pay.bank.entity.BankCity">
+    	DELETE FROM PMS_BANK_CITY WHERE ID = #{id}
+    </delete>
+    
+    <!-- 批量删除 -->
+    <delete id="deleteEntities" parameterType="com.zyzf.polymer.pay.bank.entity.BankCity">
+		DELETE FROM PMS_BANK_CITY WHERE ID IN (${value})
+	</delete>
+</mapper>

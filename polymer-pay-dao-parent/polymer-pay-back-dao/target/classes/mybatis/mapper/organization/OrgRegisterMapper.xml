@@ -1,0 +1,490 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zyzf.polymer.pay.organization.dao.impl.OrgRegisterDaoImpl">
+	<resultMap id="BaseResultMap"
+		type="com.zyzf.polymer.pay.organization.entity.OrgRegister">
+		<result column="ORG_ID" property="orgId" jdbcType="DECIMAL" />
+	    <result column="COR_NAME" property="corName" jdbcType="VARCHAR" />
+	    <result column="COR_CARD_TYPE" property="corCardType" jdbcType="DECIMAL" />
+	    <result column="COR_ID_CARD" property="corIdCard" jdbcType="VARCHAR" />
+	    <result column="COR_ID_CARD_VALID" property="corIdCardValid" jdbcType="TIMESTAMP" />
+	    <result column="LICENSE_CODE" property="licenseCode" jdbcType="VARCHAR" />
+	    <result column="LICENSE_CODE_VALID" property="licenseCodeValid" jdbcType="TIMESTAMP" />
+	    <result column="MER_REGISTER_ADDR" property="merRegisterAddr" jdbcType="VARCHAR" />
+	    <result column="MAIN_BUSINESS" property="mainBusiness" jdbcType="VARCHAR" />
+	    <result column="SIGN_AMOUNT" property="signAmount" jdbcType="DECIMAL" />
+	    <result column="REAL_AMOUNT" property="realAmount" jdbcType="DECIMAL" />
+	    <result column="ROLE_TYPE" property="roleType" jdbcType="DECIMAL" />
+	    <result column="LICENSE_IMG" property="licenseImg" jdbcType="VARCHAR" />
+	    <result column="ID_FRONT_IMG" property="idFrontImg" jdbcType="VARCHAR" />
+	    <result column="ID_BACK_IMG" property="idBackImg" jdbcType="VARCHAR" />
+	    <result column="BANKCARD_FRONT_IMG" property="bankcardFrontImg" jdbcType="VARCHAR" />
+	    <result column="BANKCARD_BACK_IMG" property="bankcardBackImg" jdbcType="VARCHAR" />
+	    <result column="OPEN_BANK_PC_IMG" property="openBankPcImg" jdbcType="VARCHAR" />
+	    <result column="MERCHANT_OFD_IMG" property="merchantOfdImg" jdbcType="VARCHAR" />
+	    <result column="MERCHANT_STORES_IMG" property="merchantStoresImg" jdbcType="VARCHAR" />
+	    <result column="HEAD_IMG" property="headImg" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ORG_ID, COR_NAME, COR_CARD_TYPE, COR_ID_CARD, COR_ID_CARD_VALID, 
+		LICENSE_CODE, LICENSE_CODE_VALID, MER_REGISTER_ADDR, MAIN_BUSINESS, SIGN_AMOUNT, 
+    	REAL_AMOUNT, ROLE_TYPE, LICENSE_IMG, ID_FRONT_IMG, ID_BACK_IMG, 
+    	BANKCARD_FRONT_IMG, BANKCARD_BACK_IMG, OPEN_BANK_PC_IMG, MERCHANT_OFD_IMG, MERCHANT_STORES_IMG, 
+    	HEAD_IMG
+	</sql>
+	
+	<select id="selectByPrimaryKey" parameterType="java.lang.Long"
+		resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM PMS_ORG_REGISTER
+		WHERE ORG_ID = #{orgId,jdbcType=DECIMAL}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		DELETE FROM
+		PMS_ORG_REGISTER
+		WHERE ORG_ID = #{orgId,jdbcType=DECIMAL}
+	</delete>
+	<insert id="insert"
+		parameterType="com.zyzf.polymer.pay.organization.entity.OrgRegister">
+		insert into PMS_ORG_REGISTER
+	    <trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="orgId != null">
+				ORG_ID,
+			</if>
+			<if test="corName != null and corName != ''">
+				COR_NAME,
+			</if>
+			<if test="corCardType != null">
+				COR_CARD_TYPE,
+			</if>
+			<if test="corIdCard != null and corIdCard != ''">
+				COR_ID_CARD,
+			</if>
+			<if test="corIdCardValid != null">
+				COR_ID_CARD_VALID,
+			</if>
+			<if test="licenseCode != null and licenseCode != ''">
+				LICENSE_CODE,
+			</if>
+			<if test="licenseCodeValid != null">
+				LICENSE_CODE_VALID,
+			</if>
+			<if test="merRegisterAddr != null and merRegisterAddr != ''">
+				MER_REGISTER_ADDR,
+			</if>
+			<if test="mainBusiness != null and mainBusiness != ''">
+				MAIN_BUSINESS,
+			</if>
+			<if test="signAmount != null">
+				SIGN_AMOUNT,
+			</if>
+			<if test="realAmount != null">
+				REAL_AMOUNT,
+			</if>
+			<if test="roleType != null">
+				ROLE_TYPE,
+			</if>
+			<if test="licenseImg != null and licenseImg != ''">
+				LICENSE_IMG,
+			</if>
+			<if test="idFrontImg != null and idFrontImg != ''">
+				ID_FRONT_IMG,
+			</if>
+			<if test="idBackImg != null and idBackImg != ''">
+				ID_BACK_IMG,
+			</if>
+			<if test="bankcardFrontImg != null and bankcardFrontImg != ''">
+				BANKCARD_FRONT_IMG,
+			</if>
+			<if test="bankcardBackImg != null and bankcardBackImg != ''">
+				BANKCARD_BACK_IMG,
+			</if>
+			<if test="openBankPcImg != null and openBankPcImg != ''">
+				OPEN_BANK_PC_IMG,
+			</if>
+			<if test="merchantOfdImg != null and merchantOfdImg != ''">
+				MERCHANT_OFD_IMG,
+			</if>
+			<if test="merchantStoresImg != null and merchantStoresImg != ''">
+				MERCHANT_STORES_IMG,
+			</if>
+			<if test="headImg != null and headImg != ''">
+				HEAD_IMG,
+			</if>
+	    </trim>
+	    <trim prefix="values (" suffix=")" suffixOverrides="," >
+			<if test="orgId != null">
+				#{orgId,jdbcType=DECIMAL},
+			</if>
+			<if test="corName != null and corName != ''">
+				#{corName,jdbcType=VARCHAR},
+			</if>
+			<if test="corCardType != null">
+				#{corCardType,jdbcType=DECIMAL},
+			</if>
+			<if test="corIdCard != null and corIdCard != ''">
+				#{corIdCard,jdbcType=VARCHAR},
+			</if>
+			<if test="corIdCardValid != null">
+				#{corIdCardValid,jdbcType=TIMESTAMP},
+			</if>
+			<if test="licenseCode != null and licenseCode != ''">
+				#{licenseCode,jdbcType=VARCHAR},
+			</if>
+			<if test="licenseCodeValid != null">
+				#{licenseCodeValid,jdbcType=TIMESTAMP},
+			</if>
+			<if test="merRegisterAddr != null and merRegisterAddr != ''">
+				#{merRegisterAddr,jdbcType=VARCHAR},
+			</if>
+			<if test="mainBusiness != null and mainBusiness != ''">
+				#{mainBusiness,jdbcType=VARCHAR},
+			</if>
+			<if test="signAmount != null">
+				#{signAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="realAmount != null">
+				#{realAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="roleType != null">
+				#{roleType,jdbcType=DECIMAL},
+			</if>
+			<if test="licenseImg != null and licenseImg != ''">
+				#{licenseImg,jdbcType=VARCHAR},
+			</if>
+			<if test="idFrontImg != null and idFrontImg != ''">
+				#{idFrontImg,jdbcType=VARCHAR},
+			</if>
+			<if test="idBackImg != null and idBackImg != ''">
+				#{idBackImg,jdbcType=VARCHAR},
+			</if>
+			<if test="bankcardFrontImg != null and bankcardFrontImg != ''">
+				#{bankcardFrontImg,jdbcType=VARCHAR},
+			</if>
+			<if test="bankcardBackImg != null and bankcardBackImg != ''">
+				#{bankcardBackImg,jdbcType=VARCHAR},
+			</if>
+			<if test="openBankPcImg != null and openBankPcImg != ''">
+				#{openBankPcImg,jdbcType=VARCHAR},
+			</if>
+			<if test="merchantOfdImg != null and merchantOfdImg != ''">
+				#{merchantOfdImg,jdbcType=VARCHAR},
+			</if>
+			<if test="merchantStoresImg != null and merchantStoresImg != ''">
+				#{merchantStoresImg,jdbcType=VARCHAR},
+			</if>
+			<if test="headImg != null and headImg != ''">
+				#{headImg,jdbcType=VARCHAR},
+			</if>
+	     </trim>
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.zyzf.polymer.pay.organization.entity.OrgRegister">
+		insert into PMS_ORG_REGISTER
+	    <trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="orgId != null">
+				ORG_ID,
+			</if>
+			<if test="corName != null and corName != ''">
+				COR_NAME,
+			</if>
+			<if test="corCardType != null">
+				COR_CARD_TYPE,
+			</if>
+			<if test="corIdCard != null and corIdCard != ''">
+				COR_ID_CARD,
+			</if>
+			<if test="corIdCardValid != null">
+				COR_ID_CARD_VALID,
+			</if>
+			<if test="licenseCode != null and licenseCode != ''">
+				LICENSE_CODE,
+			</if>
+			<if test="licenseCodeValid != null">
+				LICENSE_CODE_VALID,
+			</if>
+			<if test="merRegisterAddr != null and merRegisterAddr != ''">
+				MER_REGISTER_ADDR,
+			</if>
+			<if test="mainBusiness != null and mainBusiness != ''">
+				MAIN_BUSINESS,
+			</if>
+			<if test="signAmount != null">
+				SIGN_AMOUNT,
+			</if>
+			<if test="realAmount != null">
+				REAL_AMOUNT,
+			</if>
+			<if test="roleType != null">
+				ROLE_TYPE,
+			</if>
+			<if test="licenseImg != null and licenseImg != ''">
+				LICENSE_IMG,
+			</if>
+			<if test="idFrontImg != null and idFrontImg != ''">
+				ID_FRONT_IMG,
+			</if>
+			<if test="idBackImg != null and idBackImg != ''">
+				ID_BACK_IMG,
+			</if>
+			<if test="bankcardFrontImg != null and bankcardFrontImg != ''">
+				BANKCARD_FRONT_IMG,
+			</if>
+			<if test="bankcardBackImg != null and bankcardBackImg != ''">
+				BANKCARD_BACK_IMG,
+			</if>
+			<if test="openBankPcImg != null and openBankPcImg != ''">
+				OPEN_BANK_PC_IMG,
+			</if>
+			<if test="merchantOfdImg != null and merchantOfdImg != ''">
+				MERCHANT_OFD_IMG,
+			</if>
+			<if test="merchantStoresImg != null and merchantStoresImg != ''">
+				MERCHANT_STORES_IMG,
+			</if>
+			<if test="headImg != null and headImg != ''">
+				HEAD_IMG,
+			</if>
+	    </trim>
+	    <trim prefix="values (" suffix=")" suffixOverrides="," >
+			<if test="orgId != null">
+				#{orgId,jdbcType=DECIMAL},
+			</if>
+			<if test="corName != null and corName != ''">
+				#{corName,jdbcType=VARCHAR},
+			</if>
+			<if test="corCardType != null">
+				#{corCardType,jdbcType=DECIMAL},
+			</if>
+			<if test="corIdCard != null and corIdCard != ''">
+				#{corIdCard,jdbcType=VARCHAR},
+			</if>
+			<if test="corIdCardValid != null">
+				#{corIdCardValid,jdbcType=TIMESTAMP},
+			</if>
+			<if test="licenseCode != null and licenseCode != ''">
+				#{licenseCode,jdbcType=VARCHAR},
+			</if>
+			<if test="licenseCodeValid != null">
+				#{licenseCodeValid,jdbcType=TIMESTAMP},
+			</if>
+			<if test="merRegisterAddr != null and merRegisterAddr != ''">
+				#{merRegisterAddr,jdbcType=VARCHAR},
+			</if>
+			<if test="mainBusiness != null and mainBusiness != ''">
+				#{mainBusiness,jdbcType=VARCHAR},
+			</if>
+			<if test="signAmount != null">
+				#{signAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="realAmount != null">
+				#{realAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="roleType != null">
+				#{roleType,jdbcType=DECIMAL},
+			</if>
+			<if test="licenseImg != null and licenseImg != ''">
+				#{licenseImg,jdbcType=VARCHAR},
+			</if>
+			<if test="idFrontImg != null and idFrontImg != ''">
+				#{idFrontImg,jdbcType=VARCHAR},
+			</if>
+			<if test="idBackImg != null and idBackImg != ''">
+				#{idBackImg,jdbcType=VARCHAR},
+			</if>
+			<if test="bankcardFrontImg != null and bankcardFrontImg != ''">
+				#{bankcardFrontImg,jdbcType=VARCHAR},
+			</if>
+			<if test="bankcardBackImg != null and bankcardBackImg != ''">
+				#{bankcardBackImg,jdbcType=VARCHAR},
+			</if>
+			<if test="openBankPcImg != null and openBankPcImg != ''">
+				#{openBankPcImg,jdbcType=VARCHAR},
+			</if>
+			<if test="merchantOfdImg != null and merchantOfdImg != ''">
+				#{merchantOfdImg,jdbcType=VARCHAR},
+			</if>
+			<if test="merchantStoresImg != null and merchantStoresImg != ''">
+				#{merchantStoresImg,jdbcType=VARCHAR},
+			</if>
+			<if test="headImg != null and headImg != ''">
+				#{headImg,jdbcType=VARCHAR},
+			</if>
+	     </trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.zyzf.polymer.pay.organization.entity.OrgRegister">
+		UPDATE PMS_ORG_REGISTER
+		<set>
+			<if test="corName != null and corName != ''">
+				COR_NAME = #{corName,jdbcType=VARCHAR},
+			</if>
+			<if test="corCardType != null">
+				COR_CARD_TYPE = #{corCardType,jdbcType=DECIMAL},
+			</if>
+			<if test="corIdCard != null and corIdCard != ''">
+				COR_ID_CARD = #{corIdCard,jdbcType=VARCHAR},
+			</if>
+			<if test="corIdCardValid != null">
+				COR_ID_CARD_VALID = #{corIdCardValid,jdbcType=TIMESTAMP},
+			</if>
+			<if test="licenseCode != null and licenseCode != ''">
+				LICENSE_CODE = #{licenseCode,jdbcType=VARCHAR},
+			</if>
+			<if test="licenseCodeValid != null">
+				LICENSE_CODE_VALID = #{licenseCodeValid,jdbcType=TIMESTAMP},
+			</if>
+			<if test="merRegisterAddr != null and merRegisterAddr != ''">
+				MER_REGISTER_ADDR = #{merRegisterAddr,jdbcType=VARCHAR},
+			</if>
+			<if test="mainBusiness != null and mainBusiness != ''">
+				MAIN_BUSINESS = #{mainBusiness,jdbcType=VARCHAR},
+			</if>
+			<if test="signAmount != null">
+				SIGN_AMOUNT = #{signAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="realAmount != null">
+				REAL_AMOUNT = #{realAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="roleType != null">
+				ROLE_TYPE = #{roleType,jdbcType=DECIMAL},
+			</if>
+			<if test="licenseImg != null and licenseImg != ''">
+				LICENSE_IMG = #{licenseImg,jdbcType=VARCHAR},
+			</if>
+			<if test="idFrontImg != null and idFrontImg != ''">
+				ID_FRONT_IMG = #{idFrontImg,jdbcType=VARCHAR},
+			</if>
+			<if test="idBackImg != null and idBackImg != ''">
+				ID_BACK_IMG = #{idBackImg,jdbcType=VARCHAR},
+			</if>
+			<if test="bankcardFrontImg != null and bankcardFrontImg != ''">
+				BANKCARD_FRONT_IMG = #{bankcardFrontImg,jdbcType=VARCHAR},
+			</if>
+			<if test="bankcardBackImg != null and bankcardBackImg != ''">
+				BANKCARD_BACK_IMG = #{bankcardBackImg,jdbcType=VARCHAR},
+			</if>
+			<if test="openBankPcImg != null and openBankPcImg != ''">
+				OPEN_BANK_PC_IMG = #{openBankPcImg,jdbcType=VARCHAR},
+			</if>
+			<if test="merchantOfdImg != null and merchantOfdImg != ''">
+				MERCHANT_OFD_IMG = #{merchantOfdImg,jdbcType=VARCHAR},
+			</if>
+			<if test="merchantStoresImg != null and merchantStoresImg != ''">
+				MERCHANT_STORES_IMG = #{merchantStoresImg,jdbcType=VARCHAR},
+			</if>
+			<if test="headImg != null and headImg != ''">
+				HEAD_IMG = #{headImg,jdbcType=VARCHAR},
+			</if>
+		</set>
+		WHERE ORG_ID = #{orgId,jdbcType=DECIMAL}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.zyzf.polymer.pay.organization.entity.OrgRegister">
+		UPDATE PMS_ORG_REGISTER
+		<set>
+			<if test="corName != null and corName != ''">
+				COR_NAME = #{corName,jdbcType=VARCHAR},
+			</if>
+			<if test="corCardType != null">
+				COR_CARD_TYPE = #{corCardType,jdbcType=DECIMAL},
+			</if>
+			<if test="corIdCard != null and corIdCard != ''">
+				COR_ID_CARD = #{corIdCard,jdbcType=VARCHAR},
+			</if>
+			<if test="corIdCardValid != null">
+				COR_ID_CARD_VALID = #{corIdCardValid,jdbcType=TIMESTAMP},
+			</if>
+			<if test="licenseCode != null and licenseCode != ''">
+				LICENSE_CODE = #{licenseCode,jdbcType=VARCHAR},
+			</if>
+			<if test="licenseCodeValid != null">
+				LICENSE_CODE_VALID = #{licenseCodeValid,jdbcType=TIMESTAMP},
+			</if>
+			<if test="merRegisterAddr != null and merRegisterAddr != ''">
+				MER_REGISTER_ADDR = #{merRegisterAddr,jdbcType=VARCHAR},
+			</if>
+			<if test="mainBusiness != null and mainBusiness != ''">
+				MAIN_BUSINESS = #{mainBusiness,jdbcType=VARCHAR},
+			</if>
+			<if test="signAmount != null">
+				SIGN_AMOUNT = #{signAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="realAmount != null">
+				REAL_AMOUNT = #{realAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="roleType != null">
+				ROLE_TYPE = #{roleType,jdbcType=DECIMAL},
+			</if>
+			<if test="licenseImg != null and licenseImg != ''">
+				LICENSE_IMG = #{licenseImg,jdbcType=VARCHAR},
+			</if>
+			<if test="idFrontImg != null and idFrontImg != ''">
+				ID_FRONT_IMG = #{idFrontImg,jdbcType=VARCHAR},
+			</if>
+			<if test="idBackImg != null and idBackImg != ''">
+				ID_BACK_IMG = #{idBackImg,jdbcType=VARCHAR},
+			</if>
+			<if test="bankcardFrontImg != null and bankcardFrontImg != ''">
+				BANKCARD_FRONT_IMG = #{bankcardFrontImg,jdbcType=VARCHAR},
+			</if>
+			<if test="bankcardBackImg != null and bankcardBackImg != ''">
+				BANKCARD_BACK_IMG = #{bankcardBackImg,jdbcType=VARCHAR},
+			</if>
+			<if test="openBankPcImg != null and openBankPcImg != ''">
+				OPEN_BANK_PC_IMG = #{openBankPcImg,jdbcType=VARCHAR},
+			</if>
+			<if test="merchantOfdImg != null and merchantOfdImg != ''">
+				MERCHANT_OFD_IMG = #{merchantOfdImg,jdbcType=VARCHAR},
+			</if>
+			<if test="merchantStoresImg != null and merchantStoresImg != ''">
+				MERCHANT_STORES_IMG = #{merchantStoresImg,jdbcType=VARCHAR},
+			</if>
+			<if test="headImg != null and headImg != ''">
+				HEAD_IMG = #{headImg,jdbcType=VARCHAR},
+			</if>
+		</set>
+	    WHERE ORG_ID = #{orgId,jdbcType=DECIMAL}
+	</update>
+
+	<sql id="condition_sql">
+		<!-- Equal query -->
+		<if test="orgId != null">
+			AND ORG_ID = #{orgId,jdbcType=DECIMAL}
+		</if>
+		<if test="corName != null and corName != ''">
+			AND COR_NAME = #{corName,jdbcType=VARCHAR}
+		</if>
+		<if test="corCardType != null">
+			AND COR_CARD_TYPE = #{corCardType,jdbcType=DECIMAL}
+		</if>
+		<if test="corIdCard != null and corIdCard != ''">
+			AND COR_ID_CARD = #{corIdCard,jdbcType=VARCHAR}
+		</if>
+		<if test="corIdCardValid != null">
+			AND COR_ID_CARD_VALID = #{corIdCardValid,jdbcType=TIMESTAMP}
+		</if>
+		<if test="licenseCode != null and licenseCode != ''">
+			AND LICENSE_CODE = #{licenseCode,jdbcType=VARCHAR}
+		</if>
+		<if test="licenseCodeValid != null">
+			AND LICENSE_CODE_VALID = #{licenseCodeValid,jdbcType=TIMESTAMP}
+		</if>
+		<if test="merRegisterAddr != null and merRegisterAddr != ''">
+			AND MER_REGISTER_ADDR = #{merRegisterAddr,jdbcType=VARCHAR}
+		</if>
+		<if test="mainBusiness != null and mainBusiness != ''">
+			AND MAIN_BUSINESS = #{mainBusiness,jdbcType=VARCHAR}
+		</if>
+		<if test="signAmount != null">
+			AND SIGN_AMOUNT = #{signAmount,jdbcType=DECIMAL}
+		</if>
+		<if test="realAmount != null">
+			AND REAL_AMOUNT = #{realAmount,jdbcType=DECIMAL}
+		</if>
+		<if test="roleType != null">
+			AND ROLE_TYPE = #{roleType,jdbcType=DECIMAL}
+		</if>
+	</sql>
+</mapper>

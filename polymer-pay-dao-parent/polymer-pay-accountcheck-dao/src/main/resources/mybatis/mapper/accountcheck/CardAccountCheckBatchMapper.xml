@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper
+	namespace="com.zyzf.polymer.pay.accountcheck.dao.impl.CardAccountCheckBatchDaoImpl">
+	<resultMap id="BaseResultMap"
+		type="com.zyzf.polymer.pay.accountcheck.entity.CardAccountCheckBatch">
+		<id column="ID" property="id" jdbcType="DECIMAL" />
+		<result column="CREATE_USER" property="createUser" jdbcType="VARCHAR" />
+		<result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="EDITOR_USER" property="editorUser" jdbcType="VARCHAR" />
+		<result column="EDIT_TIME" property="editTime" jdbcType="TIMESTAMP" />
+		<result column="STATUS" property="status" jdbcType="DECIMAL" />
+		<result column="BATCH_NO" property="batchNo" jdbcType="VARCHAR" />
+		<result column="GET_TYPE" property="getType" jdbcType="DECIMAL" />
+		<result column="CHANNEL_ID" property="channelId" jdbcType="DECIMAL" />
+		<result column="BILL_DATE" property="billDate" jdbcType="TIMESTAMP" />
+		<result column="FILE_PATH" property="filePath" jdbcType="VARCHAR" />
+		<result column="BILL_TYPE" property="billType" jdbcType="DECIMAL" />
+		<result column="REQ_CODE" property="reqCode" jdbcType="VARCHAR" />
+		<result column="REQ_MSG" property="reqMsg" jdbcType="VARCHAR" />
+		<result column="REMARK" property="remark" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID, CREATE_USER, CREATE_TIME, EDITOR_USER, EDIT_TIME, STATUS, BATCH_NO,
+		GET_TYPE,
+		CHANNEL_ID, BILL_DATE, FILE_PATH, BILL_TYPE, REQ_CODE, REQ_MSG, REMARK
+	</sql>
+	
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from CARD_ACCOUNT_CHECK_BATCH
+		where ID = #{id,jdbcType=DECIMAL}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from CARD_ACCOUNT_CHECK_BATCH
+		where ID = #{id,jdbcType=DECIMAL}
+	</delete>
+	<insert id="insert"
+		parameterType="com.zyzf.polymer.pay.accountcheck.entity.CardAccountCheckBatch" keyProperty="id" useGeneratedKeys="true">
+		<selectKey order="BEFORE" keyProperty="id"
+			resultType="java.lang.Long">
+			SELECT SQC_CARD_ACCOUNT_CHECK_BATCH.NEXTVAL AS id FROM DUAL
+		</selectKey>
+		insert into CARD_ACCOUNT_CHECK_BATCH (ID, CREATE_USER, CREATE_TIME,
+		EDITOR_USER, EDIT_TIME, STATUS,
+		BATCH_NO, GET_TYPE, CHANNEL_ID,
+		BILL_DATE, FILE_PATH, BILL_TYPE,
+		REQ_CODE, REQ_MSG, REMARK
+		)
+		values (#{id,jdbcType=DECIMAL}, #{createUser,jdbcType=VARCHAR},
+		#{createTime,jdbcType=TIMESTAMP},
+		#{editorUser,jdbcType=VARCHAR}, #{editTime,jdbcType=TIMESTAMP}, #{status,jdbcType=DECIMAL},
+		#{batchNo,jdbcType=VARCHAR}, #{getType,jdbcType=DECIMAL},
+		#{channelId,jdbcType=DECIMAL},
+		#{billDate,jdbcType=TIMESTAMP}, #{filePath,jdbcType=VARCHAR}, #{billType,jdbcType=DECIMAL},
+		#{reqCode,jdbcType=VARCHAR}, #{reqMsg,jdbcType=VARCHAR},
+		#{remark,jdbcType=VARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.zyzf.polymer.pay.accountcheck.entity.CardAccountCheckBatch">
+		insert into CARD_ACCOUNT_CHECK_BATCH
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="createUser != null">
+				CREATE_USER,
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME,
+			</if>
+			<if test="editorUser != null">
+				EDITOR_USER,
+			</if>
+			<if test="editTime != null">
+				EDIT_TIME,
+			</if>
+			<if test="status != null">
+				STATUS,
+			</if>
+			<if test="batchNo != null">
+				BATCH_NO,
+			</if>
+			<if test="getType != null">
+				GET_TYPE,
+			</if>
+			<if test="channelId != null">
+				CHANNEL_ID,
+			</if>
+			<if test="billDate != null">
+				BILL_DATE,
+			</if>
+			<if test="filePath != null">
+				FILE_PATH,
+			</if>
+			<if test="billType != null">
+				BILL_TYPE,
+			</if>
+			<if test="reqCode != null">
+				REQ_CODE,
+			</if>
+			<if test="reqMsg != null">
+				REQ_MSG,
+			</if>
+			<if test="remark != null">
+				REMARK,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=DECIMAL},
+			</if>
+			<if test="createUser != null">
+				#{createUser,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="editorUser != null">
+				#{editorUser,jdbcType=VARCHAR},
+			</if>
+			<if test="editTime != null">
+				#{editTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=DECIMAL},
+			</if>
+			<if test="batchNo != null">
+				#{batchNo,jdbcType=VARCHAR},
+			</if>
+			<if test="getType != null">
+				#{getType,jdbcType=DECIMAL},
+			</if>
+			<if test="channelId != null">
+				#{channelId,jdbcType=DECIMAL},
+			</if>
+			<if test="billDate != null">
+				#{billDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="filePath != null">
+				#{filePath,jdbcType=VARCHAR},
+			</if>
+			<if test="billType != null">
+				#{billType,jdbcType=DECIMAL},
+			</if>
+			<if test="reqCode != null">
+				#{reqCode,jdbcType=VARCHAR},
+			</if>
+			<if test="reqMsg != null">
+				#{reqMsg,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.zyzf.polymer.pay.accountcheck.entity.CardAccountCheckBatch">
+		update CARD_ACCOUNT_CHECK_BATCH
+		<set>
+			<if test="createUser != null">
+				CREATE_USER = #{createUser,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="editorUser != null">
+				EDITOR_USER = #{editorUser,jdbcType=VARCHAR},
+			</if>
+			<if test="editTime != null">
+				EDIT_TIME = #{editTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="status != null">
+				STATUS = #{status,jdbcType=DECIMAL},
+			</if>
+			<if test="batchNo != null">
+				BATCH_NO = #{batchNo,jdbcType=VARCHAR},
+			</if>
+			<if test="getType != null">
+				GET_TYPE = #{getType,jdbcType=DECIMAL},
+			</if>
+			<if test="channelId != null">
+				CHANNEL_ID = #{channelId,jdbcType=DECIMAL},
+			</if>
+			<if test="billDate != null">
+				BILL_DATE = #{billDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="filePath != null">
+				FILE_PATH = #{filePath,jdbcType=VARCHAR},
+			</if>
+			<if test="billType != null">
+				BILL_TYPE = #{billType,jdbcType=DECIMAL},
+			</if>
+			<if test="reqCode != null">
+				REQ_CODE = #{reqCode,jdbcType=VARCHAR},
+			</if>
+			<if test="reqMsg != null">
+				REQ_MSG = #{reqMsg,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				REMARK = #{remark,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where ID = #{id,jdbcType=DECIMAL}
+	</update>
+	
+	<update id="updateByPrimaryKey"
+		parameterType="com.zyzf.polymer.pay.accountcheck.entity.CardAccountCheckBatch">
+		update CARD_ACCOUNT_CHECK_BATCH
+		set CREATE_USER = #{createUser,jdbcType=VARCHAR},
+		CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+		EDITOR_USER = #{editorUser,jdbcType=VARCHAR},
+		EDIT_TIME = #{editTime,jdbcType=TIMESTAMP},
+		STATUS = #{status,jdbcType=DECIMAL},
+		BATCH_NO = #{batchNo,jdbcType=VARCHAR},
+		GET_TYPE = #{getType,jdbcType=DECIMAL},
+		CHANNEL_ID = #{channelId,jdbcType=DECIMAL},
+		BILL_DATE = #{billDate,jdbcType=TIMESTAMP},
+		FILE_PATH = #{filePath,jdbcType=VARCHAR},
+		BILL_TYPE = #{billType,jdbcType=DECIMAL},
+		REQ_CODE = #{reqCode,jdbcType=VARCHAR},
+		REQ_MSG = #{reqMsg,jdbcType=VARCHAR},
+		REMARK = #{remark,jdbcType=VARCHAR}
+		where ID = #{id,jdbcType=DECIMAL}
+	</update>
+	<update id="updateStatesByBatchNoChannelId"
+		parameterType="com.zyzf.polymer.pay.accountcheck.entity.CardAccountCheckBatch">
+		update CARD_ACCOUNT_CHECK_BATCH
+		<set>
+			<if test="status != null">
+				STATUS = #{status,jdbcType=DECIMAL},
+			</if>
+		</set>
+		where BATCH_NO = #{batchNo,jdbcType=VARCHAR} and
+				CHANNEL_ID = #{channelId,jdbcType=DECIMAL}
+	</update>
+	<select id="selectBySelective" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from CARD_ACCOUNT_CHECK_BATCH
+		<where>
+			<if test="batchNo != null and batchNo!=''">
+				BATCH_NO = #{batchNo,jdbcType=VARCHAR}
+			</if>
+			<if test="status != null">
+				and STATUS = #{status,jdbcType=DECIMAL}
+			</if>
+		</where>
+	</select>
+	
+	
+	<delete id="deleteByByBatchNoChannelId" parameterType="com.zyzf.polymer.pay.accountcheck.entity.CardAccountCheckBatch">
+		delete from CARD_ACCOUNT_CHECK_BATCH
+		where BATCH_NO = #{batchNo,jdbcType=VARCHAR} and
+				CHANNEL_ID = #{channelId,jdbcType=DECIMAL}
+	</delete>
+</mapper>
